@@ -2,7 +2,10 @@
 
 RuntimeWidget::RuntimeWidget(QWidget* parent, QSize base_size) : ScalableWidget(parent, base_size)
 {
-
+    QPalette palette(RuntimeWidget::palette());
+    palette.setColor(QPalette::Background, Qt::black);
+    setAutoFillBackground(true);
+    setPalette(palette);
 }
 
 void RuntimeWidget::drawBoat(QPainter& painter, const QRect rect, qreal angle)

@@ -3,16 +3,28 @@
 
 #include "BaseScreen.h"
 #include "SystemWidget.h"
+#include "Button.h"
+#include <QTableWidget>
 
 class SetupMenuScreen : public BaseScreen
 {
     Q_OBJECT
+
+    void setupTableWidget(QTableWidget* table_widget, int index);
+
+    Button* m_system_button;
+    QTableWidget* m_table_widget_dl1;
+    QTableWidget* m_table_widget_dl2_1;
+    QTableWidget* m_table_widget_dl2_2;
+    QTableWidget* m_table_widget_es;
 
     SystemWidget* m_dl1_system;
     SystemWidget* m_dl2_system_1;
     SystemWidget* m_dl2_system_2;
     SystemWidget* m_es_system;
 
+    QSize m_table_size{300, 456};
+    QSize m_system_button_size{350, 60};
     QSize m_system_size{120, 80};
 
     QPoint m_first_column{15, 100};

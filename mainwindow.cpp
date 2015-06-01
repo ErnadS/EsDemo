@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget* parent) :
 
     NavigationController& navigation_controller = Singleton<NavigationController>::instance();
 
-    QStackedLayout* layout = navigation_controller.getLayout(this, SystemEnum::ES_SYSTEM);
+    QStackedLayout* layout = navigation_controller.getLayout(this, SystemEnum::DL2_SYSTEM_1);
 
     centralWidget()->setLayout(layout);
 }

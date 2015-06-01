@@ -47,7 +47,7 @@ class NavigationController: public QObject
     const QVector<RuntimeScreenType> m_es_system_screen_vector
     {
         RuntimeScreenType::RUNTIME_ES,
-        RuntimeScreenType::RUNTIME_ES_B
+        RuntimeScreenType::RUNTIME_ES
     };
 
     int m_previous_index{0};

@@ -46,7 +46,14 @@ RuntimeScreen::RuntimeScreen(QWidget* parent, RuntimeScreenType runtime_screen_t
 
     m_button->setTitle("Config");
 
-    m_unit_button = new Button(this, m_unit_button_size, "Unit", false);
+    if ((m_runtime_screen_type == RuntimeScreenType::RUNTIME_E) || (m_runtime_screen_type == RuntimeScreenType::RUNTIME_ES))
+    {
+        m_unit_button = new Button(this, m_unit_button_size, "m", false);
+    }
+    else
+    {
+        m_unit_button = new Button(this, m_unit_button_size, "kn", false);
+    }
 
     for (int i = 0; i < m_information_widget_vector.size(); i++)
     {
@@ -88,6 +95,11 @@ RuntimeScreen::RuntimeScreen(QWidget* parent, RuntimeScreenType runtime_screen_t
 
     m_runtime_widget = createRuntimeWidget(runtime_screen_type);
 
+    if (m_runtime_screen_type == RuntimeScreenType::RUNTIME_MULTI)
+    {
+        m_unit_button->hide();
+    }
+
     connect(m_navigation_widget, SIGNAL(navigateLeft()), &m_navigation_controller, SLOT(navigateLeft()));
     connect(m_navigation_widget, SIGNAL(navigateRight()), &m_navigation_controller, SLOT(navigateRight()));
     connect(m_unit_button, SIGNAL(pressed()), this, SLOT(unitButtonClicked()));
@@ -117,6 +129,7 @@ void RuntimeScreen::setupLayout()
 
     m_brightness_widget->resize(size);
     m_brightness_widget->move(m_right_widget_pos.x() * m_width_scale, (m_right_widget_pos.y() + m_information_widget_vector.size() * (m_right_widget_size.height() + m_vertical_padding)) * m_height_scale);
+    m_brightness_widget->hide();
 
     m_navigation_widget->resize(size);
     m_navigation_widget->move(m_right_widget_pos.x() * m_width_scale, (m_right_widget_pos.y() + (m_information_widget_vector.size() + 1) * (m_right_widget_size.height() + m_vertical_padding)) * m_height_scale);
