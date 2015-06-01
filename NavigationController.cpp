@@ -2,6 +2,7 @@
 #include "RuntimeScreen.h"
 #include "SetupMenuScreen.h"
 #include "BoatMenuScreen.h"
+#include <stdexcept>
 
 QStackedLayout* NavigationController::createLayout(QWidget* parent, SystemEnum system)
 {
