@@ -1,6 +1,7 @@
 #include "RuntimeWidgetE.h"
 
 LifoBuffer<DepthMeasurement> RuntimeWidgetE::m_buffer{600};
+int RuntimeWidgetE::m_vessel_index{1};
 
 RuntimeWidgetE::RuntimeWidgetE(QWidget* parent, QSize base_size) : RuntimeWidget(parent, base_size)
 {
@@ -16,6 +17,11 @@ void RuntimeWidgetE::addMeasurement(qreal front_depth, qreal side_depth)
     measurement.side_depth = side_depth;
 
     m_buffer.append(measurement);
+}
+
+int RuntimeWidgetE::vesselIndex()
+{
+    return m_vessel_index;
 }
 
 void RuntimeWidgetE::drawBoat(QPainter& painter, const QRect rect)
@@ -88,6 +94,15 @@ void RuntimeWidgetE::drawBoat(QPainter& painter, const QRect rect)
     painter.restore();
 }
 
+void RuntimeWidgetE::mouseReleaseEvent(QMouseEvent*)
+{
+    m_vessel_index = (m_vessel_index + 1) % 5 + 1;
+
+    update();
+
+    parentWidget()->update();
+}
+
 void RuntimeWidgetE::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
@@ -98,7 +113,7 @@ void RuntimeWidgetE::paintEvent(QPaintEvent*)
     //painter.fillRect(boat_rect, Qt::red);
     drawBoat(painter, boat_rect);
 
-    QImage vessel_image(":/vessel_4.png");
+    QImage vessel_image(":/vessel_" + QString::number(m_vessel_index) + ".png");
     QSize vessel_size(vessel_image.width() * m_width_scale, vessel_image.height() * m_height_scale);
     vessel_image = vessel_image.scaled(vessel_size, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 

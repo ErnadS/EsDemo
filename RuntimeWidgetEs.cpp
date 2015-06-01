@@ -98,7 +98,9 @@ void RuntimeWidgetEs::paintEvent(QPaintEvent*)
 
     if (m_depth < 1000.0f)
     {
-        painter.drawText(label_rect, string(m_depth));
+        qreal depth = max_depth * m_depth / 1000.0f;
+
+        painter.drawText(label_rect, string(depth));
     }
     else
     {
