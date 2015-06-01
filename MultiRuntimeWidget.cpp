@@ -12,7 +12,7 @@ QStackedLayout* MultiRuntimeWidget::createLayout(QWidget* parent)
     RuntimeWidgetB* runtime_widget_b = new RuntimeWidgetB(parent, parent->size());
     RuntimeWidgetC* runtime_widget_c = new RuntimeWidgetC(parent, parent->size());
     RuntimeWidgetD* runtime_widget_d = new RuntimeWidgetD(parent, parent->size());
-    RuntimeWidgetE* runtime_widget_e = new RuntimeWidgetE(parent, parent->size());
+    RuntimeWidgetE* runtime_widget_e = new RuntimeWidgetE(parent, parent->size(), true);
 
     layout->addWidget(runtime_widget_a);
     layout->addWidget(runtime_widget_b);

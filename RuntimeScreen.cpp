@@ -18,7 +18,7 @@ QWidget* RuntimeScreen::createRuntimeWidget(RuntimeScreenType runtime_screen_typ
             return new RuntimeWidgetD(this, m_runtime_widget_size);
 
         case RuntimeScreenType::RUNTIME_E:
-            return new RuntimeWidgetE(this, m_runtime_widget_size);
+            return new RuntimeWidgetE(this, m_runtime_widget_size, false);
 
         case RuntimeScreenType::RUNTIME_DL1:
             return new RuntimeWidgetDl1(this, m_runtime_widget_size);

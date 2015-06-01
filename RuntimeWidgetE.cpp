@@ -3,9 +3,12 @@
 LifoBuffer<DepthMeasurement> RuntimeWidgetE::m_buffer{600};
 int RuntimeWidgetE::m_vessel_index{1};
 
-RuntimeWidgetE::RuntimeWidgetE(QWidget* parent, QSize base_size) : RuntimeWidget(parent, base_size)
+RuntimeWidgetE::RuntimeWidgetE(QWidget* parent, QSize base_size, bool is_multi) : RuntimeWidget(parent, base_size), m_is_multi(is_multi)
 {
-
+    if (is_multi == true)
+    {
+        setAttribute(Qt::WA_TransparentForMouseEvents);
+    }
 }
 
 void RuntimeWidgetE::addMeasurement(qreal front_depth, qreal side_depth)
