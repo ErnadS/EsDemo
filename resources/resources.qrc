@@ -8,5 +8,8 @@
 	<file>vessel_4.png</file>
 	<file>vessel_5.png</file>
 	<file>es.bin</file>
+	<file>compass_image.png</file>
+	<file>no_compass.png</file>
+	<file>compass_vessel_image.png</file>
     </qresource>
 </RCC>

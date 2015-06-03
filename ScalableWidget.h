@@ -50,6 +50,8 @@ protected:
 
     const QColor m_color{144, 255, 112};
 
+    static qreal m_true_heading;
+
 protected:
     void resizeEvent(QResizeEvent*);
 

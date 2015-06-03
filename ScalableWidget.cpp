@@ -31,6 +31,8 @@ qreal ScalableWidget::m_water_temp;
 qreal ScalableWidget::m_trip{0.0f};
 qreal ScalableWidget::m_total{137.42};
 
+qreal ScalableWidget::m_true_heading{20.0};
+
 void ScalableWidget::updateScale()
 {
     m_width_scale = qreal(width()) / baseSize().width();
@@ -114,4 +116,6 @@ void ScalableWidget::simulate()
     qreal delta_d = m_sog / 3600.0f;
     m_trip += delta_d;
     m_total += delta_d;
+
+    m_true_heading = 20.0f + 5.0f * sin(t);
 }
