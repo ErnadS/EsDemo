@@ -1,6 +1,5 @@
 #include "MultiRuntimeWidget.h"
 #include <QMouseEvent>
-#include <QDebug>
 #include "BackgroundWidget.h"
 
 // TODO: Derive from RuntimeScreen not RuntimeWidget

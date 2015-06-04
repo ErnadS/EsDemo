@@ -1,7 +1,6 @@
 #include "SetupMenuScreen.h"
 #include <QMessageBox>
 #include <QHeaderView>
-#include <QDebug>
 
 void SetupMenuScreen::setupTableWidget(QTableWidget* table_widget, int index)
 {

@@ -1,12 +1,17 @@
 #include "RuntimeWidgetC.h"
 #include <QPainter>
-
 #include "common/UtilityMath.h"
-#include <QDebug>
+
+bool RuntimeWidgetC::m_true_heading_enabled = false;
 
 RuntimeWidgetC::RuntimeWidgetC(QWidget* parent, QSize base_size) : RuntimeWidget(parent, base_size)
 {
 
+}
+
+void RuntimeWidgetC::setTrueHeading(bool value)
+{
+    m_true_heading_enabled = value;
 }
 
 void RuntimeWidgetC::drawArrow(QPainter &painter, const QColor &arrowColor, const qreal& speed, const qreal &angle, int radius, int hOffset)
@@ -118,15 +123,13 @@ void RuntimeWidgetC::paintEvent(QPaintEvent*)
     painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
     painter.setRenderHint(QPainter::Antialiasing, true);
 
-    bool true_heading{true};
-
     QFont font = painter.font();
     font.setPixelSize(60 * m_scale);
     painter.setFont(font);
 
-    qreal x = 0.0675f * width();
+    qreal x = 0.1375f * width();
 
-    QImage compass_image = true_heading ? QImage(":/compass_image.png") : QImage(":/no_compass.png");
+    QImage compass_image = m_true_heading_enabled ? QImage(":/compass_image.png") : QImage(":/no_compass.png");
     QImage vessel_image(":/compass_vessel_image.png");
 
     QSize compass_size(compass_image.width() * m_scale, compass_image.height() * m_scale);
@@ -141,7 +144,7 @@ void RuntimeWidgetC::paintEvent(QPaintEvent*)
     compass_image = compass_image.scaled(compass_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     vessel_image = vessel_image.scaled(vessel_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
-    if (true_heading)
+    if (m_true_heading_enabled == true)
     {
         painter.save();
         painter.translate(compass_rect.center());
@@ -157,9 +160,9 @@ void RuntimeWidgetC::paintEvent(QPaintEvent*)
     painter.drawImage(compass_rect.center().x() - 0.5f * vessel_image.width(), compass_rect.center().y() - 0.5f * vessel_image.height(), vessel_image);
 
     qreal h = height() / 3.0f;
-    QRect sog_label_rect(normal_rect.topRight().x() + 0.75f * x, 0, 0.25f * width(), h);
-    QRect stw_label_rect(normal_rect.topRight().x() + 0.75f * x, h, 0.25f * width(), h);
-    QRect wc_label_rect(normal_rect.topRight().x() + 0.75f * x, 2 * h, 0.25f * width(), h);
+    QRect sog_label_rect(normal_rect.topRight().x() + 0.4f * x, 0, 0.25f * width(), h);
+    QRect stw_label_rect(normal_rect.topRight().x() + 0.4f * x, h, 0.25f * width(), h);
+    QRect wc_label_rect(normal_rect.topRight().x() + 0.4f * x, 2 * h, 0.25f * width(), h);
 
     painter.setPen(QColor(144, 255, 112));
     QString sog_label = "SOG\n" + string(m_sog);
@@ -176,15 +179,15 @@ void RuntimeWidgetC::paintEvent(QPaintEvent*)
     QImage gps_image(":/gps.png");
     gps_image = gps_image.scaled(QSize(m_gps_logo_size.width() * m_scale, m_gps_logo_size.height() * m_scale), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
-    qreal gps_x = sog_label_rect.topRight().x() + 9 * m_width_scale;
+    qreal gps_x = sog_label_rect.topLeft().x() - m_gps_logo_size.width();
     qreal sog_gps_y = sog_label_rect.center().y() - 0.5f * m_gps_logo_size.height();
     qreal wc_gps_y = wc_label_rect.center().y() - 0.5f * m_gps_logo_size.height();
 
     QRect sog_gps_rect(gps_x, sog_gps_y, m_gps_logo_size.width() * m_scale, m_gps_logo_size.height() * m_scale);
     QRect wc_gps_rect(gps_x, wc_gps_y, m_gps_logo_size.width() * m_scale, m_gps_logo_size.height() * m_scale);
 
-    //painter.drawImage(sog_gps_rect, gps_image);
-    //painter.drawImage(wc_gps_rect, gps_image);
+    painter.drawImage(sog_gps_rect, gps_image);
+    painter.drawImage(wc_gps_rect, gps_image);
 
     // SOG, STW and WC angle arrows
     painter.translate(compass_rect.center());
@@ -213,7 +216,7 @@ void RuntimeWidgetC::paintEvent(QPaintEvent*)
 
     int label_delta_angle = (m_sog_angle - m_stw_angle < 3) ? 10 : - 10;
 
-    if (m_true_heading)
+    if (m_true_heading_enabled == true)
     {
         drawCompassLabel(painter, 1.175f * y_offset, QColor(7, 139, 255), m_wc_angle - 90.0f, string(normalizeDegPositive(m_wc_angle + m_true_heading)) + QString::fromUtf8("°"));
         drawCompassLabel(painter, compass_radius, QColor(144, 255, 112), m_sog_angle - 90.0f - label_delta_angle, string(normalizeDegPositive(m_sog_angle + m_true_heading)) + QString::fromUtf8("°"));
