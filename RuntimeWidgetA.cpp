@@ -30,34 +30,23 @@ void RuntimeWidgetA::paintEvent(QPaintEvent*)
         switch (i)
         {
             case 0:
-                value_string = "STW " + string(m_stw);
+                value_string = "STW -.-";
                 painter.setPen(QColor(147, 205, 255));
-                m_angle = m_stw_angle;
                 break;
 
             case 1:
-                value_string = "SOG " + string(m_sog);
+                value_string = "SOG -.-";
                 painter.setPen(QColor(144, 255, 112));
-                m_angle = m_sog_angle;
                 break;
 
             case 2:
-                value_string = "WC " + string(m_wc);
+                value_string = "WC -.-";
                 painter.setPen(QColor(7, 139, 255));
-                m_angle = m_wc_angle;
                 break;
 
             case 3:
-                value_string = "STW (DL1) " + string(qAbs(m_stw_dl1));
+                value_string = "STW (DL1) -.-";
                 painter.setPen(QColor(147, 205, 255));
-                if (m_stw_dl1 >= 0.0f)
-                {
-                    m_angle = 0.0f;
-                }
-                else
-                {
-                    m_angle = 180.0f;
-                }
                 break;
         }
 

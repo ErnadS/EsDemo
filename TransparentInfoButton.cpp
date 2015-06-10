@@ -18,7 +18,7 @@ void TransparentInfoButton::paintEvent(QPaintEvent*)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
 
-    painter.setPen(m_color);
+    painter.setPen(QColor(144, 255, 112));
 
     QRect title_rect(0, 0, width(), 0.33f * height());
     QRect value_rect(0, title_rect.height(), width(), height() - title_rect.height());

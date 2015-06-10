@@ -57,7 +57,7 @@ void Button::paintEvent(QPaintEvent*)
         font.setPixelSize(m_font_pixel_size * m_scale);
         painter.setFont(font);
 
-        painter.setPen(QPen(m_color));
+        painter.setPen(QColor(144, 255, 112));
 
         if (m_frame_on == true)
         {

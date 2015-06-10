@@ -96,11 +96,13 @@ void RuntimeWidgetEs::paintEvent(QPaintEvent*)
     font.setPixelSize(60 * m_scale);
     painter.setFont(font);
 
+    // TODO: Validation
     if (m_depth < 1000.0f)
     {
         qreal depth = max_depth * m_depth / 1000.0f;
 
-        painter.drawText(label_rect, string(depth));
+        // TODO: Value
+        painter.drawText(label_rect, QString::number(depth, 'f', 1));
     }
     else
     {

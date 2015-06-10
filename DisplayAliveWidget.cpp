@@ -42,7 +42,7 @@ void DisplayAliveWidget::paintEvent(QPaintEvent*)
     value_metric = textSize(font, ":");
     int minute_pos = seperator_pos + value_metric.x();
 
-    painter.setPen(QPen(m_color));
+    painter.setPen(QColor(144, 255, 112));
 
     painter.drawText(QRectF(hour_pos, 0, width(), height()), Qt::AlignLeft, m_hours);
 

@@ -70,8 +70,13 @@ void RuntimeWidgetD::paintEvent(QPaintEvent*)
     painter.drawText(bottom_right_label_rect, Qt::AlignVCenter | Qt::AlignLeft, "13.82");
     */
 
+    // TODO: Refactor:
+    qreal m_sog_long = 20.0f;
+    qreal m_sog_tra = 20.0f;
+    qreal m_sog_tra_aft = 20.0f;
+
     painter.setPen(sog_color);
-    QString sog_label = string(qAbs(m_sog_long));
+    QString sog_label = QString::number(qAbs(m_sog_long), 'f', 1);
     painter.drawText(center_label_rect, Qt::AlignCenter, sog_label);
 
     if (m_sog_long >= 0.0f)
@@ -85,7 +90,7 @@ void RuntimeWidgetD::paintEvent(QPaintEvent*)
         drawArrow(painter, sog_color, bottom_arrow_rect, 180.0f, true);
     }
 
-    QString sog_tra_label = string(qAbs(m_sog_tra));
+    QString sog_tra_label = QString::number(qAbs(m_sog_tra), 'f', 1);
 
     if (m_sog_tra >= 0.0f)
     {
@@ -102,7 +107,7 @@ void RuntimeWidgetD::paintEvent(QPaintEvent*)
         painter.drawText(top_left_label_rect, Qt::AlignVCenter | Qt::AlignRight, sog_tra_label);
     }
 
-    QString sog_tra_aft_label = string(qAbs(m_sog_tra_aft));
+    QString sog_tra_aft_label = QString::number(qAbs(m_sog_tra_aft), 'f', 1);
 
     if (m_sog_tra_aft >= 0.0f)
     {

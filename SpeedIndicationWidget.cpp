@@ -17,7 +17,8 @@ void SpeedIndicationWidget::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
 
-    m_value = "SOG " + string(m_sog_long) + "/" + string(m_sog_tra) + " STW " + string(m_stw_long) + "/" + string(m_stw_tra);
+    // TODO: Value
+    m_value = "SOG " + QString("-.-") + "/" + QString("-.-") + " STW " + QString("-.-") + "/" + QString("-.-");
 
     QBrush brush(QColor(64, 64, 64));
 
@@ -31,7 +32,7 @@ void SpeedIndicationWidget::paintEvent(QPaintEvent *event)
     logo_image = logo_image.scaled(logo_rect.size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     painter.drawImage(logo_rect, logo_image);
 
-    painter.setPen(QPen(m_color));
+    painter.setPen(QColor(144, 255, 112));
 
     QRect label_rect(logo_rect.width(), 0, width() - logo_rect.width(), height());
     painter.fillRect(label_rect, brush);

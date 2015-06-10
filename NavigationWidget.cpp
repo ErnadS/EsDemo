@@ -19,13 +19,13 @@ void NavigationWidget::paintEvent(QPaintEvent*)
     font.setPixelSize(20 * m_scale);
     painter.setFont(font);
 
-    painter.setPen(QPen(m_color));
+    painter.setPen(QColor(144, 255, 112));
 
     painter.fillRect(QRectF(0, 0, width(), height()), brush);
     painter.drawText(QRectF(0, 0, width(), height() / 3), Qt::AlignCenter, "Navigate");
 
     // Arrows
-    brush.setColor(m_color);
+    brush.setColor(QColor(144, 255, 112));
     painter.setBrush(brush);
 
     painter.translate((width() / 4) - 10 * m_width_scale, 25 * m_height_scale);
