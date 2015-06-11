@@ -23,7 +23,7 @@ class RuntimeScreen : public BaseScreen
     Q_OBJECT
 
     Button* m_unit_button;
-    QVector<InformationWidget*> m_information_widget_vector{5, nullptr};
+    QVector<InformationWidget*> m_information_widget_vector;
     BrightnessWidget* m_brightness_widget;
     NavigationWidget* m_navigation_widget;
     //TODO: Refactor into RuntimeWidget*

@@ -4,8 +4,9 @@
 #include <QMainWindow>
 #include "NavigationController.h"
 
-namespace Ui {
-class MainWindow;
+namespace Ui
+{
+    class MainWindow;
 }
 
 class MainWindow : public QMainWindow
@@ -19,10 +20,7 @@ public:
     ~MainWindow();
 
 private:
-    Ui::MainWindow *ui;
-
-protected:
-    void keyReleaseEvent(QKeyEvent* event);
+    Ui::MainWindow* ui;
 };
 
 #endif // MAINWINDOW_H

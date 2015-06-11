@@ -13,6 +13,8 @@ class NavigationController: public QObject
     friend class Singleton<NavigationController>;
     NavigationController() { }
 
+    bool m_embedded{false};
+
     QStackedLayout* m_layout{nullptr};
 
     bool m_switch_layout{false};
@@ -66,6 +68,9 @@ public:
     void navigate(SetupMenuType setup_menu_type);
     void navigateBack();
     void layoutChanged(SystemEnum system);
+
+    void setEmbedded(bool embedded);
+    bool isEmbedded() const;
 };
 
 #endif // NAVIGATIONCONTROLLER_H

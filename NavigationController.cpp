@@ -172,3 +172,13 @@ void NavigationController::layoutChanged(SystemEnum system)
     m_system_type = system;
     m_switch_layout = true;
 }
+
+void NavigationController::setEmbedded(bool embedded)
+{
+    m_embedded = embedded;
+}
+
+bool NavigationController::isEmbedded() const
+{
+    return m_embedded;
+}

@@ -42,6 +42,9 @@ QWidget* RuntimeScreen::createRuntimeWidget(RuntimeScreenType runtime_screen_typ
 RuntimeScreen::RuntimeScreen(QWidget* parent, RuntimeScreenType runtime_screen_type) :
     BaseScreen(parent)
 {
+    int information_widget_count = m_navigation_controller.isEmbedded() ? 5 : 6;
+    m_information_widget_vector = QVector<InformationWidget*>(information_widget_count, nullptr);
+
     m_runtime_screen_type = runtime_screen_type;
 
     m_button->setTitle("Config");
@@ -58,39 +61,9 @@ RuntimeScreen::RuntimeScreen(QWidget* parent, RuntimeScreenType runtime_screen_t
     for (int i = 0; i < m_information_widget_vector.size(); i++)
     {
         m_information_widget_vector[i] = new InformationWidget(this, m_right_widget_size, runtime_screen_type);
-
-        if ((runtime_screen_type == RUNTIME_ES) || (runtime_screen_type == RUNTIME_ES_B))
-        {
-            m_information_widget_vector[i]->setIndex(i);
-        }
-        else
-        {
-            switch(i)
-            {
-                case 0:
-                    m_information_widget_vector[i]->setIndex(0);
-                    break;
-
-                case 1:
-                    m_information_widget_vector[i]->setIndex(8);
-                    break;
-
-                case 2:
-                    m_information_widget_vector[i]->setIndex(9);
-                    break;
-
-                case 3:
-                    m_information_widget_vector[i]->setIndex(11);
-                    break;
-
-                case 4:
-                    m_information_widget_vector[i]->setIndex(12);
-                    break;
-            }
-        }
     }
 
-    m_brightness_widget = new BrightnessWidget(this, m_right_widget_size);
+    m_brightness_widget = m_navigation_controller.isEmbedded() ? new BrightnessWidget(this, m_right_widget_size) : nullptr;
     m_navigation_widget = new NavigationWidget(this, m_right_widget_size);
 
     m_runtime_widget = createRuntimeWidget(runtime_screen_type);
@@ -133,12 +106,16 @@ void RuntimeScreen::setupLayout()
         m_information_widget_vector[i]->move(m_right_widget_pos.x() * m_width_scale, (m_right_widget_pos.y() + i * (m_right_widget_size.height() + m_vertical_padding)) * m_height_scale);
     }
 
-    m_brightness_widget->resize(size);
-    m_brightness_widget->move(m_right_widget_pos.x() * m_width_scale, (m_right_widget_pos.y() + m_information_widget_vector.size() * (m_right_widget_size.height() + m_vertical_padding)) * m_height_scale);
-    m_brightness_widget->hide();
-
     m_navigation_widget->resize(size);
-    m_navigation_widget->move(m_right_widget_pos.x() * m_width_scale, (m_right_widget_pos.y() + (m_information_widget_vector.size() + 1) * (m_right_widget_size.height() + m_vertical_padding)) * m_height_scale);
+    m_navigation_widget->move(m_right_widget_pos.x() * m_width_scale, (m_right_widget_pos.y() + (m_information_widget_vector.size()) * (m_right_widget_size.height() + m_vertical_padding)) * m_height_scale);
+
+    if (m_navigation_controller.isEmbedded() == true)
+    {
+        m_brightness_widget->resize(size);
+        m_brightness_widget->move(m_right_widget_pos.x() * m_width_scale, (m_right_widget_pos.y() + m_information_widget_vector.size() * (m_right_widget_size.height() + m_vertical_padding)) * m_height_scale);
+
+        m_navigation_widget->move(m_right_widget_pos.x() * m_width_scale, (m_right_widget_pos.y() + (m_information_widget_vector.size() + 1) * (m_right_widget_size.height() + m_vertical_padding)) * m_height_scale);
+    }
 
     m_runtime_widget->resize(m_runtime_widget_size.width() * m_width_scale, m_runtime_widget_size.height() * m_height_scale);
     m_runtime_widget->move(m_runtime_widget_pos.x() * m_width_scale, m_runtime_widget_pos.y() * m_height_scale);
