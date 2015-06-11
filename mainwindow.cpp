@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget* parent) :
 {
     ui->setupUi(this);
 
-    if (QApplication::arguments().contains("linuxfb"))
+    if (QApplication::arguments().contains("-embedded"))
     {
         m_navigation_controller.setEmbedded(true);
     }
