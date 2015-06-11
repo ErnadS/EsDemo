@@ -107,8 +107,6 @@ RuntimeScreen::RuntimeScreen(QWidget* parent, RuntimeScreenType runtime_screen_t
 
     m_heading_button = new Button(this, m_heading_button_size, "ABSOLUTE");
 
-    connect(m_navigation_widget, SIGNAL(navigateLeft()), &m_navigation_controller, SLOT(navigateLeft()));
-    connect(m_navigation_widget, SIGNAL(navigateRight()), &m_navigation_controller, SLOT(navigateRight()));
     connect(m_unit_button, SIGNAL(pressed()), this, SLOT(unitButtonClicked()));
     connect(m_heading_button, SIGNAL(pressed()), this, SLOT(headingButtonClicked()));
 
@@ -151,14 +149,14 @@ void RuntimeScreen::setupLayout()
 
 void RuntimeScreen::buttonClicked()
 {
-    emit navigate(SetupMenuType::SETUP_MENU);
+    m_navigation_controller.navigate(SetupMenuType::SETUP_MENU);
 }
 
 void RuntimeScreen::unitButtonClicked()
 {
     if (m_runtime_screen_type == RuntimeScreenType::RUNTIME_ES)
     {
-        emit navigate(SetupMenuType::BOAT_MENU);
+        m_navigation_controller.navigate(SetupMenuType::BOAT_MENU);
     }
 }
 

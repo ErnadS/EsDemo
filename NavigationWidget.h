@@ -2,16 +2,16 @@
 #define NAVIGATIONWIDGET_H
 
 #include "ScalableWidget.h"
+#include "NavigationController.h"
 
 class NavigationWidget : public ScalableWidget
 {
     Q_OBJECT
+
+    NavigationController& m_navigation_controller;
+
 public:
     explicit NavigationWidget(QWidget* parent, QSize base_size);
-
-signals:
-    void navigateLeft();
-    void navigateRight();
 
     // QWidget interface
 protected:

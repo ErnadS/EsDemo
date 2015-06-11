@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "WidgetEnum.h"
+#include "NavigationController.h"
 
 namespace Ui {
 class MainWindow;
@@ -12,12 +12,17 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+    NavigationController& m_navigation_controller;
+
 public:
     explicit MainWindow(QWidget* parent = 0);
     ~MainWindow();
 
 private:
     Ui::MainWindow *ui;
+
+protected:
+    void keyReleaseEvent(QKeyEvent* event);
 };
 
 #endif // MAINWINDOW_H

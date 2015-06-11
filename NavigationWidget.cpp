@@ -3,7 +3,7 @@
 #include <QMouseEvent>
 
 NavigationWidget::NavigationWidget(QWidget* parent, QSize base_size) :
-    ScalableWidget(parent, base_size)
+    ScalableWidget(parent, base_size), m_navigation_controller(Singleton<NavigationController>::instance())
 {
 
 }
@@ -64,10 +64,10 @@ void NavigationWidget::mousePressEvent(QMouseEvent* event)
 {
     if (event->x() < width() / 2)
     {
-        emit navigateLeft();
+        m_navigation_controller.navigateLeft();
     }
     else
     {
-        emit navigateRight();
+        m_navigation_controller.navigateRight();
     }
 }

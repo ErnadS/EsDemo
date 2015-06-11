@@ -33,10 +33,6 @@ protected:
 
 protected slots:
     virtual void buttonClicked() = 0;
-
-signals:
-    void navigate(SetupMenuType setup_menu);
-    void navigateBack();
 };
 
 #endif // BASESCREEN_H

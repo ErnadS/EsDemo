@@ -103,14 +103,12 @@ SetupMenuScreen::SetupMenuScreen(QWidget* parent) : BaseScreen(parent)
     connect(m_dl2_system_2, SIGNAL(pressed()), this, SLOT(dl2System2Pressed()));
     connect(m_es_system, SIGNAL(pressed()), this, SLOT(esSystemPressed()));
 
-    connect(this, SIGNAL(layoutChanged(SystemEnum)), &m_navigation_controller, SLOT(layoutChanged(SystemEnum)));
-
     m_system_button = new Button(this, m_system_button_size, "Available Systems:", false);
 }
 
 void SetupMenuScreen::buttonClicked()
 {
-    emit navigateBack();
+    m_navigation_controller.navigateBack();
 }
 
 void SetupMenuScreen::dl1SystemPressed()
@@ -120,7 +118,7 @@ void SetupMenuScreen::dl1SystemPressed()
         deactivateSystemWidgets();
         m_dl1_system->setActive(true);
         m_table_widget_dl1->show();
-        emit layoutChanged(SystemEnum::DL1_SYSTEM);
+        m_navigation_controller.layoutChanged(SystemEnum::DL1_SYSTEM);
     }
 }
 
@@ -131,7 +129,7 @@ void SetupMenuScreen::dl2System1Pressed()
         deactivateSystemWidgets();
         m_table_widget_dl2_1->show();
         m_dl2_system_1->setActive(true);
-        emit layoutChanged(SystemEnum::DL2_SYSTEM_1);
+        m_navigation_controller.layoutChanged(SystemEnum::DL2_SYSTEM_1);
     }
 }
 
@@ -142,7 +140,7 @@ void SetupMenuScreen::dl2System2Pressed()
         deactivateSystemWidgets();
         m_table_widget_dl2_2->show();
         m_dl2_system_2->setActive(true);
-        emit layoutChanged(SystemEnum::DL2_SYSTEM_2);
+        m_navigation_controller.layoutChanged(SystemEnum::DL2_SYSTEM_2);
     }
 }
 
@@ -153,7 +151,7 @@ void SetupMenuScreen::esSystemPressed()
         deactivateSystemWidgets();
         m_table_widget_es->show();
         m_es_system->setActive(true);
-        emit layoutChanged(SystemEnum::ES_SYSTEM);
+        m_navigation_controller.layoutChanged(SystemEnum::ES_SYSTEM);
     }
 }
 

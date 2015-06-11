@@ -61,7 +61,6 @@ public:
     QStackedLayout* getLayout(QWidget* parent, SystemEnum system);
     SystemEnum getSystemType() const;
 
-public slots:
     void navigateLeft();
     void navigateRight();
     void navigate(SetupMenuType setup_menu_type);

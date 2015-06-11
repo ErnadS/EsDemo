@@ -42,9 +42,6 @@ protected:
     void setupLayout();
     void buttonClicked();
 
-signals:
-    void layoutChanged(SystemEnum system);
-
 protected slots:
     void dl1SystemPressed();
     void dl2System1Pressed();

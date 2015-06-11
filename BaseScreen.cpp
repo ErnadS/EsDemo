@@ -31,8 +31,6 @@ BaseScreen::BaseScreen(QWidget* parent) :
     setPalette(palette);
 
     connect(m_button, SIGNAL(pressed()), this, SLOT(buttonClicked()));
-    connect(this, SIGNAL(navigate(SetupMenuType)), &m_navigation_controller, SLOT(navigate(SetupMenuType)));
-    connect(this, SIGNAL(navigateBack()), &m_navigation_controller, SLOT(navigateBack()));
 }
 
 void BaseScreen::resizeEvent(QResizeEvent*)
