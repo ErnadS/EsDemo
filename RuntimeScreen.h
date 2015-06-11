@@ -28,18 +28,15 @@ class RuntimeScreen : public BaseScreen
     NavigationWidget* m_navigation_widget;
     //TODO: Refactor into RuntimeWidget*
     QWidget* m_runtime_widget;
-    Button* m_heading_button;
 
-    QSize m_unit_button_size{40, 26};
+    QSize m_unit_button_size{40, 25};
     QSize m_right_widget_size{160, 66};
     QSize m_runtime_widget_size{640, 430};
     int m_vertical_padding = 3;
-    QSize m_heading_button_size{130, 50};
 
     QPoint m_unit_button_pos{560, 25};
     QPoint m_right_widget_pos{640, 0};
     QPoint m_runtime_widget_pos{0, 50};
-    QPoint m_heading_button_pos{0, 435};
 
     QWidget* createRuntimeWidget(RuntimeScreenType runtime_screen_type);
 
@@ -54,7 +51,6 @@ protected:
 
 protected slots:
     void unitButtonClicked();
-    void headingButtonClicked();
 };
 
 #endif // RUNTIMESCREEN_H

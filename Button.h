@@ -16,22 +16,15 @@ class Button : public ScalableWidget
 public:
     explicit Button(QWidget* parent, QSize base_size, QString title = "BACK", bool frame_on = true);
 
-    QString title() const;
-    bool isFrameOn() const;
-    int fontPixelSize() const;
-
-public slots:
     void setTitle(const QString& title);
-    void setFrameOn(bool value);
-    void setFontPixelSize(int font_pixel_size);
+
+signals:
+    void clicked();
 
 protected:
     void paintEvent(QPaintEvent*);
     void mousePressEvent(QMouseEvent*);
     void mouseReleaseEvent(QMouseEvent*);
-
-signals:
-    void pressed();
 };
 
 #endif // BUTTON_H

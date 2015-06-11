@@ -19,7 +19,7 @@ RuntimeWidgetEs::RuntimeWidgetEs(QWidget* parent, QSize base_size) :
     m_power_info = new TransparentInfoButton(this, m_power_info_button_size, "Power", "100%");
     m_transducer_info = new TransparentInfoButton(this, m_transducer_info_button_size, "Transducer", "FWD / 200");
 
-    connect(m_range_info, SIGNAL(pressed()), this, SLOT(rangeChanged()));
+    connect(m_range_info, SIGNAL(clicked()), this, SLOT(rangeChanged()));
 
     updateInfo();
 }

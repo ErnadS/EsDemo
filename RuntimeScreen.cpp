@@ -73,20 +73,7 @@ RuntimeScreen::RuntimeScreen(QWidget* parent, RuntimeScreenType runtime_screen_t
         m_unit_button->hide();
     }
 
-    if (m_runtime_screen_type == RuntimeScreenType::RUNTIME_ES)
-    {
-        m_unit_button->setTitle("Boat");
-    }
-
-    m_heading_button = new Button(this, m_heading_button_size, "ABSOLUTE");
-
-    connect(m_unit_button, SIGNAL(pressed()), this, SLOT(unitButtonClicked()));
-    connect(m_heading_button, SIGNAL(pressed()), this, SLOT(headingButtonClicked()));
-
-    if (runtime_screen_type != RuntimeScreenType::RUNTIME_C)
-    {
-        m_heading_button->hide();
-    }
+    connect(m_unit_button, SIGNAL(clicked()), this, SLOT(unitButtonClicked()));
 
     setupLayout();
 }
@@ -119,9 +106,6 @@ void RuntimeScreen::setupLayout()
 
     m_runtime_widget->resize(m_runtime_widget_size.width() * m_width_scale, m_runtime_widget_size.height() * m_height_scale);
     m_runtime_widget->move(m_runtime_widget_pos.x() * m_width_scale, m_runtime_widget_pos.y() * m_height_scale);
-
-    m_heading_button->resize(m_heading_button_size.width() * m_width_scale, m_heading_button_size.height() * m_height_scale);
-    m_heading_button->move(m_heading_button_pos.x() * m_width_scale, m_heading_button_pos.y() * m_height_scale);
 }
 
 void RuntimeScreen::buttonClicked()
@@ -131,23 +115,5 @@ void RuntimeScreen::buttonClicked()
 
 void RuntimeScreen::unitButtonClicked()
 {
-    if (m_runtime_screen_type == RuntimeScreenType::RUNTIME_ES)
-    {
-        m_navigation_controller.navigate(SetupMenuType::BOAT_MENU);
-    }
-}
 
-void RuntimeScreen::headingButtonClicked()
-{
-    if (m_heading_button->title() == "RELATIVE")
-    {
-        m_heading_button->setTitle("ABSOLUTE");
-        RuntimeWidgetC::setTrueHeading(false);
-    }
-    else
-    {
-        m_heading_button->setTitle("RELATIVE");
-        RuntimeWidgetC::setTrueHeading(true);
-    }
 }
-

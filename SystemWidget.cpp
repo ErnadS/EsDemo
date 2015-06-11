@@ -84,5 +84,5 @@ void SystemWidget::paintEvent(QPaintEvent*)
 
 void SystemWidget::mouseReleaseEvent(QMouseEvent*)
 {
-    emit pressed();
+    emit clicked();
 }

@@ -1,12 +1,6 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2015-05-13T12:40:31
-#
-#-------------------------------------------------
+QT      += core gui widgets
 
-QT       += core gui
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+#greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = ES
 TEMPLATE = app
@@ -40,7 +34,9 @@ SOURCES += main.cpp\
            SystemWidget.cpp \
            Dl1RuntimeWidgetB.cpp \
            EsRuntimeWidgetB.cpp \
-           BoatMenuScreen.cpp
+           BoatMenuScreen.cpp \
+           EsRuntimeScreen.cpp \
+           BoatButton.cpp
 
 HEADERS  += mainwindow.h \
             RuntimeWidgetEs.h \
@@ -69,7 +65,9 @@ HEADERS  += mainwindow.h \
             SystemWidget.h \
             Dl1RuntimeWidgetB.h \
             EsRuntimeWidgetB.h \
-            BoatMenuScreen.h
+            BoatMenuScreen.h \
+            EsRuntimeScreen.h \
+            BoatButton.h
 
 FORMS    += mainwindow.ui
 

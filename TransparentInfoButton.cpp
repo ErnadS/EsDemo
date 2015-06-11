@@ -53,5 +53,5 @@ void TransparentInfoButton::paintEvent(QPaintEvent*)
 
 void TransparentInfoButton::mouseReleaseEvent(QMouseEvent*)
 {
-    emit pressed();
+    emit clicked();
 }

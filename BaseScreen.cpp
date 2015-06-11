@@ -30,7 +30,7 @@ BaseScreen::BaseScreen(QWidget* parent) :
     setAutoFillBackground(true);
     setPalette(palette);
 
-    connect(m_button, SIGNAL(pressed()), this, SLOT(buttonClicked()));
+    connect(m_button, SIGNAL(clicked()), this, SLOT(buttonClicked()));
 }
 
 void BaseScreen::resizeEvent(QResizeEvent*)

@@ -43,10 +43,10 @@ protected:
     void buttonClicked();
 
 protected slots:
-    void dl1SystemPressed();
-    void dl2System1Pressed();
-    void dl2System2Pressed();
-    void esSystemPressed();
+    void dl1SystemClicked();
+    void dl2System1Clicked();
+    void dl2System2Clicked();
+    void esSystemClicked();
 
     // QWidget interface
 protected:

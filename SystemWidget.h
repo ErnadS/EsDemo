@@ -18,7 +18,7 @@ public:
     void setActive(bool active);
 
 signals:
-    void pressed();
+    void clicked();
 
     // QWidget interface
 protected:

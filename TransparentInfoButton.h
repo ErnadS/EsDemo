@@ -16,7 +16,7 @@ public:
     void setValue(const QString& value);
 
 signals:
-    void pressed();
+    void clicked();
 
 protected:
     void paintEvent(QPaintEvent*);

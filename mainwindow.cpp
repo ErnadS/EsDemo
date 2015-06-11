@@ -3,7 +3,6 @@
 #include "BackgroundWidget.h"
 #include "RuntimeScreen.h"
 #include "NavigationController.h"
-#include <QKeyEvent>
 
 MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent),

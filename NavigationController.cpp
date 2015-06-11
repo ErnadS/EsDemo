@@ -1,5 +1,7 @@
 #include "NavigationController.h"
 #include "RuntimeScreen.h"
+#include "EsRuntimeScreen.h"
+#include "BoatMenuScreen.h"
 #include "SetupMenuScreen.h"
 #include "BoatMenuScreen.h"
 #include <stdexcept>
@@ -33,7 +35,8 @@ QStackedLayout* NavigationController::createLayout(QWidget* parent, SystemEnum s
 
         for (auto e: *p)
         {
-            RuntimeScreen* runtime_screen = new RuntimeScreen(parent, e);
+            auto runtime_screen = (e != RuntimeScreenType::RUNTIME_ES) ? new RuntimeScreen(parent, e) : new EsRuntimeScreen(parent, e);
+
             layout->addWidget(runtime_screen);
         }
     }

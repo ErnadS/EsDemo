@@ -98,10 +98,10 @@ SetupMenuScreen::SetupMenuScreen(QWidget* parent) : BaseScreen(parent)
     m_dl2_system_2 = new SystemWidget(this, m_system_size, "SPEED", "DL2 SYS 2");
     m_es_system = new SystemWidget(this, m_system_size, "DEPTH", "ES SYS 1");
 
-    connect(m_dl1_system, SIGNAL(pressed()), this, SLOT(dl1SystemPressed()));
-    connect(m_dl2_system_1, SIGNAL(pressed()), this, SLOT(dl2System1Pressed()));
-    connect(m_dl2_system_2, SIGNAL(pressed()), this, SLOT(dl2System2Pressed()));
-    connect(m_es_system, SIGNAL(pressed()), this, SLOT(esSystemPressed()));
+    connect(m_dl1_system, SIGNAL(clicked()), this, SLOT(dl1SystemClicked()));
+    connect(m_dl2_system_1, SIGNAL(clicked()), this, SLOT(dl2System1Clicked()));
+    connect(m_dl2_system_2, SIGNAL(clicked()), this, SLOT(dl2System2Clicked()));
+    connect(m_es_system, SIGNAL(clicked()), this, SLOT(esSystemClicked()));
 
     m_system_button = new Button(this, m_system_button_size, "Available Systems:", false);
 }
@@ -111,7 +111,7 @@ void SetupMenuScreen::buttonClicked()
     m_navigation_controller.navigateBack();
 }
 
-void SetupMenuScreen::dl1SystemPressed()
+void SetupMenuScreen::dl1SystemClicked()
 {
     if (changeLayout() == true)
     {
@@ -122,7 +122,7 @@ void SetupMenuScreen::dl1SystemPressed()
     }
 }
 
-void SetupMenuScreen::dl2System1Pressed()
+void SetupMenuScreen::dl2System1Clicked()
 {
     if (changeLayout() == true)
     {
@@ -133,7 +133,7 @@ void SetupMenuScreen::dl2System1Pressed()
     }
 }
 
-void SetupMenuScreen::dl2System2Pressed()
+void SetupMenuScreen::dl2System2Clicked()
 {
     if (changeLayout() == true)
     {
@@ -144,7 +144,7 @@ void SetupMenuScreen::dl2System2Pressed()
     }
 }
 
-void SetupMenuScreen::esSystemPressed()
+void SetupMenuScreen::esSystemClicked()
 {
     if (changeLayout() == true)
     {
