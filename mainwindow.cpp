@@ -1,8 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "BackgroundWidget.h"
-#include "RuntimeScreen.h"
-#include "NavigationController.h"
+#include "gui/background_widget.h"
+#include "gui/runtime_screen.h"
+#include "gui/navigation_controller.h"
 
 MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent),
@@ -19,6 +19,9 @@ MainWindow::MainWindow(QWidget* parent) :
     QStackedLayout* layout = m_navigation_controller.getLayout(this, SystemEnum::DL2_SYSTEM_1);
 
     centralWidget()->setLayout(layout);
+
+    m_udp_multicast_interface = new UdpMulticastInterface(this);
+    qDebug() << "Init: " << m_udp_multicast_interface->init();
 }
 
 MainWindow::~MainWindow()

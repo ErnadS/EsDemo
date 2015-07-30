@@ -1,8 +1,9 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef MAIN_WINDOW_H
+#define MAIN_WINDOW_H
 
 #include <QMainWindow>
-#include "NavigationController.h"
+#include "gui/navigation_controller.h"
+#include "udp/udp_multicast_interface.h"
 
 namespace Ui
 {
@@ -21,6 +22,7 @@ public:
 
 private:
     Ui::MainWindow* ui;
+    UdpMulticastInterface* m_udp_multicast_interface;
 };
 
-#endif // MAINWINDOW_H
+#endif
