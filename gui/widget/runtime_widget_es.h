@@ -1,12 +1,12 @@
 #ifndef RUNTIME_WIDGET_ES_H
 #define RUNTIME_WIDGET_ES_H
 
-#include "gui/scalable_widget.h"
+#include "gui/widget/scalable_widget.h"
 #include "utility/color_table.h"
 #include "utility/Buffer.h"
 #include <QVector>
 #include <QTimer>
-#include "gui/transparent_info_button.h"
+#include "gui/widget/transparent_info_button.h"
 #include <QFile>
 
 enum class MousePressTarget { Bottom, Right, Top };

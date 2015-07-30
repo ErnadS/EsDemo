@@ -2,7 +2,7 @@
 #define NAVIGATION_WIDGET_H
 
 #include "scalable_widget.h"
-#include "navigation_controller.h"
+#include "gui/navigation_controller.h"
 
 class NavigationWidget : public ScalableWidget
 {

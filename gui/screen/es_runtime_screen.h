@@ -2,7 +2,7 @@
 #define ES_RUNTIME_SCREEN_H
 
 #include "runtime_screen.h"
-#include "boat_button.h"
+#include "gui/widget/boat_button.h"
 
 class EsRuntimeScreen : public RuntimeScreen
 {

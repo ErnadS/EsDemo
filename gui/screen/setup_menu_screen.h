@@ -2,8 +2,8 @@
 #define SETUP_MENU_SCREEN_H
 
 #include "base_screen.h"
-#include "system_widget.h"
-#include "button.h"
+#include "gui/widget/system_widget.h"
+#include "gui/widget/button.h"
 #include <QTableWidget>
 
 class SetupMenuScreen : public BaseScreen

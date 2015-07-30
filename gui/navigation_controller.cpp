@@ -1,9 +1,8 @@
 #include "navigation_controller.h"
-#include "runtime_screen.h"
-#include "es_runtime_screen.h"
-#include "boat_menu_screen.h"
-#include "setup_menu_screen.h"
-#include "boat_menu_screen.h"
+#include "screen/runtime_screen.h"
+#include "screen/es_runtime_screen.h"
+#include "screen/boat_menu_screen.h"
+#include "screen/setup_menu_screen.h"
 #include <stdexcept>
 
 QStackedLayout* NavigationController::createLayout(QWidget* parent, SystemEnum system)

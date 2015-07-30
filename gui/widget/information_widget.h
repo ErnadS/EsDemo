@@ -2,7 +2,7 @@
 #define INFORMATION_WIDGET_H
 
 #include "scalable_widget.h"
-#include "widget_enum.h"
+#include "gui/widget_enum.h"
 #include <QVector>
 
 class InformationWidget : public ScalableWidget

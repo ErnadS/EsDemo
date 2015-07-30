@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "gui/background_widget.h"
-#include "gui/runtime_screen.h"
+#include "gui/widget/background_widget.h"
+#include "gui/screen/runtime_screen.h"
 #include "gui/navigation_controller.h"
 
 MainWindow::MainWindow(QWidget* parent) :

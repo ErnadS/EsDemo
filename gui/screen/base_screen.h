@@ -1,10 +1,10 @@
 #ifndef BASE_SCREEN_H
 #define BASE_SCREEN_H
 
-#include "Button.h"
-#include "display_alive_widget.h"
-#include "speed_indication_widget.h"
-#include "navigation_controller.h"
+#include "gui/widget/button.h"
+#include "gui/widget/display_alive_widget.h"
+#include "gui/widget/speed_indication_widget.h"
+#include "gui/navigation_controller.h"
 
 class BaseScreen : public ScalableWidget
 {
