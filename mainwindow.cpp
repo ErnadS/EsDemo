@@ -4,6 +4,8 @@
 #include "gui/screen/runtime_screen.h"
 #include "gui/navigation_controller.h"
 
+#include "gui/screen/setup_screen.h"
+
 MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent),
     m_navigation_controller(Singleton<NavigationController>::instance()),

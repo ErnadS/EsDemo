@@ -24,7 +24,31 @@ SOURCES += gui\widget\runtime_widget_es.cpp \
            gui\screen\runtime_screen.cpp \
            gui\screen\setup_menu_screen.cpp \
            gui\screen\boat_menu_screen.cpp \
-           gui\screen\es_runtime_screen.cpp
+           gui\screen\es_runtime_screen.cpp \
+           gui\screen\setup_screen.cpp \
+           gui\screen\dl2_runtime_setup_screen.cpp \
+           gui\screen\dl2_calibration_setup_screen.cpp \
+           gui\screen\dl2_alert_setup_screen.cpp \
+           gui\screen\dl2_diagnostic_setup_screen.cpp \
+           gui\screen\dl2_setup_screen.cpp \
+           gui\screen\dl2_communication_setup_screen.cpp \
+           gui\screen\dl2_aux_setup_screen.cpp \
+           gui\screen\dl2_jb70_setup_screen.cpp \
+           gui\screen\es_runtime_setup_screen.cpp \
+           gui\screen\es_alert_setup_screen.cpp \
+           gui\screen\es_diagnostic_setup_screen.cpp \
+           gui\screen\es_setup_screen.cpp \
+           gui\screen\es_communication_setup_screen.cpp \
+           gui\screen\es_aux_setup_screen.cpp \
+           gui\screen\es_history_setup_screen.cpp \
+           gui\screen\es_jb70_setup_screen.cpp \
+           gui\screen\dl1_runtime_setup_screen.cpp \
+           gui\screen\dl1_calibration_setup_screen.cpp \
+           gui\screen\dl1_alert_setup_screen.cpp \
+           gui\screen\dl1_diagnostic_setup_screen.cpp \
+           gui\screen\dl1_setup_screen.cpp \
+           gui\screen\dl1_communication_setup_screen.cpp \
+           gui\screen\dl1_aux_setup_screen.cpp
 
 
 HEADERS  += gui\widget\runtime_widget_es.h \
@@ -56,4 +80,28 @@ HEADERS  += gui\widget\runtime_widget_es.h \
             gui\screen\runtime_screen.h \
             gui\screen\setup_menu_screen.h \
             gui\screen\boat_menu_screen.h \
-            gui\screen\es_runtime_screen.h
+            gui\screen\es_runtime_screen.h \
+            gui\screen\setup_screen.h \
+            gui\screen\dl2_runtime_setup_screen.h \
+            gui\screen\dl2_calibration_setup_screen.h \
+            gui\screen\dl2_alert_setup_screen.h \
+            gui\screen\dl2_diagnostic_setup_screen.h \
+            gui\screen\dl2_setup_screen.h \
+            gui\screen\dl2_communication_setup_screen.h \
+            gui\screen\dl2_aux_setup_screen.h \
+            gui\screen\dl2_jb70_setup_screen.h \
+            gui\screen\es_runtime_setup_screen.h \
+            gui\screen\es_alert_setup_screen.h \
+            gui\screen\es_diagnostic_setup_screen.h \
+            gui\screen\es_setup_screen.h \
+            gui\screen\es_communication_setup_screen.h \
+            gui\screen\es_aux_setup_screen.h \
+            gui\screen\es_history_setup_screen.h \
+            gui\screen\es_jb70_setup_screen.h \
+            gui\screen\dl1_runtime_setup_screen.h \
+            gui\screen\dl1_calibration_setup_screen.h \
+            gui\screen\dl1_alert_setup_screen.h \
+            gui\screen\dl1_diagnostic_setup_screen.h \
+            gui\screen\dl1_setup_screen.h \
+            gui\screen\dl1_communication_setup_screen.h \
+            gui\screen\dl1_aux_setup_screen.h
