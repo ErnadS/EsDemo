@@ -26,9 +26,6 @@ QWidget* RuntimeScreen::createRuntimeWidget(RuntimeScreenType runtime_screen_typ
         case RuntimeScreenType::RUNTIME_ES:
             return new RuntimeWidgetEs(this, m_runtime_widget_size);
 
-        case RUNTIME_MULTI:
-            return new MultiRuntimeWidget(this, m_runtime_widget_size);
-
         case RUNTIME_DL1_B:
             return new Dl1RuntimeWidgetB(this, m_runtime_widget_size);
 
@@ -67,11 +64,6 @@ RuntimeScreen::RuntimeScreen(QWidget* parent, RuntimeScreenType runtime_screen_t
     m_navigation_widget = new NavigationWidget(this, m_right_widget_size);
 
     m_runtime_widget = createRuntimeWidget(runtime_screen_type);
-
-    if (m_runtime_screen_type == RuntimeScreenType::RUNTIME_MULTI)
-    {
-        m_unit_button->hide();
-    }
 
     connect(m_unit_button, SIGNAL(clicked()), this, SLOT(unitButtonClicked()));
 

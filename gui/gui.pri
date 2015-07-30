@@ -17,7 +17,6 @@ SOURCES += gui\runtime_widget_es.cpp \
            gui\runtime_widget_e.cpp \
            gui\runtime_widget_dl1.cpp \
            gui\runtime_widget.cpp \
-           gui\multi_runtime_widget.cpp \
            gui\transparent_info_button.cpp \
            gui\setup_menu_screen.cpp \
            gui\system_widget.cpp \
@@ -47,7 +46,6 @@ HEADERS  += gui\runtime_widget_es.h \
             gui\runtime_widget_dl1.h \
             gui\widget_enum.h \
             gui\runtime_widget.h \
-            gui\multi_runtime_widget.h \
             gui\transparent_info_button.h \
             gui\setup_menu_screen.h \
             gui\system_widget.h \

@@ -14,7 +14,6 @@
 #include "runtime_widget_e.h"
 #include "runtime_widget_dl1.h"
 #include "runtime_widget_es.h"
-#include "multi_runtime_widget.h"
 #include "dl1_runtime_widget_b.h"
 #include "es_runtime_widget_b.h"
 

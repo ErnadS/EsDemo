@@ -32,8 +32,7 @@ class NavigationController: public QObject
         RuntimeScreenType::RUNTIME_B,
         RuntimeScreenType::RUNTIME_C,
         RuntimeScreenType::RUNTIME_D,
-        RuntimeScreenType::RUNTIME_E,
-        RuntimeScreenType::RUNTIME_MULTI
+        RuntimeScreenType::RUNTIME_E
     };
 
     const QVector<RuntimeScreenType> m_dl2_system_2_screen_vector
@@ -42,8 +41,7 @@ class NavigationController: public QObject
         RuntimeScreenType::RUNTIME_B,
         RuntimeScreenType::RUNTIME_C,
         RuntimeScreenType::RUNTIME_D,
-        RuntimeScreenType::RUNTIME_E,
-        RuntimeScreenType::RUNTIME_MULTI
+        RuntimeScreenType::RUNTIME_E
     };
 
     const QVector<RuntimeScreenType> m_es_system_screen_vector
