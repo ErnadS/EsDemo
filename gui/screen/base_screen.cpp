@@ -10,8 +10,8 @@ void BaseScreen::setupLayout()
     m_display_alive_widget->resize(m_display_alive_widget_size.width() * m_width_scale, m_display_alive_widget_size.height() * m_height_scale);
     m_display_alive_widget->move(m_display_alive_widget_pos.x() * m_width_scale, m_display_alive_widget_pos.y() * m_height_scale);
 
-    m_speed_indication_widget->resize(m_speed_indication_widget_size.width() * m_width_scale, m_speed_indication_widget_size.height() * m_height_scale);
-    m_speed_indication_widget->move(m_speed_indication_widget_pos.x() * m_width_scale, m_speed_indication_widget_pos.y() * m_height_scale);
+    m_title_widget->resize(m_speed_indication_widget_size.width() * m_width_scale, m_speed_indication_widget_size.height() * m_height_scale);
+    m_title_widget->move(m_speed_indication_widget_pos.x() * m_width_scale, m_speed_indication_widget_pos.y() * m_height_scale);
 }
 
 BaseScreen::BaseScreen(QWidget* parent) :
@@ -21,7 +21,7 @@ BaseScreen::BaseScreen(QWidget* parent) :
 
     m_button = new Button(this, m_button_size);
     m_display_alive_widget = new DisplayAliveWidget(this, m_display_alive_widget_size);
-    m_speed_indication_widget = new SpeedIndicationWidget(this, m_speed_indication_widget_size);
+    m_title_widget = new TitleWidget(this, m_speed_indication_widget_size);
 
     setupLayout();
 
@@ -36,4 +36,9 @@ BaseScreen::BaseScreen(QWidget* parent) :
 void BaseScreen::resizeEvent(QResizeEvent*)
 {
     setupLayout();
+}
+
+TitleWidget* BaseScreen::titleWidget() const
+{
+    return m_title_widget;
 }

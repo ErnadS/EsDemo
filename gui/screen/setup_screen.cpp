@@ -9,5 +9,5 @@ SetupScreen::SetupScreen(QWidget* parent) :
 
 void SetupScreen::buttonClicked()
 {
-    qDebug() << "Setup Screen button clicked...";
+    m_navigation_controller.navigateBack();
 }

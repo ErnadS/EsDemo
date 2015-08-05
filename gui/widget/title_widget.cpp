@@ -1,24 +1,28 @@
-#include "speed_indication_widget.h"
+#include "title_widget.h"
 #include <QPainter>
 
-SpeedIndicationWidget::SpeedIndicationWidget(QWidget* parent, QSize base_size) : ScalableWidget(parent, base_size)
+TitleWidget::TitleWidget(QWidget* parent, QSize base_size) : ScalableWidget(parent, base_size)
 {
 
 }
 
-SpeedIndicationWidget::SpeedIndicationWidget(QWidget* parent, QSize base_size, QString title) : ScalableWidget(parent, base_size)
+TitleWidget::TitleWidget(QWidget* parent, QSize base_size, QString title) : ScalableWidget(parent, base_size)
 {
-    m_value = title;
+    m_title = title;
 }
 
-void SpeedIndicationWidget::paintEvent(QPaintEvent *event)
+void TitleWidget::setTitle(const QString& title)
+{
+    m_title = title;
+
+    update();
+}
+
+void TitleWidget::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
-
-    // TODO: Value
-    m_value = "SOG " + QString("-.-") + "/" + QString("-.-") + " STW " + QString("-.-") + "/" + QString("-.-");
 
     QBrush brush(QColor(64, 64, 64));
 
@@ -36,5 +40,5 @@ void SpeedIndicationWidget::paintEvent(QPaintEvent *event)
 
     QRect label_rect(logo_rect.width(), 0, width() - logo_rect.width(), height());
     painter.fillRect(label_rect, brush);
-    painter.drawText(label_rect, Qt::AlignCenter, m_value);
+    painter.drawText(label_rect, Qt::AlignCenter, m_title);
 }

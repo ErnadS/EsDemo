@@ -3,7 +3,7 @@
 
 #include "gui/widget/button.h"
 #include "gui/widget/display_alive_widget.h"
-#include "gui/widget/speed_indication_widget.h"
+#include "gui/widget/title_widget.h"
 #include "gui/navigation_controller.h"
 
 class BaseScreen : public ScalableWidget
@@ -15,7 +15,7 @@ protected:
 
     Button* m_button;
     DisplayAliveWidget* m_display_alive_widget;
-    SpeedIndicationWidget* m_speed_indication_widget;
+    TitleWidget* m_title_widget;
 
     const QSize m_button_size{150, 50};
     const QSize m_display_alive_widget_size{80, 50};
@@ -33,6 +33,9 @@ protected:
 
 protected slots:
     virtual void buttonClicked() = 0;
+
+public:
+    TitleWidget* titleWidget() const;
 };
 
 #endif

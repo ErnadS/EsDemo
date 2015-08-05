@@ -5,7 +5,7 @@ SOURCES += gui\widget\runtime_widget_es.cpp \
            gui\widget\background_widget.cpp \
            gui\widget\button.cpp \
            gui\widget\display_alive_widget.cpp \
-           gui\widget\speed_indication_widget.cpp \
+           gui\widget\title_widget.cpp \
            gui\widget\scalable_widget.cpp \
            gui\navigation_controller.cpp \
            gui\widget\runtime_widget_a.cpp \
@@ -20,6 +20,9 @@ SOURCES += gui\widget\runtime_widget_es.cpp \
            gui\widget\dl1_runtime_widget_b.cpp \
            gui\widget\es_runtime_widget_b.cpp \
            gui\widget\boat_button.cpp \
+           gui\widget\item_widget.cpp \
+           gui\widget\item_widget_container.cpp \
+           gui\widget\arrow_widget.cpp \
            gui\screen\base_screen.cpp \
            gui\screen\runtime_screen.cpp \
            gui\screen\setup_menu_screen.cpp \
@@ -59,7 +62,7 @@ HEADERS  += gui\widget\runtime_widget_es.h \
             gui\widget\button.h \
             gui\widget\display_alive_widget.h \
             gui\base_screen.h \
-            gui\widget\speed_indication_widget.h \
+            gui\widget\title_widget.h \
             gui\widget\scalable_widget.h \
             gui\runtime_screen.h \
             gui\navigation_controller.h \
@@ -76,7 +79,10 @@ HEADERS  += gui\widget\runtime_widget_es.h \
             gui\widget\dl1_runtime_widget_b.h \
             gui\widget\es_runtime_widget_b.h \
             gui\widget\boat_button.h \
+            gui\widget\item_widget.h \
+            gui\widget\item_widget_container.h \
             gui\screen\base_screen.h \
+            gui\widget\arrow_widget.h \
             gui\screen\runtime_screen.h \
             gui\screen\setup_menu_screen.h \
             gui\screen\boat_menu_screen.h \

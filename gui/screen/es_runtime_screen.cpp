@@ -1,4 +1,5 @@
 #include "es_runtime_screen.h"
+#include <QDebug>
 
 EsRuntimeScreen::EsRuntimeScreen(QWidget* parent, RuntimeScreenType runtime_screen_type) : RuntimeScreen(parent, runtime_screen_type)
 {
@@ -19,5 +20,5 @@ void EsRuntimeScreen::setupLayout()
 
 void EsRuntimeScreen::boatButtonClicked()
 {
-    m_navigation_controller.navigate(SetupMenuType::BOAT_MENU);
+    m_navigation_controller.navigate(BOAT_MENU);
 }
