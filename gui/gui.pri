@@ -17,6 +17,7 @@ SOURCES += gui\widget\runtime_widget_es.cpp \
            gui\widget\runtime_widget.cpp \
            gui\widget\transparent_info_button.cpp \
            gui\widget\system_widget.cpp \
+           gui\widget\system_widget_container.cpp \
            gui\widget\dl1_runtime_widget_b.cpp \
            gui\widget\es_runtime_widget_b.cpp \
            gui\widget\boat_button.cpp \
@@ -76,6 +77,7 @@ HEADERS  += gui\widget\runtime_widget_es.h \
             gui\widget\runtime_widget.h \
             gui\widget\transparent_info_button.h \
             gui\widget\system_widget.h \
+            gui\widget\system_widget_container.h \
             gui\widget\dl1_runtime_widget_b.h \
             gui\widget\es_runtime_widget_b.h \
             gui\widget\boat_button.h \

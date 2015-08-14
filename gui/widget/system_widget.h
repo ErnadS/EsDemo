@@ -18,7 +18,7 @@ public:
     void setActive(bool active);
 
 signals:
-    void clicked();
+    void pressed(const SystemWidget* address);
 
     // QWidget interface
 protected:
