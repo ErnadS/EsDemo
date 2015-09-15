@@ -159,12 +159,12 @@ void SetupMenuScreen::dl2SetupSelected(int index)
 
 void SetupMenuScreen::cuM001SetupPressed(const ItemWidget*)
 {
-    m_navigation_controller.navigate(CU_SETUP);
+    m_navigation_controller.navigate(CU_SETUP, false);
 }
 
 void SetupMenuScreen::systemSetupPressed(const ItemWidget*)
 {
-    m_navigation_controller.navigate(SYSTEM_SETUP);
+    m_navigation_controller.navigate(SYSTEM_SETUP, false);
 }
 
 void SetupMenuScreen::systemAdded(SystemEnum system)

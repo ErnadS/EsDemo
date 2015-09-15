@@ -102,7 +102,7 @@ void RuntimeScreen::setupLayout()
 
 void RuntimeScreen::buttonClicked()
 {
-    m_navigation_controller.navigate(SetupMenuType::SETUP_MENU);
+    m_navigation_controller.navigate(SetupMenuType::SETUP_MENU, true);
 }
 
 void RuntimeScreen::unitButtonClicked()

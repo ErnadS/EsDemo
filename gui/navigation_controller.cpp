@@ -294,9 +294,10 @@ void NavigationController::navigateRight()
     m_layout->setCurrentIndex(index);
 }
 
-void NavigationController::navigate(SetupMenuType setup_menu_type)
+void NavigationController::navigate(SetupMenuType setup_menu_type, bool runtime)
 {
-    m_previous_index = m_layout->currentIndex();
+    if (runtime == true)
+        m_previous_index = m_layout->currentIndex();
 
     switch (setup_menu_type)
     {
@@ -344,8 +345,6 @@ void NavigationController::navigate(SystemEnum system, int setup_screen_index)
 
     if ((setup_screen_index < 0) || (setup_screen_index >= setupSize(system)))
         throw std::invalid_argument("Setup index is out of range!");
-
-    m_previous_index = m_layout->currentIndex();
 
     int index = layoutStartIndex(m_system_index) + runtimeSize(system) + setup_screen_index;
     m_layout->setCurrentIndex(index);
