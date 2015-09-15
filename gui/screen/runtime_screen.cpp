@@ -1,5 +1,6 @@
 #include "runtime_screen.h"
 #include <stdexcept>
+#include <QDebug>
 
 QWidget* RuntimeScreen::createRuntimeWidget(RuntimeScreenType runtime_screen_type)
 {
@@ -58,6 +59,36 @@ RuntimeScreen::RuntimeScreen(QWidget* parent, RuntimeScreenType runtime_screen_t
     for (int i = 0; i < m_information_widget_vector.size(); i++)
     {
         m_information_widget_vector[i] = new InformationWidget(this, m_right_widget_size, runtime_screen_type);
+
+        if ((runtime_screen_type == RUNTIME_ES) || (runtime_screen_type == RUNTIME_ES_B))
+        {
+            m_information_widget_vector[i]->setIndex(i);
+        }
+        else
+        {
+            switch(i)
+            {
+                case 0:
+                    m_information_widget_vector[i]->setIndex(0);
+                    break;
+
+                case 1:
+                    m_information_widget_vector[i]->setIndex(8);
+                    break;
+
+                case 2:
+                    m_information_widget_vector[i]->setIndex(9);
+                    break;
+
+                case 3:
+                    m_information_widget_vector[i]->setIndex(11);
+                    break;
+
+                case 4:
+                    m_information_widget_vector[i]->setIndex(12);
+                    break;
+            }
+        }
     }
 
     m_brightness_widget = m_navigation_controller.isEmbedded() ? new BrightnessWidget(this, m_right_widget_size) : nullptr;

@@ -13,6 +13,12 @@ public:
     // BaseScreen interface
 protected slots:
     void buttonClicked();
+
+    // BaseScreen interface
+
+    // QWidget interface
+protected:
+    void paintEvent(QPaintEvent *);
 };
 
 #endif

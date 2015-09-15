@@ -167,15 +167,15 @@ void RuntimeWidgetC::paintEvent(QPaintEvent*)
 
     // TODO: Value
     painter.setPen(QColor(144, 255, 112));
-    QString sog_label = "SOG\n-.-";
+    QString sog_label = "SOG\n" + string(m_sog);
     painter.drawText(sog_label_rect, Qt::AlignCenter, sog_label);
 
     painter.setPen(QColor(147, 205, 255));
-    QString stw_label = "STW\n-.-";
+    QString stw_label = "STW\n" + string(m_stw);
     painter.drawText(stw_label_rect, Qt::AlignCenter, stw_label);
 
     painter.setPen(QColor(7, 139, 255));
-    QString wc_label = "WC\n-.-";
+    QString wc_label = "WC\n" + string(m_wc);
     painter.drawText(wc_label_rect, Qt::AlignCenter, wc_label);
 
     QImage gps_image(":/gps.png");
@@ -194,21 +194,21 @@ void RuntimeWidgetC::paintEvent(QPaintEvent*)
     // TODO: Values and angles
     // SOG, STW and WC angle arrows
     painter.translate(compass_rect.center());
-    drawArrow(painter, QColor(144, 255, 112), 0.0f, 0.0f, 0.5f * compass_rect.width(), 0);
-    drawArrow(painter, QColor(147, 205, 255), 0.0f, 0.0f, 0.5f * compass_rect.width(), 0);
+    drawArrow(painter, QColor(144, 255, 112), m_sog, m_sog_angle, 0.5f * compass_rect.width(), 0);
+    drawArrow(painter, QColor(147, 205, 255), m_stw, m_stw_angle, 0.5f * compass_rect.width(), 0);
 
     qreal y_offset = 80.0 * m_scale;
     qreal y_arrow = y_offset / 3.0f;
 
     // TODO: Wc angle
     painter.save();
-    painter.rotate(20.0f);
+    painter.rotate(m_wc_angle);
     painter.translate(0, -y_offset + y_arrow);
     drawArrow(painter, QColor(7, 139, 255), 15.0f, 0, y_arrow, 0);
 
     painter.restore();
     painter.save();
-    painter.rotate(20.0f);
+    painter.rotate(m_wc_angle);
     painter.translate(0, y_offset);
     drawArrow(painter, QColor(7, 139, 255), 25.0f, 0, y_arrow, 0);
 
@@ -228,14 +228,15 @@ void RuntimeWidgetC::paintEvent(QPaintEvent*)
 
     if (m_true_heading_enabled == true)
     {
-        drawCompassLabel(painter, 1.175f * y_offset, QColor(7, 139, 255), m_wc_angle - 90.0f, QString::number(normalizeDegPositive(m_wc_angle + m_true_heading), 'f', 1) + QString::fromUtf8("°"));
-        drawCompassLabel(painter, compass_radius, QColor(144, 255, 112), m_sog_angle - 90.0f - label_delta_angle, QString::number(normalizeDegPositive(m_sog_angle + m_true_heading), 'f', 1) + QString::fromUtf8("°"));
-        drawCompassLabel(painter, compass_radius, QColor(147, 205, 255), m_stw_angle - 90.0f + label_delta_angle, QString::number(normalizeDegPositive(m_stw_angle + m_true_heading), 'f', 1) + QString::fromUtf8("°"));
+        drawCompassLabel(painter, 1.175f * y_offset, QColor(7, 139, 255), m_wc_angle - 90.0f, string(normalizeDegPositive(m_wc_angle + m_true_heading)) + QString::fromUtf8("°"));
+        drawCompassLabel(painter, compass_radius, QColor(144, 255, 112), m_sog_angle - 90.0f - label_delta_angle, string(normalizeDegPositive(m_sog_angle + m_true_heading)) + QString::fromUtf8("°"));
+        drawCompassLabel(painter, compass_radius, QColor(147, 205, 255), m_stw_angle - 90.0f + label_delta_angle, string(normalizeDegPositive(m_stw_angle + m_true_heading)) + QString::fromUtf8("°"));
+
     }
     else
     {
-        drawCompassLabel(painter, 1.175f * y_offset, QColor(7, 139, 255), m_wc_angle - 90.0f, QString::number(normalizeDegPositive(m_wc_angle), 'f', 1) + QString::fromUtf8("°"));
-        drawCompassLabel(painter, compass_radius, QColor(144, 255, 112), m_sog_angle - 90.0f - label_delta_angle, QString::number(normalizeDegPositive(m_sog_angle), 'f', 1) + QString::fromUtf8("°"));
-        drawCompassLabel(painter, compass_radius, QColor(147, 205, 255), m_stw_angle - 90.0f + label_delta_angle, QString::number(normalizeDegPositive(m_stw_angle), 'f', 1) + QString::fromUtf8("°"));
+        drawCompassLabel(painter, 1.175f * y_offset, QColor(7, 139, 255), m_wc_angle - 90.0f, string(normalizeDegPositive(m_wc_angle)) + QString::fromUtf8("°"));
+        drawCompassLabel(painter, compass_radius, QColor(144, 255, 112), m_sog_angle - 90.0f - label_delta_angle, string(normalizeDegPositive(m_sog_angle)) + QString::fromUtf8("°"));
+        drawCompassLabel(painter, compass_radius, QColor(147, 205, 255), m_stw_angle - 90.0f + label_delta_angle, string(normalizeDegPositive(m_stw_angle)) + QString::fromUtf8("°"));
     }
 }
