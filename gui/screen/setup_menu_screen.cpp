@@ -21,7 +21,41 @@ bool SetupMenuScreen::changeLayout() const
 
 SetupMenuScreen::SetupMenuScreen(QWidget* parent) : BaseScreen(parent)
 {
-    m_system_widget_container = new SystemWidgetContainer(this, m_system_menu_size, 3, {"SPEED", "SPEED", "DEPTH", "SPEED", "SPEED", "DEPTH"}, {"DL1 SYS 1", "DL2 SYS 1", "ES SYS1", "DL1 SYS 2", "DL2 SYS2", "ES SYS2"});
+    QList<QString> type_list, name_list;
+
+
+    for (int i = 0; i < m_navigation_controller.systemCount(); i++)
+    {
+        QString type = "SPEED";
+        auto system = m_navigation_controller.system(i);
+
+        if (system == SystemEnum::ES_SYSTEM)
+            type = "DEPTH";
+
+        QString prefix;
+
+        switch (system)
+        {
+            case SystemEnum::DL1_SYSTEM:
+                prefix = "DL1";
+                break;
+
+            case SystemEnum::DL2_SYSTEM:
+                prefix = "DL2";
+                break;
+
+            case SystemEnum::ES_SYSTEM:
+                prefix = "ES";
+                break;
+        }
+
+        QString system_name = prefix + " SYS " + QString::number(i + 1);
+
+        type_list << type;
+        name_list << system_name;
+    }
+
+    m_system_widget_container = new SystemWidgetContainer(this, m_system_menu_size, 3, type_list, name_list);
 
     m_cu_m001_setup_button = new ItemWidget(this, m_button_size, "CU-M001 SETUP", EVEN);
     m_system_setup_button = new ItemWidget(this, m_button_size, "SYSTEM SETUP");
@@ -29,6 +63,28 @@ SetupMenuScreen::SetupMenuScreen(QWidget* parent) : BaseScreen(parent)
     m_dl1_setup_menu = new ItemWidgetContainer(this, m_setup_menu_size, 5, {"RUNTIME SCREEN SETUP", "CALIBRATION", "ALERT SETUP", "DIAGNOSTICS", "DL1 SETUP", "COMMUNICATIONS SETUP", "AUX SETUP"});
     m_es_setup_menu = new ItemWidgetContainer(this, m_setup_menu_size, 5, {"RUNTIME SCREEN SETUP", "ALERT SETUP", "DIAGNOSTICS", "ES SETUP", "COMMUNICATIONS SETUP", "AUX SETUP", "HISTORY TOUCH SCREEN", "JB70 SETUP"});
     m_dl2_setup_menu = new ItemWidgetContainer(this, m_setup_menu_size, 5, {"RUNTIME SCREEN SETUP", "CALIBRATION", "ALERT SETUP", "DIAGNOSTICS", "DL2 SETUP", "COMMUNICATIONS SETUP", "AUX SETUP", "JB70 SETUP"});
+
+    // Initializing default system menu
+    m_dl1_setup_menu->hide();
+    m_es_setup_menu->hide();
+    m_dl2_setup_menu->hide();
+
+    auto system = m_navigation_controller.system(m_navigation_controller.systemIndex());
+
+    switch (system)
+    {
+        case SystemEnum::DL1_SYSTEM:
+            m_dl1_setup_menu->show();
+            break;
+
+        case SystemEnum::DL2_SYSTEM:
+            m_dl2_setup_menu->show();
+            break;
+
+        case SystemEnum::ES_SYSTEM:
+            m_es_setup_menu->show();
+            break;
+    }
 
     connect(m_system_widget_container, SIGNAL(itemSelected(int)), this, SLOT(systemSelected(int)));
 
@@ -39,7 +95,10 @@ SetupMenuScreen::SetupMenuScreen(QWidget* parent) : BaseScreen(parent)
     connect(m_es_setup_menu, SIGNAL(itemSelected(int)), this, SLOT(esSetupSelected(int)));
     connect(m_dl2_setup_menu, SIGNAL(itemSelected(int)), this, SLOT(dl2SetupSelected(int)));
 
-    m_system_widget_container->setActive(1);
+    connect(&m_navigation_controller, SIGNAL(systemAdded(SystemEnum)), this, SLOT(systemAdded(SystemEnum)));
+    connect(&m_navigation_controller, SIGNAL(systemRemoved(int)), this, SLOT(systemRemoved(int)));
+
+    m_system_widget_container->setActive(m_navigation_controller.systemIndex());
 }
 
 void SetupMenuScreen::buttonClicked()
@@ -49,49 +108,37 @@ void SetupMenuScreen::buttonClicked()
 
 void SetupMenuScreen::systemSelected(int index)
 {
-    if ((index >= 0) && (index < 3))
+    if (changeLayout() == true)
     {
-        if (changeLayout() == true)
+        m_system_widget_container->setActive(index);
+
+        auto system = m_navigation_controller.system(index);
+
+        switch (system)
         {
-            m_system_widget_container->setActive(index);
+            case SystemEnum::DL1_SYSTEM:
+                m_dl1_setup_menu->show();
+                m_dl1_setup_menu->resetRotationOffset();
+                m_dl2_setup_menu->hide();
+                m_es_setup_menu->hide();
+                break;
+
+            case SystemEnum::DL2_SYSTEM:
+                m_dl1_setup_menu->hide();
+                m_dl2_setup_menu->show();
+                m_dl2_setup_menu->resetRotationOffset();
+                m_es_setup_menu->hide();
+                break;
+
+            case SystemEnum::ES_SYSTEM:
+                m_dl1_setup_menu->hide();
+                m_dl2_setup_menu->hide();
+                m_es_setup_menu->show();
+                m_es_setup_menu->resetRotationOffset();
+                break;
         }
 
-        if (index == 0)
-        {
-            m_dl1_setup_menu->show();
-            m_dl2_setup_menu->hide();
-            m_es_setup_menu->hide();
-
-            m_navigation_controller.layoutChanged(SystemEnum::DL1_SYSTEM);
-        }
-        else if (index == 1)
-        {
-            m_dl1_setup_menu->hide();
-            m_dl2_setup_menu->show();
-            m_es_setup_menu->hide();
-
-            m_navigation_controller.layoutChanged(SystemEnum::DL2_SYSTEM);
-        }
-        else if(index == 2)
-        {
-            m_dl1_setup_menu->hide();
-            m_dl2_setup_menu->hide();
-            m_es_setup_menu->show();
-
-            m_navigation_controller.layoutChanged(SystemEnum::ES_SYSTEM);
-        }
-    }
-    else
-    {
-        QMessageBox message_box(QMessageBox::Information,
-                                        "",
-                                        "Not yet implemented!",
-                                        QMessageBox::Ok, (QWidget*)this,
-                                        Qt::FramelessWindowHint);
-
-        message_box.setStyleSheet("QPushButton { color: rgb(255, 255, 255); background-color: rgb(20, 20, 20); font: 16px; min-width: 230px; min-height: 40px;} QMessageBox { background-color: black; border: 2px solid rgb(80, 80, 80);} QLabel { color: rgb(255, 255, 255); font: 16px; text-align: justify; }");
-
-        message_box.exec();
+        m_navigation_controller.layoutChanged(index);
     }
 }
 
@@ -112,12 +159,43 @@ void SetupMenuScreen::dl2SetupSelected(int index)
 
 void SetupMenuScreen::cuM001SetupPressed(const ItemWidget*)
 {
-    qDebug() << "CU Pressed!";
+    m_navigation_controller.navigate(CU_SETUP);
 }
 
 void SetupMenuScreen::systemSetupPressed(const ItemWidget*)
 {
-    qDebug() << "System Pressed!";
+    m_navigation_controller.navigate(SYSTEM_SETUP);
+}
+
+void SetupMenuScreen::systemAdded(SystemEnum system)
+{
+    QString type = system == SystemEnum::ES_SYSTEM ? "Depth" : "Speed";
+
+    QString prefix;
+
+    switch (system)
+    {
+        case SystemEnum::DL1_SYSTEM:
+            prefix = "DL1";
+            break;
+
+        case SystemEnum::DL2_SYSTEM:
+            prefix = "DL2";
+            break;
+
+        case SystemEnum::ES_SYSTEM:
+            prefix = "ES";
+            break;
+    }
+
+    QString name = prefix + " SYS " + QString::number(m_navigation_controller.systemCount());
+
+    m_system_widget_container->addSystem(type, name);
+}
+
+void SetupMenuScreen::systemRemoved(int index)
+{
+    qDebug() << "System removed!" << index;
 }
 
 void SetupMenuScreen::setupLayout()

@@ -32,6 +32,11 @@
 #include "gui/screen/es_runtime_setup_screen.h"
 #include "gui/screen/es_setup_screen.h"
 
+#include "gui/screen/cu_setup_screen.h"
+#include "gui/screen/system_setup_screen.h"
+
+#include <QDebug>
+
 QWidget* NavigationController::createSetupScreen(QWidget* parent, SetupScreenType setup_screen_type) const
 {
     switch (setup_screen_type)
@@ -109,103 +114,71 @@ QWidget* NavigationController::createSetupScreen(QWidget* parent, SetupScreenTyp
     throw std::invalid_argument("Provided argument is not in enum range.");
 }
 
-QStackedLayout* NavigationController::createLayout(QWidget* parent, SystemEnum system)
+QStackedLayout* NavigationController::createLayout(QWidget* parent)
 {
+    m_parent = parent;
     QStackedLayout* layout = new QStackedLayout();
 
-    const QVector<RuntimeScreenType>* p{nullptr};
-    const QVector<SetupScreenType>* q{nullptr};
-
-    for (int i = 0; i < 3; i++)
-    {
-        QString title;
-        switch (i)
-        {
-            case 0:
-                p = &m_dl1_system_screen_vector;
-                title = "DL1 Speed Log";
-                break;
-
-            case 1:
-                p = &m_dl2_system_screen_vector;
-                title = "DL2 Speed Log";
-                break;
-
-            case 2:
-                p = &m_es_system_screen_vector;
-                title = "ES1 Echosounder";
-                break;
-        }
-
-        for (auto e: *p)
-        {
-            RuntimeScreen* runtime_screen = (e != RuntimeScreenType::RUNTIME_ES) ? new RuntimeScreen(parent, e) : new EsRuntimeScreen(parent, e);
-            runtime_screen->titleWidget()->setTitle(title);
-
-            layout->addWidget(runtime_screen);
-        }
-    }
-
+    // First three screens are SetupMenuScreen, CuSetupScreen and SystemSetupScreen by default
     SetupMenuScreen* setup_menu_screen = new SetupMenuScreen(parent);
     setup_menu_screen->titleWidget()->setTitle("Setup");
     layout->addWidget(setup_menu_screen);
 
-    BoatMenuScreen* boat_menu_screen = new BoatMenuScreen(parent);
-    layout->addWidget(boat_menu_screen);
+    CuSetupScreen* cu_setup_screen = new CuSetupScreen(parent);
+    cu_setup_screen->titleWidget()->setTitle("CU-M001 Setup");
+    layout->addWidget(cu_setup_screen);
 
-    for (int i = 0; i < 3; i++)
+    SystemSetupScreen* system_setup_screen = new SystemSetupScreen(parent);
+    system_setup_screen->titleWidget()->setTitle("System Setup");
+    layout->addWidget(system_setup_screen);
+
+    for (auto system_type: m_system_vector)
     {
-        QString title;
-        switch (i)
-        {
-            case 0:
-                q = &m_dl1_setup_screen_vector;
-                title = "DL1 Speed Log";
-                break;
-
-            case 1:
-                q = &m_dl2_setup_screen_vector;
-                title = "DL2 Speed Log";
-                break;
-
-            case 2:
-                q = &m_es_setup_screen_vector;
-                title = "ES1 Echosounder";
-                break;
-        }
-
-        for (auto e: *q)
-        {
-            SetupScreen* setup_screen = dynamic_cast<SetupScreen*>(createSetupScreen(parent, e));
-            setup_screen->titleWidget()->setTitle(title);
-
-            layout->addWidget(setup_screen);
-        }
+        addSystemScreens(layout, system_type);
     }
 
-    m_system_type = system;
+    layout->setCurrentIndex(layoutStartIndex(m_system_index));
+    m_previous_index = layoutStartIndex(m_system_index);
 
     return layout;
 }
 
-int NavigationController::layoutStartIndex(SystemEnum system) const
+int NavigationController::layoutStartIndex(int system_index) const
+{
+    // Start index starts from 3 because first three screens are fixed
+    int start_index = 3;
+
+    if ((system_index < 0) || (m_system_index >= m_system_vector.size()))
+        throw std::invalid_argument("System index is out of range.");
+
+    for (int i = 0; i < system_index; i++)
+    {
+        auto system = m_system_vector[i];
+
+        start_index += layoutSize(system);
+    }
+
+    return start_index;
+}
+
+int NavigationController::layoutSize(SystemEnum system) const
 {
     switch (system)
     {
         case SystemEnum::DL1_SYSTEM:
-            return 0;
+            return m_dl1_system_screen_vector.size() + m_dl1_setup_screen_vector.size();
 
         case SystemEnum::DL2_SYSTEM:
-            return layoutStartIndex(SystemEnum::DL1_SYSTEM) + layoutSize(SystemEnum::DL1_SYSTEM);
+            return m_dl2_system_screen_vector.size() + m_dl2_setup_screen_vector.size();
 
         case SystemEnum::ES_SYSTEM:
-            return layoutStartIndex(SystemEnum::DL2_SYSTEM) + layoutSize(SystemEnum::DL2_SYSTEM);
+            return m_es_system_screen_vector.size() + m_es_setup_screen_vector.size();
     }
 
     throw std::invalid_argument("Provided argument is not in enum range.");
 }
 
-int NavigationController::layoutSize(SystemEnum system) const
+int NavigationController::runtimeSize(SystemEnum system) const
 {
     switch (system)
     {
@@ -222,27 +195,7 @@ int NavigationController::layoutSize(SystemEnum system) const
     throw std::invalid_argument("Provided argument is not in enum range.");
 }
 
-int NavigationController::setupStartIndex(SystemEnum system) const
-{
-    int start_index = layoutStartIndex(SystemEnum::ES_SYSTEM) + layoutSize(SystemEnum::ES_SYSTEM) + 2;
-
-    switch (system)
-    {
-        // dl1, dl2, es
-        case SystemEnum::DL1_SYSTEM:
-            return start_index;
-
-        case SystemEnum::DL2_SYSTEM:
-            return start_index + setupMenuSize(SystemEnum::DL1_SYSTEM);
-
-        case SystemEnum::ES_SYSTEM:
-            return setupStartIndex(SystemEnum::DL2_SYSTEM) + setupMenuSize(SystemEnum::DL2_SYSTEM);
-    }
-
-    throw std::invalid_argument("Provided argument is not in enum range.");
-}
-
-int NavigationController::setupMenuSize(SystemEnum system) const
+int NavigationController::setupSize(SystemEnum system) const
 {
     switch (system)
     {
@@ -259,30 +212,65 @@ int NavigationController::setupMenuSize(SystemEnum system) const
     throw std::invalid_argument("Provided argument is not in enum range.");
 }
 
-QStackedLayout* NavigationController::getLayout(QWidget* parent, SystemEnum system)
+void NavigationController::addSystemScreens(QStackedLayout* layout, SystemEnum system_type)
+{
+    const QVector<RuntimeScreenType>* p{nullptr};
+    const QVector<SetupScreenType>* q{nullptr};
+
+    QString title;
+    switch (system_type)
+    {
+        case SystemEnum::DL1_SYSTEM:
+            p = &m_dl1_system_screen_vector;
+            q = &m_dl1_setup_screen_vector;
+            title = "DL1 Speed Log";
+            break;
+
+        case SystemEnum::DL2_SYSTEM:
+            p = &m_dl2_system_screen_vector;
+            q = &m_dl2_setup_screen_vector;
+            title = "DL2 Speed Log";
+            break;
+
+        case SystemEnum::ES_SYSTEM:
+            p = &m_es_system_screen_vector;
+            q = &m_es_setup_screen_vector;
+            title = "ES1 Echosounder";
+            break;
+    }
+
+    for (auto e: *p)
+    {
+        RuntimeScreen* runtime_screen = (e != RuntimeScreenType::RUNTIME_ES) ? new RuntimeScreen(m_parent, e) : new EsRuntimeScreen(m_parent, e);
+        runtime_screen->titleWidget()->setTitle(title);
+
+        layout->addWidget(runtime_screen);
+    }
+
+    for (auto e: *q)
+    {
+        SetupScreen* setup_screen = dynamic_cast<SetupScreen*>(createSetupScreen(m_parent, e));
+        setup_screen->titleWidget()->setTitle(title);
+
+        layout->addWidget(setup_screen);
+    }
+}
+
+QStackedLayout* NavigationController::getLayout(QWidget* parent)
 {
     if (m_layout == nullptr)
     {
-        m_layout = createLayout(parent, system);
+        m_layout = createLayout(parent);
     }
 
-    m_layout->setCurrentIndex(layoutStartIndex(system));
-    m_previous_index = layoutStartIndex(system);
-
     return m_layout;
-}
-
-SystemEnum NavigationController::getSystemType() const
-{
-    return m_system_type;
 }
 
 void NavigationController::navigateLeft()
 {
     int index = m_layout->currentIndex() - 1;
-
-    int start_index = layoutStartIndex(m_system_type);
-    int size = layoutSize(m_system_type);
+    int start_index = layoutStartIndex(m_system_index);
+    int size = runtimeSize(m_system_vector[m_system_index]);
 
     if (index < start_index)
     {
@@ -295,9 +283,8 @@ void NavigationController::navigateLeft()
 void NavigationController::navigateRight()
 {
     int index = m_layout->currentIndex() + 1;
-
-    int start_index = layoutStartIndex(m_system_type);
-    int size = layoutSize(m_system_type);
+    int start_index = layoutStartIndex(m_system_index);
+    int size = runtimeSize(m_system_vector[m_system_index]);
 
     if (index == start_index + size)
     {
@@ -310,16 +297,19 @@ void NavigationController::navigateRight()
 void NavigationController::navigate(SetupMenuType setup_menu_type)
 {
     m_previous_index = m_layout->currentIndex();
-    int index = layoutStartIndex(SystemEnum::ES_SYSTEM) + layoutSize(SystemEnum::ES_SYSTEM);
 
     switch (setup_menu_type)
     {
         case SETUP_MENU:
-            m_layout->setCurrentIndex(index);
+            m_layout->setCurrentIndex(0);
             break;
 
-        case BOAT_MENU:
-            m_layout->setCurrentIndex(index + 1);
+        case CU_SETUP:
+            m_layout->setCurrentIndex(1);
+            break;
+
+        case SYSTEM_SETUP:
+            m_layout->setCurrentIndex(2);
             break;
     }
 }
@@ -333,22 +323,31 @@ void NavigationController::navigateBack()
     else
     {
         m_switch_layout = false;
-        int index = layoutStartIndex(m_system_type);
+        int index = layoutStartIndex(m_system_index);
         m_layout->setCurrentIndex(index);
     }
 }
 
-void NavigationController::layoutChanged(SystemEnum system)
+void NavigationController::layoutChanged(int index)
 {
-    m_system_type = system;
+    if ((index < 0) || (index >= m_system_vector.size()))
+        throw std::invalid_argument("System index is out of range!");
+
+    m_system_index = index;
     m_switch_layout = true;
 }
 
 void NavigationController::navigate(SystemEnum system, int setup_screen_index)
 {
+    if (system != m_system_vector[m_system_index])
+        throw std::invalid_argument("Provided system is not the currently selected.");
+
+    if ((setup_screen_index < 0) || (setup_screen_index >= setupSize(system)))
+        throw std::invalid_argument("Setup index is out of range!");
+
     m_previous_index = m_layout->currentIndex();
 
-    int index = setupStartIndex(system) + setup_screen_index;
+    int index = layoutStartIndex(m_system_index) + runtimeSize(system) + setup_screen_index;
     m_layout->setCurrentIndex(index);
 }
 
@@ -360,4 +359,38 @@ void NavigationController::setEmbedded(bool embedded)
 bool NavigationController::isEmbedded() const
 {
     return m_embedded;
+}
+
+int NavigationController::systemIndex() const
+{
+    return m_system_index;
+}
+
+SystemEnum NavigationController::system(int index) const
+{
+    if ((index < 0) || (index >= m_system_vector.size()))
+        throw std::invalid_argument("System index is out of range!");
+
+    return m_system_vector[index];
+}
+
+int NavigationController::systemCount() const
+{
+    return m_system_vector.size();
+}
+
+void NavigationController::addSystem(SystemEnum system)
+{
+    addSystemScreens(m_layout, system);
+    m_system_vector.push_back(system);
+
+    emit systemAdded(system);
+}
+
+void NavigationController::removeSystem(int index)
+{
+    if (m_system_vector.size() == 1)
+        throw std::invalid_argument("Cannot remove last system!");
+
+    qDebug() << "Remove system: " << index;
 }

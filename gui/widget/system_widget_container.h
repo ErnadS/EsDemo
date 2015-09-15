@@ -22,6 +22,9 @@ public:
     explicit SystemWidgetContainer(QWidget* parent, QSize base_size, int display_size, QList<QString> type_list, QList<QString> name_list);
     void setActive(int index);
 
+    void addSystem(QString type, QString name);
+    void removeSystem(int index);
+
 signals:
     void itemSelected(int index);
 

@@ -20,5 +20,5 @@ void EsRuntimeScreen::setupLayout()
 
 void EsRuntimeScreen::boatButtonClicked()
 {
-    m_navigation_controller.navigate(BOAT_MENU);
+    //m_navigation_controller.navigate(BOAT_MENU);
 }

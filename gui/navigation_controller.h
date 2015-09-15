@@ -15,10 +15,12 @@ class NavigationController: public QObject
 
     bool m_embedded{false};
 
+    QWidget* m_parent{nullptr};
     QStackedLayout* m_layout{nullptr};
 
     bool m_switch_layout{false};
-    SystemEnum m_system_type;
+    int m_system_index{0};
+    QVector<SystemEnum> m_system_vector{ SystemEnum::DL2_SYSTEM, SystemEnum::ES_SYSTEM, SystemEnum::DL1_SYSTEM};
 
     const QVector<RuntimeScreenType> m_dl1_system_screen_vector
     {
@@ -79,27 +81,40 @@ class NavigationController: public QObject
     int m_previous_index{0};
 
     QWidget* createSetupScreen(QWidget* parent, SetupScreenType setup_screen_type) const;
-    QStackedLayout* createLayout(QWidget* parent, SystemEnum system);
+    QStackedLayout* createLayout(QWidget* parent);
 
-    int layoutStartIndex(SystemEnum system) const;
+    int layoutStartIndex(int system_index) const;
     int layoutSize(SystemEnum system) const;
+    int runtimeSize(SystemEnum system) const;
+    int setupSize(SystemEnum system) const;
 
-    int setupStartIndex(SystemEnum system) const;
-    int setupMenuSize(SystemEnum system) const;
+    void addSystemScreens(QStackedLayout* layout, SystemEnum system_type);
 
 public:
-    QStackedLayout* getLayout(QWidget* parent, SystemEnum system);
+    QStackedLayout* getLayout(QWidget* parent);
     SystemEnum getSystemType() const;
 
     void navigateLeft();
     void navigateRight();
     void navigate(SetupMenuType setup_menu_type);
     void navigateBack();
-    void layoutChanged(SystemEnum system);
+    void layoutChanged(int index);
     void navigate(SystemEnum system, int setup_screen_index);
 
     void setEmbedded(bool embedded);
     bool isEmbedded() const;
+
+    int systemIndex() const;
+    SystemEnum system(int index) const;
+    int systemCount() const;
+
+signals:
+    void systemAdded(SystemEnum system);
+    void systemRemoved(int index);
+
+public slots:
+    void addSystem(SystemEnum system);
+    void removeSystem(int index);
 };
 
 #endif

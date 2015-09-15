@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget* parent) :
         m_navigation_controller.setEmbedded(true);
     }
 
-    QStackedLayout* layout = m_navigation_controller.getLayout(this, SystemEnum::DL2_SYSTEM);
+    QStackedLayout* layout = m_navigation_controller.getLayout(this);
 
     centralWidget()->setLayout(layout);
 

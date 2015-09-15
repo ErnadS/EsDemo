@@ -47,6 +47,9 @@ protected slots:
 
     void cuM001SetupPressed(const ItemWidget*);
     void systemSetupPressed(const ItemWidget*);
+
+    void systemAdded(SystemEnum system);
+    void systemRemoved(int index);
 };
 
 #endif

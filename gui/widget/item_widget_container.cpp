@@ -55,6 +55,12 @@ ItemWidgetContainer::ItemWidgetContainer(QWidget* parent, QSize base_size, int d
     setupLayout();
 }
 
+void ItemWidgetContainer::resetRotationOffset()
+{
+    m_rotation_offset = 0;
+    setupLayout();
+}
+
 void ItemWidgetContainer::itemPressed(const ItemWidget* item)
 {
     for (int i = 0; i < m_item_widget_vector.size(); i++)

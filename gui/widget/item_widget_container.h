@@ -21,6 +21,8 @@ class ItemWidgetContainer : public ScalableWidget
 public:
     explicit ItemWidgetContainer(QWidget* parent, QSize base_size, int display_size, QList<QString> item_list);
 
+    void resetRotationOffset();
+
 signals:
     void itemSelected(int index);
 

@@ -8,6 +8,7 @@ BoatButton::BoatButton(QWidget* parent, QSize base_size) : ScalableWidget(parent
 
 void BoatButton::paintEvent(QPaintEvent*)
 {
+    /*
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
 
@@ -18,6 +19,7 @@ void BoatButton::paintEvent(QPaintEvent*)
     painter.setFont(font);
 
     painter.drawText(rect(), Qt::AlignCenter, "Boat");
+    */
 }
 
 void BoatButton::mouseReleaseEvent(QMouseEvent*)

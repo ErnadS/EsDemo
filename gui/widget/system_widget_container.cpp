@@ -70,6 +70,23 @@ void SystemWidgetContainer::setActive(int index)
     }
 }
 
+void SystemWidgetContainer::addSystem(QString type, QString name)
+{
+    QSize item_size(0.675f * baseSize().width() * m_width_scale, baseSize().height() / (m_display_size + 0.5f) * m_height_scale + 0.5f);
+
+    SystemWidget* system_widget = new SystemWidget(this, item_size, type, name);
+    m_system_widget_vector.push_back(system_widget);
+
+    connect(system_widget, SIGNAL(pressed(const SystemWidget*)), this, SLOT(itemPressed(const SystemWidget*)));
+
+    setupLayout();
+}
+
+void SystemWidgetContainer::removeSystem(int index)
+{
+    qDebug() << "Need to remove system with index " << index;
+}
+
 void SystemWidgetContainer::itemPressed(const SystemWidget* item)
 {
     for (int i = 0; i < m_system_widget_vector.size(); i++)
