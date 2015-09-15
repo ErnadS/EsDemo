@@ -144,32 +144,27 @@ void SetupMenuScreen::systemSelected(int index)
 
 void SetupMenuScreen::dl1SetupSelected(int index)
 {
-    qDebug() << "Navigate to: " << index;
-    //m_navigation_controller.navigate(SystemEnum::DL1_SYSTEM, index);
+    m_navigation_controller.navigate(SystemEnum::DL1_SYSTEM, index);
 }
 
 void SetupMenuScreen::esSetupSelected(int index)
 {
-    qDebug() << "Navigate to: " << index;
-    //m_navigation_controller.navigate(SystemEnum::ES_SYSTEM, index);
+    m_navigation_controller.navigate(SystemEnum::ES_SYSTEM, index);
 }
 
 void SetupMenuScreen::dl2SetupSelected(int index)
 {
-    qDebug() << "Navigate to: " << index;
-    //m_navigation_controller.navigate(SystemEnum::DL2_SYSTEM, index);
+    m_navigation_controller.navigate(SystemEnum::DL2_SYSTEM, index);
 }
 
 void SetupMenuScreen::cuM001SetupPressed(const ItemWidget*)
 {
-    qDebug() << "Navigate to: CU_SETUP" ;
-    //m_navigation_controller.navigate(CU_SETUP);
+    m_navigation_controller.navigate(CU_SETUP, false);
 }
 
 void SetupMenuScreen::systemSetupPressed(const ItemWidget*)
 {
-    qDebug() << "Navigate to: SYSTEM_SETUP" ;
-    //m_navigation_controller.navigate(SYSTEM_SETUP);
+    m_navigation_controller.navigate(SYSTEM_SETUP, false);
 }
 
 void SetupMenuScreen::systemAdded(SystemEnum system)

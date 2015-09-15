@@ -96,7 +96,7 @@ public:
 
     void navigateLeft();
     void navigateRight();
-    void navigate(SetupMenuType setup_menu_type);
+    void navigate(SetupMenuType setup_menu_type, bool runtime);
     void navigateBack();
     void layoutChanged(int index);
     void navigate(SystemEnum system, int setup_screen_index);

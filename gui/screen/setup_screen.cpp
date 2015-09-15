@@ -1,5 +1,4 @@
 #include "setup_screen.h"
-#include <QDebug>
 #include <QPainter>
 
 SetupScreen::SetupScreen(QWidget* parent) :
@@ -10,7 +9,7 @@ SetupScreen::SetupScreen(QWidget* parent) :
 
 void SetupScreen::buttonClicked()
 {
-    m_navigation_controller.navigateBack();
+    m_navigation_controller.navigate(SETUP_MENU, false);
 }
 
 void SetupScreen::paintEvent(QPaintEvent *)
