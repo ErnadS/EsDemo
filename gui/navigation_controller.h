@@ -89,6 +89,7 @@ class NavigationController: public QObject
     int setupSize(SystemEnum system) const;
 
     void addSystemScreens(QStackedLayout* layout, SystemEnum system_type);
+    void removeSystemScreen(QStackedLayout* layout, int index);
 
 public:
     QStackedLayout* getLayout(QWidget* parent);

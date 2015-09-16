@@ -1,7 +1,6 @@
 #include "setup_menu_screen.h"
 #include <QMessageBox>
 #include <QPainter>
-#include <QDebug>
 
 bool SetupMenuScreen::changeLayout() const
 {
@@ -169,7 +168,7 @@ void SetupMenuScreen::systemSetupPressed(const ItemWidget*)
 
 void SetupMenuScreen::systemAdded(SystemEnum system)
 {
-    QString type = system == SystemEnum::ES_SYSTEM ? "Depth" : "Speed";
+    QString type = system == SystemEnum::ES_SYSTEM ? "DEPTH" : "SPEED";
 
     QString prefix;
 
@@ -195,7 +194,7 @@ void SetupMenuScreen::systemAdded(SystemEnum system)
 
 void SetupMenuScreen::systemRemoved(int index)
 {
-    qDebug() << "System removed!" << index;
+    m_system_widget_container->removeSystem(index);
 }
 
 void SetupMenuScreen::setupLayout()

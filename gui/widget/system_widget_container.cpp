@@ -1,6 +1,5 @@
 #include "system_widget_container.h"
 #include <QPainter>
-#include <QDebug>
 
 void SystemWidgetContainer::setupLayout()
 {
@@ -31,12 +30,20 @@ void SystemWidgetContainer::setupLayout()
 
     m_rotation_offset == 0 ? m_up_arrow->setVisible(false) : m_up_arrow->setVisible(true);
     m_rotation_offset == m_system_widget_vector.size() - m_display_size ? m_down_arrow->setVisible(false) : m_down_arrow->setVisible(true);
+
+    if (m_system_widget_vector.size() <= m_display_size)
+    {
+        m_up_arrow->setVisible(false);
+        m_down_arrow->setVisible(false);
+    }
 }
 
 SystemWidgetContainer::SystemWidgetContainer(QWidget* parent, QSize base_size, int display_size, QList<QString> type_list, QList<QString> name_list) : ScalableWidget(parent, base_size), m_display_size(display_size)
 {
     QSize item_size(0.675f * base_size.width(), base_size.height() / display_size + 0.5f);
     QSize arrow_size(0.15f * base_size.width(), 0.15f * base_size.width());
+
+    m_item_base_size = item_size;
 
     for (int i = 0; i < name_list.size(); i++)
     {
@@ -72,9 +79,7 @@ void SystemWidgetContainer::setActive(int index)
 
 void SystemWidgetContainer::addSystem(QString type, QString name)
 {
-    QSize item_size(0.675f * baseSize().width() * m_width_scale, baseSize().height() / (m_display_size + 0.5f) * m_height_scale + 0.5f);
-
-    SystemWidget* system_widget = new SystemWidget(this, item_size, type, name);
+    SystemWidget* system_widget = new SystemWidget(this, m_item_base_size, type, name);
     m_system_widget_vector.push_back(system_widget);
 
     connect(system_widget, SIGNAL(pressed(const SystemWidget*)), this, SLOT(itemPressed(const SystemWidget*)));
@@ -84,7 +89,19 @@ void SystemWidgetContainer::addSystem(QString type, QString name)
 
 void SystemWidgetContainer::removeSystem(int index)
 {
-    qDebug() << "Need to remove system with index " << index;
+    SystemWidget* system_widget = m_system_widget_vector[index];
+    m_system_widget_vector.remove(index);
+    m_rotation_offset--;
+
+    if (system_widget->isActive() == true)
+    {
+        m_system_widget_vector[0]->setActive(true);
+        m_rotation_offset = 0;
+    }
+
+    delete system_widget;
+
+    setupLayout();
 }
 
 void SystemWidgetContainer::itemPressed(const SystemWidget* item)

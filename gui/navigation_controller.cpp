@@ -35,8 +35,6 @@
 #include "gui/screen/cu_setup_screen.h"
 #include "gui/screen/system_setup_screen.h"
 
-#include <QDebug>
-
 QWidget* NavigationController::createSetupScreen(QWidget* parent, SetupScreenType setup_screen_type) const
 {
     switch (setup_screen_type)
@@ -256,6 +254,28 @@ void NavigationController::addSystemScreens(QStackedLayout* layout, SystemEnum s
     }
 }
 
+void NavigationController::removeSystemScreen(QStackedLayout* layout, int index)
+{
+    auto system = m_system_vector[index];
+    int start_index = layoutStartIndex(index);
+    int size = layoutSize(system);
+
+    for (int i = 0; i < size; i++)
+    {
+        QWidget* widget = layout->widget(start_index);
+        layout->removeWidget(widget);
+        delete widget;
+    }
+
+    m_system_vector.remove(index);
+
+    if (m_system_index == index)
+    {
+        m_system_index = 0;
+        m_previous_index = layoutStartIndex(0);
+    }
+}
+
 QStackedLayout* NavigationController::getLayout(QWidget* parent)
 {
     if (m_layout == nullptr)
@@ -389,7 +409,9 @@ void NavigationController::addSystem(SystemEnum system)
 void NavigationController::removeSystem(int index)
 {
     if (m_system_vector.size() == 1)
-        throw std::invalid_argument("Cannot remove last system!");
+         throw std::invalid_argument("Cannot remove last system!");
 
-    qDebug() << "Remove system: " << index;
+    removeSystemScreen(m_layout, index);
+
+    emit systemRemoved(index);
 }

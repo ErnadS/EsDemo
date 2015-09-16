@@ -17,6 +17,10 @@ private slots:
 
 public:
     explicit SystemSetupScreen(QWidget* parent);
+
+    // QWidget interface
+protected:
+    void paintEvent(QPaintEvent*);
 };
 
 #endif

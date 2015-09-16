@@ -1,5 +1,4 @@
 #include "es_runtime_screen.h"
-#include <QDebug>
 
 EsRuntimeScreen::EsRuntimeScreen(QWidget* parent, RuntimeScreenType runtime_screen_type) : RuntimeScreen(parent, runtime_screen_type)
 {

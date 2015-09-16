@@ -16,6 +16,7 @@ class SystemWidget : public ScalableWidget
 public:
     SystemWidget(QWidget* parent, QSize base_size, QString system_type, QString system_name);
     void setActive(bool active);
+    bool isActive() const;
 
 signals:
     void pressed(const SystemWidget* address);

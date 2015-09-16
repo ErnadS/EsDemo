@@ -65,6 +65,11 @@ void SystemWidget::setActive(bool active)
     update();
 }
 
+bool SystemWidget::isActive() const
+{
+    return m_active;
+}
+
 void SystemWidget::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);

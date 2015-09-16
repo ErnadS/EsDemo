@@ -9,6 +9,8 @@ class SystemWidgetContainer : public ScalableWidget
 {
     Q_OBJECT
 
+    QSize m_item_base_size;
+
     int m_display_size;
     QVector<SystemWidget*> m_system_widget_vector;
     ArrowWidget* m_up_arrow;
