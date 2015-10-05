@@ -29,6 +29,12 @@ void ItemWidgetContainer::setupLayout()
 
     m_rotation_offset == 0 ? m_up_arrow->setVisible(false) : m_up_arrow->setVisible(true);
     m_rotation_offset == m_item_widget_vector.size() - m_display_size ? m_down_arrow->setVisible(false) : m_down_arrow->setVisible(true);
+
+    if (m_item_widget_vector.size() <= m_display_size)
+    {
+        m_up_arrow->setVisible(false);
+        m_down_arrow->setVisible(false);
+    }
 }
 
 ItemWidgetContainer::ItemWidgetContainer(QWidget* parent, QSize base_size, int display_size, QList<QString> item_list) : ScalableWidget(parent, base_size), m_display_size(display_size)

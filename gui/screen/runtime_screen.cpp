@@ -37,7 +37,7 @@ QWidget* RuntimeScreen::createRuntimeWidget(RuntimeScreenType runtime_screen_typ
     throw std::invalid_argument("Provided argument is not in enum range.");
 }
 
-RuntimeScreen::RuntimeScreen(QWidget* parent, RuntimeScreenType runtime_screen_type) :
+RuntimeScreen::RuntimeScreen(QWidget* parent, RuntimeScreenType runtime_screen_type, bool preview) :
     BaseScreen(parent)
 {
     int information_widget_count = m_navigation_controller.isEmbedded() ? 5 : 6;
@@ -96,7 +96,13 @@ RuntimeScreen::RuntimeScreen(QWidget* parent, RuntimeScreenType runtime_screen_t
 
     m_runtime_widget = createRuntimeWidget(runtime_screen_type);
 
-    connect(m_unit_button, SIGNAL(clicked()), this, SLOT(unitButtonClicked()));
+    if (preview == false)
+        connect(m_unit_button, SIGNAL(clicked()), this, SLOT(unitButtonClicked()));
+    else
+    {
+        m_button->setDisabled(true);
+        m_navigation_widget->setDisabled(true);
+    }
 
     setupLayout();
 }

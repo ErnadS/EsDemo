@@ -22,5 +22,5 @@ QMAKE_CXXFLAGS += -Wno-error=strict-overflow # temporary fix
 target.path = /opt
 INSTALLS += target
 
-VERSION = 1.0.6
+VERSION = 1.0.0
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"

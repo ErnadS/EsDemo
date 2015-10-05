@@ -81,7 +81,7 @@ QWidget* NavigationController::createSetupScreen(QWidget* parent, SetupScreenTyp
             return new Dl2RuntimeSetupScreen(parent);
 
         case DL2_SETUP:
-            return new Dl2RuntimeSetupScreen(parent);
+            return new Dl2SetupScreen(parent);
 
         case DL2_COMMUNICATION_SETUP:
             return new Dl2CommunicationSetupScreen(parent);
@@ -249,7 +249,7 @@ void NavigationController::addSystemScreens(QStackedLayout* layout, SystemEnum s
 
     for (auto e: *q)
     {
-        SetupScreen* setup_screen = dynamic_cast<SetupScreen*>(createSetupScreen(m_parent, e));
+        BaseScreen* setup_screen = dynamic_cast<BaseScreen*>(createSetupScreen(m_parent, e));
         setup_screen->titleWidget()->setTitle(title);
 
         layout->addWidget(setup_screen);

@@ -2,23 +2,31 @@
 #define SETUP_SCREEN_H
 
 #include "base_screen.h"
+#include "gui/widget/selectable_item_widget_container.h"
+#include "gui/keyboard/QVirtualKeyboard.h"
 
 class SetupScreen : public BaseScreen
 {
     Q_OBJECT
 
+    QSize m_selectable_item_size{320, 65};
+    QSize m_selectable_item_widget_container_size{355, 455};
+    QSize m_keyboard_size{444, 262};
+    QPoint m_selectable_item_widget_container_pos{445, 24};
+    QPoint m_keyboard_pos{0, 208};
+
+protected:
+    SelectableItemWidgetContainer* m_selectable_item_widget_container;
+    QVirtualKeyboard* m_keyboard;
+
 public:
     explicit SetupScreen(QWidget* parent);
 
-    // BaseScreen interface
 protected slots:
     void buttonClicked();
 
-    // BaseScreen interface
-
-    // QWidget interface
 protected:
-    void paintEvent(QPaintEvent *);
+    void setupLayout();
 };
 
 #endif
