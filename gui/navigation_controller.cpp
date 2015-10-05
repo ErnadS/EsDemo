@@ -35,6 +35,8 @@
 #include "gui/screen/cu_setup_screen.h"
 #include "gui/screen/system_setup_screen.h"
 
+#include <QDebug>
+
 QWidget* NavigationController::createSetupScreen(QWidget* parent, SetupScreenType setup_screen_type) const
 {
     switch (setup_screen_type)
@@ -79,7 +81,7 @@ QWidget* NavigationController::createSetupScreen(QWidget* parent, SetupScreenTyp
             return new Dl2RuntimeSetupScreen(parent);
 
         case DL2_SETUP:
-            return new Dl2RuntimeSetupScreen(parent);
+            return new Dl2SetupScreen(parent);
 
         case DL2_COMMUNICATION_SETUP:
             return new Dl2CommunicationSetupScreen(parent);
@@ -247,32 +249,10 @@ void NavigationController::addSystemScreens(QStackedLayout* layout, SystemEnum s
 
     for (auto e: *q)
     {
-        SetupScreen* setup_screen = dynamic_cast<SetupScreen*>(createSetupScreen(m_parent, e));
+        BaseScreen* setup_screen = dynamic_cast<BaseScreen*>(createSetupScreen(m_parent, e));
         setup_screen->titleWidget()->setTitle(title);
 
         layout->addWidget(setup_screen);
-    }
-}
-
-void NavigationController::removeSystemScreen(QStackedLayout* layout, int index)
-{
-    auto system = m_system_vector[index];
-    int start_index = layoutStartIndex(index);
-    int size = layoutSize(system);
-
-    for (int i = 0; i < size; i++)
-    {
-        QWidget* widget = layout->widget(start_index);
-        layout->removeWidget(widget);
-        delete widget;
-    }
-
-    m_system_vector.remove(index);
-
-    if (m_system_index == index)
-    {
-        m_system_index = 0;
-        m_previous_index = layoutStartIndex(0);
     }
 }
 
@@ -366,6 +346,7 @@ void NavigationController::navigate(SystemEnum system, int setup_screen_index)
     if ((setup_screen_index < 0) || (setup_screen_index >= setupSize(system)))
         throw std::invalid_argument("Setup index is out of range!");
 
+
     int index = layoutStartIndex(m_system_index) + runtimeSize(system) + setup_screen_index;
     m_layout->setCurrentIndex(index);
 }
@@ -409,9 +390,7 @@ void NavigationController::addSystem(SystemEnum system)
 void NavigationController::removeSystem(int index)
 {
     if (m_system_vector.size() == 1)
-         throw std::invalid_argument("Cannot remove last system!");
+        throw std::invalid_argument("Cannot remove last system!");
 
-    removeSystemScreen(m_layout, index);
-
-    emit systemRemoved(index);
+    qDebug() << "Remove system: " << index;
 }

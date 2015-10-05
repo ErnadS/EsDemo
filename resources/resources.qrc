@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>gps.png</file>
+	<file>gps.png</file>
 	<file>skipper-no-background.jpg</file>
 	<file>vessel_1.png</file>
 	<file>vessel_2.png</file>
@@ -11,5 +11,7 @@
 	<file>compass_image.png</file>
 	<file>no_compass.png</file>
 	<file>compass_vessel_image.png</file>
+	<file>arrow.png</file>
+	<file>delArrow.png</file>
     </qresource>
 </RCC>

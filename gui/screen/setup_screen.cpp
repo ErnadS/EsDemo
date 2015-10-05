@@ -4,6 +4,11 @@
 SetupScreen::SetupScreen(QWidget* parent) :
     BaseScreen(parent)
 {
+    m_keyboard = new QVirtualKeyboard(this);
+    m_keyboard->hide();
+
+    m_selectable_item_widget_container = new SelectableItemWidgetContainer(this, m_selectable_item_widget_container_size, m_keyboard, 7);
+
     setupLayout();
 }
 
@@ -12,15 +17,13 @@ void SetupScreen::buttonClicked()
     m_navigation_controller.navigate(SETUP_MENU, false);
 }
 
-void SetupScreen::paintEvent(QPaintEvent*)
+void SetupScreen::setupLayout()
 {
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing, true);
+    BaseScreen::setupLayout();
 
-    painter.setPen(Qt::yellow);
-    QFont font = painter.font();
-    font.setPixelSize(40 * m_scale);
-    painter.setFont(font);
+    m_selectable_item_widget_container->resize(m_selectable_item_widget_container_size.width() * m_width_scale, m_selectable_item_widget_container_size.height() * m_height_scale);
+    m_selectable_item_widget_container->move(m_selectable_item_widget_container_pos.x() * m_width_scale, m_selectable_item_widget_container_pos.y() * m_height_scale);
 
-    painter.drawText(QRect(0, 0, width(), height()), Qt::AlignCenter | Qt::TextWordWrap, "This function is under development check for software upgrades on www.skipper.no");
+    m_keyboard->resize(m_keyboard_size.width() * m_width_scale, m_keyboard_size.height() * m_height_scale);
+    m_keyboard->move(m_keyboard_pos.x() * m_width_scale, m_keyboard_pos.y() * m_height_scale);
 }

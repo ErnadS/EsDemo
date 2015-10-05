@@ -42,7 +42,7 @@ class RuntimeScreen : public BaseScreen
     RuntimeScreenType m_runtime_screen_type;
 
 public:
-    explicit RuntimeScreen(QWidget* parent, RuntimeScreenType runtime_screen_type);
+    explicit RuntimeScreen(QWidget* parent, RuntimeScreenType runtime_screen_type, bool preview = false);
 
 protected:
     void setupLayout();

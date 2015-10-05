@@ -1,5 +1,5 @@
-#ifndef DL2_SETUP_SCREEN_H
-#define DL2_SETUP_SCREEN_H
+#ifndef DL1_SETUP_SCREEN_H
+#define DL1_SETUP_SCREEN_H
 
 #include "setup_screen.h"
 

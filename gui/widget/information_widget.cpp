@@ -1,6 +1,69 @@
 #include "information_widget.h"
 #include <QPainter>
 #include <stdexcept>
+#include <QDebug>
+
+qreal InformationWidget::getValue(InformationSource source)
+{
+    switch(source)
+    {
+        case InformationSource::W_TEMP:
+            return m_water_temp;
+
+        case InformationSource::SOG_LONG:
+            return m_sog_long;
+
+        case InformationSource::SOG_TRA:
+            return m_sog_tra;
+
+        case InformationSource::SOG:
+            return m_sog;
+
+        case InformationSource::STW_LONG:
+            return m_stw_long;
+
+        case InformationSource::STW_TRA:
+            return m_stw_tra;
+
+        case InformationSource::STW:
+            return m_stw;
+
+        case InformationSource::STW_DL1:
+            return m_stw_dl1;
+
+        case InformationSource::ALARM_HIGH:
+            return 25.0f;
+
+        case InformationSource::ALARM_LOW:
+            return 0.5f;
+
+        case InformationSource::DEPTH:
+            return m_avg_depth;
+
+        case InformationSource::TRIP:
+            return m_trip;
+
+        case InformationSource::TOTAL:
+            return m_total;
+
+        case InformationSource::DRAFT:
+            return 1.4f;
+
+        case InformationSource::GPS_SOG:
+            return 10.1f;
+
+        case InformationSource::GAIN:
+            return 30.0f;
+
+        case InformationSource::SHALLOW_ALARM:
+            return 5.0f;
+
+        case InformationSource::DEEP_ALARM:
+            return 480.0f;
+    }
+
+    throw std::invalid_argument("Provided argument is not in enum range.");
+}
 
 QString InformationWidget::getDescription(InformationSource source)
 {
@@ -133,7 +196,7 @@ InformationWidget::InformationWidget(QWidget* parent, QSize base_size, RuntimeSc
 
     if ((m_screen_type == RUNTIME_ES) || (m_screen_type == RUNTIME_ES_B))
     {
-        m_source_vector = {InformationSource::DRAFT, InformationSource::GPS_SOG, InformationSource::GAIN, InformationSource::SHALLOW_ALARM, InformationSource::DEEP_ALARM};
+        m_source_vector = {InformationSource::DRAFT, InformationSource::GPS_SOG, InformationSource::GAIN, InformationSource::SHALLOW_ALARM, InformationSource::DEEP_ALARM, InformationSource::W_TEMP};
     }
 }
 
@@ -158,10 +221,20 @@ void InformationWidget::paintEvent(QPaintEvent*)
     font.setPixelSize(20 * m_scale);
     painter.setFont(font);
 
-    painter.setPen(QColor(144, 255, 112));
+    painter.setPen(m_color);
     painter.fillRect(QRectF(0, 0, width(), height()), brush);
 
-    // TODO: Value
+    InformationSource source = m_source_vector[m_index];
+    m_title = getDescription(source);
+    m_unit = getUnit(source);
+    qreal value = getValue(source);
+    m_value = string(value);
+
+    if ((value < 100.0f) && (source == InformationSource::TRIP))
+    {
+        m_value = QString::number(value, 'f', 2);
+    }
+
     QString description = m_title + " " + m_unit;
     painter.drawText(QRectF(0, 0, width(), height() / 3), Qt::AlignCenter, description);
 

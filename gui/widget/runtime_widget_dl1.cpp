@@ -28,9 +28,6 @@ void RuntimeWidgetDl1::paintEvent(QPaintEvent*)
     font.setPixelSize(60 * m_scale);
     painter.setFont(font);
 
-    // TODO: Refactor
-    qreal m_stw_dl1 = 10.0f;
-
     if (m_stw_dl1 >= 0.0f)
     {
         drawArrow(painter, arrow_rect, 0);
@@ -40,6 +37,6 @@ void RuntimeWidgetDl1::paintEvent(QPaintEvent*)
         drawArrow(painter, arrow_rect, 180);
     }
 
-    QString label = QString::number(qAbs(m_stw_dl1), 'f', 1) + "\nSTW";
+    QString label = string(qAbs(m_stw_dl1)) + "\nSTW";
     painter.drawText(label_rect, Qt::AlignVCenter, label);
 }

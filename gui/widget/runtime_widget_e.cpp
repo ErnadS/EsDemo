@@ -89,10 +89,6 @@ void RuntimeWidgetE::drawBoat(QPainter& painter, const QRect rect)
     painter.setFont(font);
     painter.setPen(QColor(144, 255, 112));
 
-    // TODO: Refactor:
-    qreal m_front_depth = 10.0f;
-    qreal m_side_depth = 10.0f;
-
     //painter.fillRect(front_rect, Qt::blue);
     //painter.fillRect(side_rect, Qt::blue);
     painter.drawText(front_rect, Qt::AlignCenter, QString::number(m_front_depth, 'f', 1));
@@ -202,9 +198,6 @@ void RuntimeWidgetE::paintEvent(QPaintEvent*)
     font.setPixelSize(40 * m_scale);
     painter.setFont(font);
     painter.setPen(QColor(144, 255, 112));
-
-    // TODO: Refactor
-    qreal m_avg_depth = 10.0f;
 
     painter.drawText(label_rect, Qt::AlignCenter, "Avg depth below sensor " + QString::number(m_avg_depth, 'f', 1));
 }
