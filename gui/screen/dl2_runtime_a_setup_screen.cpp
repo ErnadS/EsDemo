@@ -18,7 +18,7 @@ Dl2RuntimeASetupScreen::Dl2RuntimeASetupScreen(QWidget* parent) : BaseRuntimeSet
 
         if (i == 1)
         {
-            m_selectable_item_widget_container->addWidget(key, new SelectableEnumItemWidget(m_selectable_item_widget_container, item_size, key, value_list, {"SOG"}));
+            m_selectable_item_widget_container->addWidget(key, new SelectableEnumItemWidget(m_selectable_item_widget_container, item_size, key, {"SOG"}, ""));
         }
         else
         {

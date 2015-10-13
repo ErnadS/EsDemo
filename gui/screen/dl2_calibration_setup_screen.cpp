@@ -34,11 +34,11 @@ Dl2CalibrationSetupScreen::Dl2CalibrationSetupScreen(QWidget* parent) :
     m_layout->addWidget(new Dl2CalibrationTiltSetupScreen(this));
 
     m_item_container = new HorizontalItemWidgetContainer(this, m_item_container_size, m_item_size, m_item_sep);
-    m_item_container->addWidget(new HorizontalItemWidget(m_item_container, m_item_size, "Pg A"));
-    m_item_container->addWidget(new HorizontalItemWidget(m_item_container, m_item_size, "Pg B"));
-    m_item_container->addWidget(new HorizontalItemWidget(m_item_container, m_item_size, "Pg C"));
-    m_item_container->addWidget(new HorizontalItemWidget(m_item_container, m_item_size, "Pg D"));
-    m_item_container->addWidget(new HorizontalItemWidget(m_item_container, m_item_size, "Pg E"));
+    m_item_container->addWidget(new HorizontalItemWidget(m_item_container, m_item_size, "Status"));
+    m_item_container->addWidget(new HorizontalItemWidget(m_item_container, m_item_size, "INST Angle"));
+    m_item_container->addWidget(new HorizontalItemWidget(m_item_container, m_item_size, "Speed"));
+    m_item_container->addWidget(new HorizontalItemWidget(m_item_container, m_item_size, "Tilt"));
+    m_item_container->addWidget(new HorizontalItemWidget(m_item_container, m_item_size, "TEMP"));
     m_item_container->setActive(0);
 
     connect(m_item_container, SIGNAL(clicked(int)), this, SLOT(menuClicked(int)));

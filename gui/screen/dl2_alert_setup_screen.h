@@ -9,6 +9,9 @@ class Dl2AlertSetupScreen: public SetupScreen
 
 public:
     explicit Dl2AlertSetupScreen(QWidget* parent);
+
+protected:
+    void paintEvent(QPaintEvent*);
 };
 
 #endif

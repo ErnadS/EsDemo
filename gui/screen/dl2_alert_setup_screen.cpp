@@ -20,3 +20,54 @@ Dl2AlertSetupScreen::Dl2AlertSetupScreen(QWidget* parent) :
 
     setupLayout();
 }
+
+void Dl2AlertSetupScreen::paintEvent(QPaintEvent*)
+{
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing, true);
+
+    QFont font = painter.font();
+    font.setPixelSize(18 * m_scale);
+    painter.setFont(font);
+    painter.setPen(QPen(Qt::yellow));
+
+    int item_size = 9;
+    int vertical_space = height() / 13.5f;
+    for (int i = 0; i < item_size; i++)
+    {
+        QString value;
+
+        switch (i)
+        {
+            case 0:
+                value = "ALERT HIGH: hrkljus";
+                break;
+
+            case 1:
+                value = "ALERT LOW: hrkljus";
+                break;
+
+            case 2:
+                value = "System Alert ID: hrkljus";
+                break;
+
+            case 5:
+                value = "STW high ID: hrkljus";
+                break;
+
+            case 6:
+                value = "STW low ID: hrkljus";
+                break;
+
+            case 7:
+                value = "SOG high ID: hrkljus";
+                break;
+
+            case 8:
+                value = "SOG low ID: hrkljus";
+                break;
+        }
+
+        painter.drawText(QRect(0, height() / 7.0f + i * vertical_space, width() - m_selectable_item_widget_container->size().width(), height()), Qt::AlignHCenter, value);
+    }
+}
