@@ -35,10 +35,10 @@ Dl2CalibrationSetupScreen::Dl2CalibrationSetupScreen(QWidget* parent) :
 
     m_item_container = new HorizontalItemWidgetContainer(this, m_item_container_size, m_item_size, m_item_sep);
     m_item_container->addWidget(new HorizontalItemWidget(m_item_container, m_item_size, "Status"));
-    m_item_container->addWidget(new HorizontalItemWidget(m_item_container, m_item_size, "INST Angle"));
+    m_item_container->addWidget(new HorizontalItemWidget(m_item_container, m_item_size, "Inst Angle"));
     m_item_container->addWidget(new HorizontalItemWidget(m_item_container, m_item_size, "Speed"));
     m_item_container->addWidget(new HorizontalItemWidget(m_item_container, m_item_size, "Tilt"));
-    m_item_container->addWidget(new HorizontalItemWidget(m_item_container, m_item_size, "TEMP"));
+    m_item_container->addWidget(new HorizontalItemWidget(m_item_container, m_item_size, "Temp"));
     m_item_container->setActive(0);
 
     connect(m_item_container, SIGNAL(clicked(int)), this, SLOT(menuClicked(int)));
