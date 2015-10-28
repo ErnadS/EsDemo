@@ -19,7 +19,14 @@ void RuntimeWidgetE::addMeasurement(qreal front_depth, qreal side_depth)
     measurement.front_depth = front_depth;
     measurement.side_depth = side_depth;
 
-    m_buffer.append(measurement);
+    //Izmijenjeno
+
+    if (m_sog > 0.2){
+        m_buffer.append(measurement);
+    }
+    else {
+        m_buffer.prepend(measurement);
+    }
 }
 
 int RuntimeWidgetE::vesselIndex()

@@ -82,9 +82,16 @@ qreal arg(qreal y, qreal x)
 void ScalableWidget::simulate()
 {
     t += 0.0075;
+    //izmjena:
+    if (t<0.2 || t>0.5) {
+        m_sog_long = 12.f*qSin(t)+1.f;
+        m_sog_tra = 8.f*qSin(t)+1.f;
+    }
+    else {
+        m_sog_long = 0.2f*qSin(t);
+        m_sog_tra = 0.0f;
+    }
 
-    m_sog_long = 12.0f * qSin(t) + 1.0f;
-    m_sog_tra = 8.0f * qSin(t) + 1.0f;
     m_sog = abs(m_sog_long, m_sog_tra);
     m_sog_angle = arg(m_sog_long, m_sog_tra);
     m_sog_tra_aft = m_sog_tra - 0.5f;
@@ -101,8 +108,14 @@ void ScalableWidget::simulate()
 
     m_stw_dl1 = 11.0f * qSin(t);
 
-    m_side_depth = 75.f * (1.0f + qSin(2.0f * t));
-    m_front_depth = 65.f * (1.0f + qSin(2.0f * t));
+    //Izmjena:
+    //m_side_depth = 75.f * (1.0f + qSin(2.0f * t));
+    //m_front_depth = 65.f * (1.0f + qSin(2.0f * t));
+    if (t<0.2 || t>0.5) {
+        m_side_depth = 75.0f * (1.0f + qSin(t));
+        m_front_depth = 65.0f * (1.0f + qSin(t));
+    }
+
     m_avg_depth = 0.5f * (m_side_depth + m_front_depth);
     RuntimeWidgetE::addMeasurement(m_front_depth, m_side_depth);
 

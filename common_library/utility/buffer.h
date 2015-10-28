@@ -16,6 +16,10 @@ public:
 
     virtual void append(const T& value) = 0;
 
+    //Dodano{
+    virtual void prepend(const T& value) = 0;
+    //}
+
     int count()
     {
         return m_count;
@@ -64,7 +68,22 @@ public:
         Buffer<T>::m_buffer.insert(Buffer<T>::m_buffer.begin(), value);
         Buffer<T>::m_count++;
     }
+
+    //Dodano{
+    void prepend(const T &value)
+    {
+        if (Buffer<T>::m_count)
+        {
+            Buffer<T>::m_buffer.removeFirst();
+            Buffer<T>::m_count--;
+        }
+
+        Buffer<T>::m_buffer.insert(Buffer<T>::m_buffer.begin(), value);
+        Buffer<T>::m_count++;
+    }
+    //}
 };
+
 
 template <typename T>
 class FifoBuffer: public Buffer<T>
@@ -83,6 +102,19 @@ public:
         Buffer<T>::m_buffer.append(value);
         Buffer<T>::m_count++;
     }
+
+    //Dodano{
+    void prepend(const T &value)
+    {
+        if (Buffer<T>::m_count){
+            Buffer<T>::m_buffer.removeLast();
+            Buffer<T>::m_count--;
+        }
+
+        Buffer<T>::m_buffer.append(value);
+        Buffer<T>::m_count++;
+    }
+    //}
 };
 
 #endif
