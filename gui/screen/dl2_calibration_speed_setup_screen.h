@@ -9,6 +9,12 @@ class Dl2CalibrationSpeedSetupScreen : public SetupScreen
 
 public:
     explicit Dl2CalibrationSpeedSetupScreen(QWidget* parent);
+
+signals:
+    void backButtonClicked();
+
+protected slots:
+    void buttonClicked();
 };
 
 #endif
