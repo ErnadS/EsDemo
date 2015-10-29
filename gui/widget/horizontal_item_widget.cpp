@@ -18,7 +18,7 @@ void HorizontalItemWidget::paintEvent(QPaintEvent*)
     QPainter painter(this);
 
     QFont font;
-    font.setPixelSize(25 * m_scale);
+    font.setPixelSize(22 * m_scale);
     painter.setFont(font);
     QPen pen(Qt::black);
     painter.setPen(pen);

@@ -37,6 +37,9 @@ SOURCES += gui\widget\runtime_widget_es.cpp \
            gui\widget\arrow_widget.cpp \
            gui\widget\horizontal_item_widget.cpp \
            gui\widget\horizontal_item_widget_container.cpp \
+           gui\widget\up_down_widget.cpp \
+           gui\widget\leg_button.cpp \
+           gui\widget\calibration_graph_widget.cpp \
            gui\screen\base_screen.cpp \
            gui\screen\runtime_screen.cpp \
            gui\screen\setup_menu_screen.cpp \
@@ -54,6 +57,10 @@ SOURCES += gui\widget\runtime_widget_es.cpp \
            gui\screen\dl2_calibration_status_setup_screen.cpp \
            gui\screen\dl2_calibration_inst_angle_setup_screen.cpp \
            gui\screen\dl2_calibration_speed_setup_screen.cpp \
+           gui\screen\dl2_calibration_speed_manual_gps_setup_screen.cpp \
+           gui\screen\dl2_calibration_speed_manual_setup_screen.cpp \
+           gui\screen\dl2_calibration_speed_sea_setup_screen.cpp \
+           gui\screen\dl2_calibration_speed_auto_setup_screen.cpp \
            gui\screen\dl2_calibration_tilt_setup_screen.cpp \
            gui\screen\dl2_calibration_temp_setup_screen.cpp \
            gui\screen\dl2_calibration_setup_screen.cpp \
@@ -127,6 +134,9 @@ HEADERS  += gui\widget\runtime_widget_es.h \
             gui\widget\arrow_widget.h \
             gui\widget\horizontal_item_widget.h \
             gui\widget\horizontal_item_widget_container.h \
+            gui\widget\up_down_widget.h \
+            gui\widget\leg_button.h \
+            gui\widget\calibration_graph_widget.h \
             gui\screen\runtime_screen.h \
             gui\screen\setup_menu_screen.h \
             gui\screen\boat_menu_screen.h \
@@ -143,6 +153,10 @@ HEADERS  += gui\widget\runtime_widget_es.h \
             gui\screen\dl2_calibration_status_setup_screen.h \
             gui\screen\dl2_calibration_inst_angle_setup_screen.h \
             gui\screen\dl2_calibration_speed_setup_screen.h \
+            gui\screen\dl2_calibration_speed_manual_gps_setup_screen.h \
+            gui\screen\dl2_calibration_speed_manual_setup_screen.h \
+            gui\screen\dl2_calibration_speed_sea_setup_screen.h \
+            gui\screen\dl2_calibration_speed_auto_setup_screen.h \
             gui\screen\dl2_calibration_tilt_setup_screen.h \
             gui\screen\dl2_calibration_temp_setup_screen.h \
             gui\screen\dl2_calibration_setup_screen.h \

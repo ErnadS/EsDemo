@@ -4,3 +4,8 @@ Dl2CalibrationSpeedSetupScreen::Dl2CalibrationSpeedSetupScreen(QWidget* parent) 
 {
 
 }
+
+void Dl2CalibrationSpeedSetupScreen::buttonClicked()
+{
+    emit backButtonClicked();
+}

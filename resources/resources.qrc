@@ -11,7 +11,14 @@
 		<file>compass_image.png</file>
 		<file>no_compass.png</file>
 		<file>compass_vessel_image.png</file>
+		<file>arrow.png</file>
+        <file>delArrow.png</file>
 		<file>led_on.png</file>
 		<file>led_off.png</file>
+		<file>angleScale_93_20.png</file>
+		<file>pitch.png</file>
+		<file>roll.png</file>
+		<file>roll_57_98.png</file>
+		<file>vessel_3_yellow.png</file>
     </qresource>
 </RCC>

@@ -10,6 +10,8 @@ RuntimeWidgetE::RuntimeWidgetE(QWidget* parent, QSize base_size, bool is_multi) 
     {
         setAttribute(Qt::WA_TransparentForMouseEvents);
     }
+
+    m_vessel_index = 1;
 }
 
 void RuntimeWidgetE::addMeasurement(qreal time, qreal speed, qreal front_depth, qreal side_depth)
