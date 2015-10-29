@@ -1,7 +1,8 @@
 #include "runtime_widget_e.h"
 
-LifoBuffer<DepthMeasurement> RuntimeWidgetE::m_buffer{600};
+LifoBuffer<DepthMeasurement> RuntimeWidgetE::m_buffer{300};
 int RuntimeWidgetE::m_vessel_index{1};
+qreal RuntimeWidgetE::len{0.2f};
 
 RuntimeWidgetE::RuntimeWidgetE(QWidget* parent, QSize base_size, bool is_multi) : RuntimeWidget(parent, base_size), m_is_multi(is_multi)
 {
@@ -11,22 +12,16 @@ RuntimeWidgetE::RuntimeWidgetE(QWidget* parent, QSize base_size, bool is_multi) 
     }
 }
 
-void RuntimeWidgetE::addMeasurement(qreal front_depth, qreal side_depth)
+void RuntimeWidgetE::addMeasurement(qreal time, qreal speed, qreal front_depth, qreal side_depth)
 {
     DepthMeasurement measurement;
-    measurement.time = 1000;
-    measurement.speed = 2.5f;
+    measurement.time = time;
+    measurement.speed = speed;
     measurement.front_depth = front_depth;
     measurement.side_depth = side_depth;
 
-    //Izmijenjeno
+    m_buffer.append(measurement);
 
-    if (m_sog > 0.2){
-        m_buffer.append(measurement);
-    }
-    else {
-        m_buffer.prepend(measurement);
-    }
 }
 
 int RuntimeWidgetE::vesselIndex()
@@ -144,20 +139,38 @@ void RuntimeWidgetE::paintEvent(QPaintEvent*)
 
     qreal start_index = 210.0f;
     qreal tan = 0.57735f;
-    qreal sum = 0.0f;
+    //qreal len=0.2f;  //ukupna širina grafika u miljama
+    qreal speed = m_buffer.begin()->speed;   //brzina u kn
+    qreal time_diff = (m_buffer.begin()->time - ((m_buffer.begin())++)->time)/3600; //razlika u vremenu izmedju dva najnovija mjerenja u h
+    qreal sum = speed*time_diff*m_pixmap_dimension/len; //odgovarajuci pomak na grafiku
 
     QColor front_depth_color = Qt::red;
     QColor side_depth_color = Qt::cyan;
 
+    qreal dist = 0.0f;
     qreal prev_time = 0.0f;
+    qreal prev_speed = 0.0f;
+    int prev_f_i=0;
+    int prev_s_i=0;
+    int prev_y_f=0;
+    int prev_y_s=0;
 
     for (auto it = m_buffer.begin(); it != m_buffer.end(); it++)
     {
         qreal front_depth = it->front_depth;
         qreal side_depth = it->side_depth;
 
-        int front_index = start_index + tan * front_depth - sum;
-        int side_index = start_index - sum;
+
+        //dodano:
+        if (it != m_buffer.begin())
+        {
+            dist += ((it->speed + prev_speed)/2.0f * (prev_time - it->time)/3600)*m_pixmap_dimension/len; //pomak u odnosu na noviju tacku
+
+        }
+
+        int front_index = start_index + tan * front_depth - sum - dist;
+        int side_index = start_index - sum - dist;
+
 
         // The relationship between units is linear and therefore
         // the height can be calculated in whichever unit without
@@ -170,6 +183,12 @@ void RuntimeWidgetE::paintEvent(QPaintEvent*)
             p.setPen(front_depth_color);
             p.setBrush(front_depth_color);
             p.drawEllipse(QPoint(front_index, y_average), 2, 2);
+
+            if (it != m_buffer.begin()) {
+                p.drawLine(QPoint(front_index, y_average), QPoint(prev_f_i, prev_y_f));
+            }
+            prev_y_f=y_average;
+
         }
         else
         {
@@ -183,13 +202,27 @@ void RuntimeWidgetE::paintEvent(QPaintEvent*)
             p.setPen(side_depth_color);
             p.setBrush(side_depth_color);
             p.drawEllipse(QPoint(side_index, y_average), 2, 2);
+
+            if (it != m_buffer.begin()) {
+                p.drawLine(QPoint(side_index, y_average), QPoint(prev_s_i, prev_y_s));
+            }
+            prev_y_s=y_average;
         }
 
+        prev_speed = it->speed;
+        prev_time = it->time;
+
+        prev_f_i=front_index;
+        prev_s_i=side_index;
+
         // Integrating
-        qint64 time_diff_ms = it->time - prev_time;
-        float speed = 0.514f * it->speed;
-        qreal time_diff = time_diff_ms / 1000.0f;
-        sum += speed * time_diff;
+        //qint64 time_diff_ms = it->time - prev_time;
+        //float speed = 0.514f * it->speed;
+        //qreal time_diff = time_diff_ms / 1000.0f;
+        //sum += speed * time_diff;
+
+
+
     }
 
     painter.fillRect(QRect(-1, -1, m_pixmap_dimension * m_width_scale + 2, m_pixmap_dimension * m_height_scale + 2), Qt::gray);
