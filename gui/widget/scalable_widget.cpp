@@ -81,15 +81,14 @@ qreal arg(qreal y, qreal x)
 
 void ScalableWidget::simulate()
 {
-    t += 1; //izmjena: bilo 0.0075
-    //izmjena:
-    if (t<10) {
-        m_sog_long = 20.f;
+    t += 1;
+    if (t<11) {
+        m_sog_long = 30.f;
         m_sog_tra = 0.f;
     }
-    if (t>10 && t<20) m_sog_long = 2.f;
-    if (t>20 && t<30) m_sog_long = 20.f;
-    if (t>30 && t<40) m_sog_long = 0.f;
+    if (t>10 && t<21) m_sog_long = 10.0f;
+    if (t>20 && t<31) m_sog_long = 2.0f;
+    if (t>30 && t<41) m_sog_long = 0.5f;
     if (t>40) m_sog_long = 30.f;
 
     m_sog = abs(m_sog_long, m_sog_tra);
@@ -108,24 +107,16 @@ void ScalableWidget::simulate()
 
     m_stw_dl1 = 11.0f * qSin(t);
 
-    //Izmjena:
-    //m_side_depth = 75.f * (1.0f + qSin(2.0f * t));
-    //m_front_depth = 65.f * (1.0f + qSin(2.0f * t));
-
-
-
     m_avg_depth = 0.5f * (m_side_depth + m_front_depth);
-
 
     m_water_temp = 10.0f * (1.0f + qSin(t));
 
-    qreal delta_d = m_sog*t/3600.0f; //izmjena: bilo m_sog/3600
+    qreal delta_d = m_sog*t/3600.0f;
     m_trip += delta_d;
     m_total += delta_d;
 
-    //dodano
-    m_side_depth = 75.0f * (1.0f + qSin(m_trip/10));
-    m_front_depth = 65.0f * (1.0f + qSin(m_trip/10));
+    m_side_depth = 75.0f * (1.0f + qSin(m_trip/5));
+    m_front_depth = 65.0f * (1.0f + qSin(m_trip/5));
 
     RuntimeWidgetE::addMeasurement(t, m_sog, m_front_depth, m_side_depth);
 

@@ -1,8 +1,9 @@
 #include "runtime_widget_e.h"
 
-LifoBuffer<DepthMeasurement> RuntimeWidgetE::m_buffer{300};
+LifoBuffer<DepthMeasurement> RuntimeWidgetE::m_buffer{100};
 int RuntimeWidgetE::m_vessel_index{1};
-qreal RuntimeWidgetE::len{0.2f};
+qreal RuntimeWidgetE::area_width{0.4f};
+int RuntimeWidgetE::m_pixmap_dimension{300};
 
 RuntimeWidgetE::RuntimeWidgetE(QWidget* parent, QSize base_size, bool is_multi) : RuntimeWidget(parent, base_size), m_is_multi(is_multi)
 {
@@ -21,9 +22,41 @@ void RuntimeWidgetE::addMeasurement(qreal time, qreal speed, qreal front_depth, 
     measurement.speed = speed;
     measurement.front_depth = front_depth;
     measurement.side_depth = side_depth;
+    if (m_buffer.count())
+    {
+        measurement.dist_from_prev = speed * (time - m_buffer.begin()->time) / 3600.0f;
+    }
+    else
+    {
+        measurement.dist_from_prev = 0.0f;
+    }
 
-    m_buffer.append(measurement);
+    qreal d, d1, d2;
+    int no_of_pixels = 8;
 
+    //if measurement is not at least (no_of_pixels) pixels away from second newest measurement in the buffer,
+    //it replaces the newest measurement in the buffer
+
+    if (m_buffer.count() > 1)
+    {
+        d1 = measurement.dist_from_prev * m_pixmap_dimension / area_width;
+        d2 = m_buffer.begin()->dist_from_prev * m_pixmap_dimension / area_width;
+        d = d1 + d2;
+
+        if (d < no_of_pixels)
+        {
+            measurement.dist_from_prev = d * area_width / m_pixmap_dimension;
+            m_buffer.prepend(measurement); //replaces the newest measurement in the buffer
+        }
+        else
+        {
+            m_buffer.append(measurement); //replaces the oldest measurement in the buffer if the buffer is full
+        }
+    }
+    else
+    {
+        m_buffer.append(measurement);
+    }
 }
 
 int RuntimeWidgetE::vesselIndex()
@@ -130,7 +163,6 @@ void RuntimeWidgetE::paintEvent(QPaintEvent*)
     painter.translate(0.05 * width(), 0.18125 * height());
     painter.drawImage(QPoint(vessel_pos - vessel_image.width(), -vessel_image.height()), vessel_image);
 
-    int m_pixmap_dimension = 300;
     qreal m_max_depth = 150.0f;
 
     QImage image(m_pixmap_dimension, m_pixmap_dimension, QImage::Format_RGB32);
@@ -141,38 +173,25 @@ void RuntimeWidgetE::paintEvent(QPaintEvent*)
 
     qreal start_index = 210.0f;
     qreal tan = 0.57735f;
-    //qreal len=0.2f;  //ukupna širina grafika u miljama
-    qreal speed = m_buffer.begin()->speed;   //brzina u kn
-    qreal time_diff = (m_buffer.begin()->time - ((m_buffer.begin())++)->time)/3600; //razlika u vremenu izmedju dva najnovija mjerenja u h
-    qreal sum = speed*time_diff*m_pixmap_dimension/len; //odgovarajuci pomak na grafiku
 
     QColor front_depth_color = Qt::red;
     QColor side_depth_color = Qt::cyan;
 
     qreal dist = 0.0f;
-    qreal prev_time = 0.0f;
-    qreal prev_speed = 0.0f;
-    int prev_f_i=0;
-    int prev_s_i=0;
-    int prev_y_f=0;
-    int prev_y_s=0;
+    int prev_f_i = 0;
+    int prev_s_i = 0;
+    int prev_y_f = 0;
+    int prev_y_s = 0;
 
     for (auto it = m_buffer.begin(); it != m_buffer.end(); it++)
     {
         qreal front_depth = it->front_depth;
         qreal side_depth = it->side_depth;
 
+        int front_index = start_index + tan * front_depth - dist;
+        int side_index = start_index - dist;
 
-        //dodano:
-        if (it != m_buffer.begin())
-        {
-            dist += ((it->speed + prev_speed)/2.0f * (prev_time - it->time)/3600)*m_pixmap_dimension/len; //pomak u odnosu na noviju tacku
-
-        }
-
-        int front_index = start_index + tan * front_depth - sum - dist;
-        int side_index = start_index - sum - dist;
-
+        dist += it->dist_from_prev * m_pixmap_dimension / area_width;
 
         // The relationship between units is linear and therefore
         // the height can be calculated in whichever unit without
@@ -186,7 +205,8 @@ void RuntimeWidgetE::paintEvent(QPaintEvent*)
             p.setBrush(front_depth_color);
             p.drawEllipse(QPoint(front_index, y_average), 2, 2);
 
-            if (it != m_buffer.begin()) {
+            if (it != m_buffer.begin())
+            {
                 p.drawLine(QPoint(front_index, y_average), QPoint(prev_f_i, prev_y_f));
             }
             prev_y_f=y_average;
@@ -205,26 +225,15 @@ void RuntimeWidgetE::paintEvent(QPaintEvent*)
             p.setBrush(side_depth_color);
             p.drawEllipse(QPoint(side_index, y_average), 2, 2);
 
-            if (it != m_buffer.begin()) {
+            if (it != m_buffer.begin())
+            {
                 p.drawLine(QPoint(side_index, y_average), QPoint(prev_s_i, prev_y_s));
             }
             prev_y_s=y_average;
         }
 
-        prev_speed = it->speed;
-        prev_time = it->time;
-
         prev_f_i=front_index;
         prev_s_i=side_index;
-
-        // Integrating
-        //qint64 time_diff_ms = it->time - prev_time;
-        //float speed = 0.514f * it->speed;
-        //qreal time_diff = time_diff_ms / 1000.0f;
-        //sum += speed * time_diff;
-
-
-
     }
 
     painter.fillRect(QRect(-1, -1, m_pixmap_dimension * m_width_scale + 2, m_pixmap_dimension * m_height_scale + 2), Qt::gray);

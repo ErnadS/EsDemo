@@ -6,10 +6,11 @@
 
 struct DepthMeasurement
 {
-    qreal time; //izmjena: bilo qint64
+    qreal time;
     qreal speed;
     qreal front_depth;
     qreal side_depth;
+    qreal dist_from_prev; //distance the ship covered since previous measurement
 };
 
 class RuntimeWidgetE : public RuntimeWidget
@@ -17,7 +18,8 @@ class RuntimeWidgetE : public RuntimeWidget
     bool m_is_multi{false};
     static int m_vessel_index;
     static LifoBuffer<DepthMeasurement> m_buffer;
-    static qreal len; // sirina prikazanog grafika u nautickim miljama
+    static qreal area_width; //width of area shown in graph in nautical miles
+    static int m_pixmap_dimension;
 
 public:
     RuntimeWidgetE(QWidget* parent, QSize base_size, bool is_multi);

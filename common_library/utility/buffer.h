@@ -16,9 +16,7 @@ public:
 
     virtual void append(const T& value) = 0;
 
-    //Dodano{
     virtual void prepend(const T& value) = 0;
-    //}
 
     int count()
     {
@@ -69,7 +67,6 @@ public:
         Buffer<T>::m_count++;
     }
 
-    //Dodano{
     void prepend(const T &value)
     {
         if (Buffer<T>::m_count)
@@ -81,7 +78,6 @@ public:
         Buffer<T>::m_buffer.insert(Buffer<T>::m_buffer.begin(), value);
         Buffer<T>::m_count++;
     }
-    //}
 };
 
 
@@ -103,7 +99,6 @@ public:
         Buffer<T>::m_count++;
     }
 
-    //Dodano{
     void prepend(const T &value)
     {
         if (Buffer<T>::m_count){
@@ -114,7 +109,6 @@ public:
         Buffer<T>::m_buffer.append(value);
         Buffer<T>::m_count++;
     }
-    //}
 };
 
 #endif
