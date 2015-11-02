@@ -67,6 +67,8 @@ SOURCES += gui\widget\runtime_widget_es.cpp \
            gui\screen\dl2_alert_setup_screen.cpp \
            gui\screen\dl2_diagnostic_setup_screen.cpp \
            gui\screen\dl2_setup_screen.cpp \
+           gui\screen\dl2_setup_setup_screen.cpp \
+           gui\screen\dl2_setup_options_screen.cpp \
            gui\screen\dl2_communication_setup_screen.cpp \
            gui\screen\dl2_aux_setup_screen.cpp \
            gui\screen\dl2_jb70_setup_screen.cpp \
@@ -163,6 +165,8 @@ HEADERS  += gui\widget\runtime_widget_es.h \
             gui\screen\dl2_alert_setup_screen.h \
             gui\screen\dl2_diagnostic_setup_screen.h \
             gui\screen\dl2_setup_screen.h \
+            gui\screen\dl2_setup_setup_screen.h \
+            gui\screen\dl2_setup_options_screen.h \
             gui\screen\dl2_communication_setup_screen.h \
             gui\screen\dl2_aux_setup_screen.h \
             gui\screen\dl2_jb70_setup_screen.h \
