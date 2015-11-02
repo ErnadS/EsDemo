@@ -1,12 +1,14 @@
-#include "dl2_setup_screen.h"
+#include "dl2_setup_setup_screen.h"
 
 #include "gui/widget/selectable_float_item_widget.h"
 #include "gui/widget/selectable_enum_item_widget.h"
 #include "gui/widget/selectable_bool_item_widget.h"
 
-Dl2SetupScreen::Dl2SetupScreen(QWidget* parent) :
+Dl2SetupSetupScreen::Dl2SetupSetupScreen(QWidget* parent) :
     SetupScreen(parent)
 {
+    titleWidget()->setTitle("DL2 Speed Log");
+
     QSize item_size = m_selectable_item_widget_container->getItemBaseSize();
 
     m_selectable_item_widget_container->addWidget("Draft", new SelectableFloatItemWidget(m_selectable_item_widget_container, item_size, "Draft", "m", new FloatValidator(0, 30.0f)));
