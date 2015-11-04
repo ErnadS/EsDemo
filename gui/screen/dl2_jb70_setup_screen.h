@@ -7,8 +7,13 @@ class Dl2Jb70SetupScreen : public SetupScreen
 {
     Q_OBJECT
 
+    bool isInValidIpRange(const QString& ip) const;
+
 public:
     explicit Dl2Jb70SetupScreen(QWidget* parent);
+
+protected:
+    void paintEvent(QPaintEvent*);
 };
 
 #endif
