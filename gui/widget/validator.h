@@ -20,6 +20,7 @@ class RegexValidator : public Validator
 
 public:
     RegexValidator(const QString& regex, const QString& validation_message);
+    bool validate(const QString& regex) const;
 };
 
 class IntValidator : public Validator

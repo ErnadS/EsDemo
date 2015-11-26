@@ -24,3 +24,8 @@ QString SelectableStringItemWidget::getValueString() const
 {
     return m_value;
 }
+
+void SelectableStringItemWidget::mouseReleaseEvent(QMouseEvent *)
+{
+    emit changeValue(m_title, "Alphabetical");
+}
