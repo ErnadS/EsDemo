@@ -7,8 +7,13 @@ class EsJb70SetupScreen : public SetupScreen
 {
     Q_OBJECT
 
+    bool isInValidIpRange(const QString& ip) const;
+
 public:
     explicit EsJb70SetupScreen(QWidget* parent);
+
+protected:
+    void paintEvent(QPaintEvent*);
 };
 
 #endif
