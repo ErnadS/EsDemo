@@ -31,6 +31,17 @@ RegexValidator::RegexValidator(const QString& regex, const QString& validation_m
 {
 
 }
+bool RegexValidator::validate(const QString& regex) const
+{
+    QRegExp validation(m_regex);
+    if(!validation.exactMatch(regex))
+            {
+                displayError(m_validation_message);
+                return false;
+            }
+    else return true;
+
+}
 
 IntValidator::IntValidator(int min, int max, const QString& validation_message) : Validator(validation_message), m_min(min), m_max(max)
 {
