@@ -20,6 +20,7 @@ public:
 
 protected:
     QString getValueString() const;
+    void mouseReleaseEvent(QMouseEvent*);
 };
 
 #endif

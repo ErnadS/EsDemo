@@ -47,6 +47,7 @@ class IpValidator : public Validator
 {
 public:
     IpValidator(const QString& validation_message);
+    bool validate(const QString& value) const;
 };
 
 #endif

@@ -4,9 +4,21 @@
 #include "gui/widget/selectable_string_item_widget.h"
 #include "gui/widget/selectable_enum_item_widget.h"
 
-bool EsJb70SetupScreen::isInValidIpRange(const QString& ) const
+bool EsJb70SetupScreen::isInValidIpRange(const QString& ip) const
 {
-    return true;
+    if (ip.split(".").size() != 4)
+        return false;
+
+    int ip_byte_3 = (ip.split(".")[0]).toInt();
+    int ip_byte_2 = (ip.split(".")[1]).toInt();
+    int ip_byte_0 = (ip.split(".")[3]).toInt();
+
+    if ((ip_byte_3 == 172) && (ip_byte_2 >= 16) && (ip_byte_2 <= 31) && (ip_byte_0 >= 1) && (ip_byte_0 <= 254))
+    {
+        return true;
+    }
+
+    return false;
 }
 
 EsJb70SetupScreen::EsJb70SetupScreen(QWidget* parent) :
@@ -14,10 +26,13 @@ EsJb70SetupScreen::EsJb70SetupScreen(QWidget* parent) :
 {
     QSize item_size = m_selectable_item_widget_container->getItemBaseSize();
 
-    m_selectable_item_widget_container->addWidget("IP ADDRESS", new SelectableIpItemWidget(m_selectable_item_widget_container, item_size, "IP ADDRESS"));
-    m_selectable_item_widget_container->addWidget("LOCAL SFI", new SelectableStringItemWidget(m_selectable_item_widget_container, item_size, "LOCAL SFI"));
+    const QString Local_SFI_Valid ("^VD\\d{1,4}$");
+    const QString Alarm_SFI_Valid ("^[A-Z]{2}\\d{1,4}$");
+    const QString nonvalid ("SFI NOT VALID!");
+    m_selectable_item_widget_container->addWidget("IP ADDRESS", new SelectableIpItemWidget(m_selectable_item_widget_container, item_size, "IP ADDRESS", new IpValidator("IP Not Valid!")));
+    m_selectable_item_widget_container->addWidget("LOCAL SFI", new SelectableStringItemWidget(m_selectable_item_widget_container, item_size, "LOCAL SFI",new RegexValidator(Local_SFI_Valid,nonvalid)));
     m_selectable_item_widget_container->addWidget("GROUP", new SelectableEnumItemWidget(m_selectable_item_widget_container, item_size, "GROUP", {"NAVD"}));
-    m_selectable_item_widget_container->addWidget("Alarm SFI", new SelectableStringItemWidget(m_selectable_item_widget_container, item_size, "Alarm SFI"));
+    m_selectable_item_widget_container->addWidget("Alarm SFI", new SelectableStringItemWidget(m_selectable_item_widget_container, item_size, "Alarm SFI", new RegexValidator(Alarm_SFI_Valid,nonvalid)));
     m_selectable_item_widget_container->addWidget("System Name", new SelectableStringItemWidget(m_selectable_item_widget_container, item_size, "System Name"));
     m_selectable_item_widget_container->addWidget("Printer", new SelectableEnumItemWidget(m_selectable_item_widget_container, item_size, "Printer", {"EPSON LQ450", "Via Service Software"}));
 
@@ -93,7 +108,7 @@ void EsJb70SetupScreen::paintEvent(QPaintEvent *)
         {
             QPen pen = painter.pen();
 
-            if (isInValidIpRange("127.0.0.1") == false)
+            if (isInValidIpRange("172.20.211.200") == false)
             {
                 pen.setColor("orange");
             }

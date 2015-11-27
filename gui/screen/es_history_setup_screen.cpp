@@ -2,7 +2,7 @@
 #include "gui/widget/selectable_enum_item_widget.h"
 #include "gui/widget/selectable_bool_item_widget.h"
 #include "gui/widget/selectable_string_item_widget.h"
-//#include "gui/widget/selectable_date_time_item_widget.h"
+
 
 EsHistorySetupScreen::EsHistorySetupScreen(QWidget* parent) :
     SetupScreen(parent)
@@ -11,7 +11,7 @@ EsHistorySetupScreen::EsHistorySetupScreen(QWidget* parent) :
 
 
     // TO DO - recalculate - long term log hours, raw data hours, Log Period
-    // TO DO -
+    // TO DO - LABEL FOR INSTALLED PRINTER
     const QString valid("\\b(0?[1-9]|[12][0-9]|3[01])[- /.](0?[1-9]|1[012])[- /.](19|20)?[0-9]{2}\\b");
     const QString nonvalid("Date Not Valid");
     m_selectable_item_widget_container->addWidget("Mode ", new SelectableEnumItemWidget(m_selectable_item_widget_container, item_size, "Mode", {"Loop", "Stop"}));

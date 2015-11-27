@@ -11,11 +11,12 @@ class SetupScreen : public BaseScreen
 
     QSize m_selectable_item_size{320, 65};
     QSize m_selectable_item_widget_container_size{355, 455};
-    QSize m_keyboard_size{444, 262};
+
     QPoint m_selectable_item_widget_container_pos{445, 24};
-    QPoint m_keyboard_pos{0, 208};
 
 protected:
+    QSize m_keyboard_size{444, 262};
+    QPoint m_keyboard_pos{0, 208};
     SelectableItemWidgetContainer* m_selectable_item_widget_container;
     QVirtualKeyboard* m_keyboard;
 

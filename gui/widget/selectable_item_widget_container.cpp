@@ -70,6 +70,7 @@ void SelectableItemWidgetContainer::addWidget(QString key, SelectableItemWidget*
     setupLayout();
 }
 
+
 SelectableItemWidget* SelectableItemWidgetContainer::getWidget(const QString &key) const
 {
     if (m_item_map.contains(key) == false)
@@ -77,6 +78,11 @@ SelectableItemWidget* SelectableItemWidgetContainer::getWidget(const QString &ke
 
     int index = m_item_map[key];
     return m_item_widget_vector[index];
+}
+
+int SelectableItemWidgetContainer::getItemVectorSize() const
+{
+    return m_item_widget_vector.size();
 }
 
 QSize SelectableItemWidgetContainer::getItemBaseSize() const
@@ -131,6 +137,7 @@ void SelectableItemWidgetContainer::changeValue(QString key, QString layout)
     m_keyboard->setLayout(layout);
     m_keyboard->slotSetText(m_buffer + m_unit);
     m_keyboard->show();
+    m_keyboard->raise();
 }
 
 void SelectableItemWidgetContainer::keyPressed(QKeyEvent* event)

@@ -32,6 +32,7 @@ public:
 
     void addWidget(QString key, SelectableItemWidget* item_widget);
     SelectableItemWidget* getWidget(const QString& key) const;
+    int getItemVectorSize() const;
 
     QSize getItemBaseSize() const;
 

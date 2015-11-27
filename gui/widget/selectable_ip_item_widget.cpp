@@ -24,3 +24,8 @@ QString SelectableIpItemWidget::getValueString() const
 {
     return m_value.toString();
 }
+
+void SelectableIpItemWidget::mouseReleaseEvent(QMouseEvent *)
+{
+    emit changeValue(m_title, "Numerical");
+}
