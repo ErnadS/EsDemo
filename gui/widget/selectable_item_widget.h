@@ -14,11 +14,12 @@ protected:
     QString m_unit;
     RowIndexParity m_row_index_parity{ODD};
     Validator* m_validator;
+    bool m_password_protected;
 
     void paintBorderRectangle(QPainter& painter, int x, int y, int width, int height, QColor borderColor, QColor backgroundlColor);
     virtual QString getValueString() const = 0;
 
-    explicit SelectableItemWidget(QWidget* parent, QSize base_size, QString title, QString unit, Validator* validator);
+    explicit SelectableItemWidget(QWidget* parent, QSize base_size, QString title, QString unit, bool password_protected, Validator* validator);
 
 public:
     virtual void getValue(void* v) const = 0;
@@ -30,6 +31,8 @@ public:
     QString getUnit();
 
     Validator* validator() const;
+
+    bool isProtected() const;
 
 signals:
     void changed(QString key);

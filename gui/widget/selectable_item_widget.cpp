@@ -1,7 +1,7 @@
 #include "selectable_item_widget.h"
 #include <QPainter>
 
-SelectableItemWidget::SelectableItemWidget(QWidget* parent, QSize base_size, QString title, QString unit, Validator* validator) : ScalableWidget(parent, base_size), m_title(title), m_unit(unit), m_validator(validator)
+SelectableItemWidget::SelectableItemWidget(QWidget* parent, QSize base_size, QString title, QString unit, bool password_protected, Validator* validator) : ScalableWidget(parent, base_size), m_title(title), m_unit(unit), m_validator(validator), m_password_protected(password_protected)
 {
 
 }
@@ -21,6 +21,11 @@ QString SelectableItemWidget::getUnit()
 Validator* SelectableItemWidget::validator() const
 {
     return m_validator;
+}
+
+bool SelectableItemWidget::isProtected() const
+{
+    return m_password_protected;
 }
 
 void SelectableItemWidget::paintBorderRectangle(QPainter& painter, int x, int y, int width, int height, QColor border_color, QColor background_color)

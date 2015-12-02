@@ -1,6 +1,6 @@
 #include "selectable_float_item_widget.h"
 
-SelectableFloatItemWidget::SelectableFloatItemWidget(QWidget* parent, QSize base_size, QString title, QString unit, Validator* validator) : SelectableItemWidget(parent, base_size, title, unit, validator)
+SelectableFloatItemWidget::SelectableFloatItemWidget(QWidget* parent, QSize base_size, QString title, QString unit, bool password_protected, Validator* validator) : SelectableItemWidget(parent, base_size, title, unit, password_protected, validator)
 {
 
 }

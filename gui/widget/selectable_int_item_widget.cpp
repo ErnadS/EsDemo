@@ -1,6 +1,6 @@
 #include "selectable_int_item_widget.h"
 
-SelectableIntItemWidget::SelectableIntItemWidget(QWidget* parent, QSize base_size, QString title, Validator* validator) : SelectableItemWidget(parent, base_size, title, "", validator)
+SelectableIntItemWidget::SelectableIntItemWidget(QWidget* parent, QSize base_size, QString title, bool password_protected, Validator* validator) : SelectableItemWidget(parent, base_size, title, "", password_protected, validator)
 {
 
 }

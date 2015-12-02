@@ -12,10 +12,11 @@ class SelectableEnumItemWidget : public SelectableItemWidget
     QList<QString> m_value;
 
 public:
-    explicit SelectableEnumItemWidget(QWidget* parent, QSize base_size, QString title, QList<QString> value_list, QString unit = "", Validator* validator = new Validator("dummy"));
+    explicit SelectableEnumItemWidget(QWidget* parent, QSize base_size, QString title, QList<QString> value_list, QString unit = "", bool password_protected = true, Validator* validator = new Validator("dummy"));
     void getValue(void* v) const;
     QString getKeyboardString() const;
     void setValueFromString(const QString&);
+    void setNextValue();
 
 protected:
     QString getValueString() const;

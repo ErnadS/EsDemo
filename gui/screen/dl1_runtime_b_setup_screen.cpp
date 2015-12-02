@@ -23,3 +23,4 @@ Dl1RuntimeBSetupScreen::Dl1RuntimeBSetupScreen(QWidget* parent) : BaseRuntimeSet
 
     setupLayout();
 }
+

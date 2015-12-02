@@ -1,4 +1,8 @@
 #include "selectable_item_widget_container.h"
+#include "selectable_bool_item_widget.h"
+#include "selectable_enum_item_widget.h"
+#include "gui/screen/setup_screen.h"
+#include "password_widget.h"
 #include <QDebug>
 
 void SelectableItemWidgetContainer::setupLayout()
@@ -49,6 +53,11 @@ SelectableItemWidgetContainer::SelectableItemWidgetContainer(QWidget* parent, QS
 
     connect(m_keyboard, SIGNAL(keyPressed(QKeyEvent*)), this, SLOT(keyPressed(QKeyEvent*)));
 
+    if(SetupScreen *p = qobject_cast<SetupScreen *>(parentWidget()))
+    {
+        connect(p, SIGNAL(makeChange(QString)), this, SLOT(makeChange(QString)));
+        connect(p, SIGNAL(makeChangeValue(QString, QString)), this, SLOT(makeChangeValue(QString,QString)));
+    }
     setupLayout();
 }
 
@@ -90,6 +99,11 @@ QSize SelectableItemWidgetContainer::getItemBaseSize() const
     return QSize(0.9f * baseSize().width(), baseSize().height() / m_display_size + 0.5f);
 }
 
+QVirtualKeyboard *SelectableItemWidgetContainer::getKeyboard() const
+{
+    return m_keyboard;
+}
+
 void SelectableItemWidgetContainer::resizeEvent(QResizeEvent*)
 {
     ScalableWidget::resizeEvent(nullptr);
@@ -122,22 +136,55 @@ void SelectableItemWidgetContainer::downPressed()
 
 void SelectableItemWidgetContainer::changed(QString key)
 {
-    qDebug() << "Changed item with key: " << key;
+    m_key = key;
+    auto widget = m_item_widget_vector[m_item_map[key]];
+
+    if (widget->isProtected())
+    {
+        emit changedProtected(key);
+        if (!PasswordWidget::isLogged())
+        {
+            parentWidget()->raise();
+        }
+    }
+    else
+    {
+        if (SelectableEnumItemWidget *p = qobject_cast<SelectableEnumItemWidget *>(widget))
+        {
+            p->setNextValue();
+        }
+
+        if (SelectableBoolItemWidget *p = qobject_cast<SelectableBoolItemWidget *>(widget))
+        {
+            p->setNextValue();
+        }
+        qDebug() << "Changed unprotected item with key: " << key;
+    }
 }
 
 void SelectableItemWidgetContainer::changeValue(QString key, QString layout)
 {
     m_key = key;
     auto widget = m_item_widget_vector[m_item_map[key]];
-    m_buffer = widget->getKeyboardString();
-    m_unit = widget->getUnit();
 
-    setDisabled(true);
+    parentWidget()->raise();
 
-    m_keyboard->setLayout(layout);
-    m_keyboard->slotSetText(m_buffer + m_unit);
-    m_keyboard->show();
-    m_keyboard->raise();
+    if (widget->isProtected())
+    {
+        emit changeValueProtected(key, layout);
+    }
+    else
+    {        
+        m_buffer = widget->getKeyboardString();
+        m_unit = widget->getUnit();
+
+        setDisabled(true);
+
+        m_keyboard->setLayout(layout);
+        m_keyboard->slotSetText(m_buffer + m_unit);
+        m_keyboard->show();
+        m_keyboard->raise();
+    }
 }
 
 void SelectableItemWidgetContainer::keyPressed(QKeyEvent* event)
@@ -169,4 +216,39 @@ void SelectableItemWidgetContainer::keyPressed(QKeyEvent* event)
         m_buffer.append(new_char);
         m_keyboard->slotSetText(m_buffer + m_unit);
     }
+}
+
+void SelectableItemWidgetContainer::makeChange(QString key)
+{
+    m_key = key;
+    auto widget = m_item_widget_vector[m_item_map[key]];
+
+    if (SelectableEnumItemWidget *p = qobject_cast<SelectableEnumItemWidget *>(widget))
+    {
+        p->setNextValue();
+    }
+
+    if (SelectableBoolItemWidget *p = qobject_cast<SelectableBoolItemWidget *>(widget))
+    {
+        p->setNextValue();
+    }
+
+    qDebug() << "Changed item with key: " << key;
+}
+
+void SelectableItemWidgetContainer::makeChangeValue(QString key, QString layout)
+{
+    parentWidget()->raise();
+
+    m_key = key;
+    auto widget = m_item_widget_vector[m_item_map[key]];
+    m_buffer = widget->getKeyboardString();
+    m_unit = widget->getUnit();
+
+    setDisabled(true);
+
+    m_keyboard->setLayout(layout);
+    m_keyboard->slotSetText(m_buffer + m_unit);
+    m_keyboard->show();
+    m_keyboard->raise();
 }

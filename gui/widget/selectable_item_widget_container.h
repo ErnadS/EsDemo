@@ -35,6 +35,7 @@ public:
     int getItemVectorSize() const;
 
     QSize getItemBaseSize() const;
+    QVirtualKeyboard* getKeyboard() const;
 
 private slots:
     void upPressed();
@@ -42,9 +43,16 @@ private slots:
     void changed(QString key);
     void changeValue(QString key, QString layout);
     void keyPressed(QKeyEvent*);
+    void makeChange(QString key);
+    void makeChangeValue(QString key, QString layout);
 
 protected:
     void resizeEvent(QResizeEvent* event);
+
+signals:
+    void changedProtected(QString key);
+    void changeValueProtected(QString key, QString layout);
+    void signalLowerParent();
 };
 
 #endif

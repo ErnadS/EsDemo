@@ -94,7 +94,8 @@ SOURCES += gui\widget\runtime_widget_es.cpp \
            gui\screen\system_setup_screen.cpp \
            gui\screen\cu_setup_screen.cpp \
     gui/screen/es_setup_setup_screen.cpp \
-    gui/screen/es_setup_transducer_select_screen.cpp
+    gui/screen/es_setup_transducer_select_screen.cpp \
+    gui/widget/password_widget.cpp
 
 
 HEADERS  += gui\widget\runtime_widget_es.h \
@@ -194,4 +195,5 @@ HEADERS  += gui\widget\runtime_widget_es.h \
             gui\screen\system_setup_screen.h \
             gui\screen\cu_setup_screen.h \
     gui/screen/es_setup_setup_screen.h \
-    gui/screen/es_setup_transducer_select_screen.h
+    gui/screen/es_setup_transducer_select_screen.h \
+    gui/widget/password_widget.h
