@@ -72,7 +72,7 @@ QPixmap SystemSetupWidget::drawSystemIcon(QString system_type, QString system_na
 
     QPainter p(&pixmap);
 
-    p.setPen(Qt::green);
+    p.setPen(Qt::black);
     QFont font;
     font.setPixelSize(50 * m_scale);
 

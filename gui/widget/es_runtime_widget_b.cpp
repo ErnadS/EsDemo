@@ -11,7 +11,7 @@ void EsRuntimeWidgetB::paintEvent(QPaintEvent*)
     painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
     painter.setRenderHint(QPainter::Antialiasing, true);
 
-    painter.fillRect(QRect(0, 0, width(), height()), Qt::magenta);
+    painter.fillRect(QRect(0, 0, width(), height()), Qt::cyan);
 
     painter.setPen(Qt::white);
     QFont font = painter.font();
