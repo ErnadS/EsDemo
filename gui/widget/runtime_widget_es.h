@@ -96,7 +96,7 @@ class RuntimeWidgetEs : public ScalableWidget
     const QSize m_power_info_button_size{120, 70};
     const QSize m_range_info_button_size{120, 70};
     const QSize m_transducer_info_button_size{240, 70};
-
+    int m_font_size{50};
     int m_depth_index{4};
     QVector<qreal> m_max_depth_vector{10, 50, 100, 500, 1000, 1600};
 
@@ -104,6 +104,8 @@ class RuntimeWidgetEs : public ScalableWidget
 
 public:
     explicit RuntimeWidgetEs(QWidget* parent, QSize base_size);
+    void setFontSize(int font_size);
+    int getFontSize() const;
 
 protected:
     void paintEvent(QPaintEvent*);

@@ -24,6 +24,17 @@ RuntimeWidgetEs::RuntimeWidgetEs(QWidget* parent, QSize base_size) :
     updateInfo();
 }
 
+void RuntimeWidgetEs::setFontSize(int font_size)
+{
+    m_font_size=font_size;
+    repaint();
+}
+
+int RuntimeWidgetEs::getFontSize() const
+{
+    return m_font_size;
+}
+
 void RuntimeWidgetEs::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
@@ -93,7 +104,8 @@ void RuntimeWidgetEs::paintEvent(QPaintEvent*)
     //painter.fillRect(source_rect, Qt::blue);
 
     painter.setPen(Qt::white);
-    font.setPixelSize(60 * m_scale);
+
+    font.setPixelSize(m_font_size);
     painter.setFont(font);
 
     // TODO: Validation
@@ -109,7 +121,7 @@ void RuntimeWidgetEs::paintEvent(QPaintEvent*)
         painter.drawText(label_rect, "-.-");
     }
 
-    font.setPixelSize(16 * m_scale);
+    font.setPixelSize(int(0.37 * m_font_size));
     painter.setFont(font);
 
     painter.drawText(source_rect, "Depth Below Surface");
@@ -230,4 +242,5 @@ void RuntimeWidgetEs::resizeEvent(QResizeEvent* event)
 
     QPoint transducer_pos(m_range_info->width() + m_power_info->width() + 3.0f * space, range_pos.y());
     m_transducer_info->move(transducer_pos);
+
 }

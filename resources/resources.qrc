@@ -1,24 +1,27 @@
 <RCC>
     <qresource prefix="/">
-		<file>gps.png</file>
-		<file>skipper-no-background.jpg</file>
-		<file>vessel_1.png</file>
-		<file>vessel_2.png</file>
-		<file>vessel_3.png</file>
-		<file>vessel_4.png</file>
-		<file>vessel_5.png</file>
-		<file>es.bin</file>
-		<file>compass_image.png</file>
-		<file>no_compass.png</file>
-		<file>compass_vessel_image.png</file>
-		<file>arrow.png</file>
+        <file>gps.png</file>
+        <file>skipper-no-background.jpg</file>
+        <file>vessel_1.png</file>
+        <file>vessel_2.png</file>
+        <file>vessel_3.png</file>
+        <file>vessel_4.png</file>
+        <file>vessel_5.png</file>
+        <file>es.bin</file>
+        <file>compass_image.png</file>
+        <file>no_compass.png</file>
+        <file>compass_vessel_image.png</file>
+        <file>arrow.png</file>
         <file>delArrow.png</file>
-		<file>led_on.png</file>
-		<file>led_off.png</file>
-		<file>angleScale_93_20.png</file>
-		<file>pitch.png</file>
-		<file>roll.png</file>
-		<file>roll_57_98.png</file>
-		<file>vessel_3_yellow.png</file>
+        <file>led_on.png</file>
+        <file>led_off.png</file>
+        <file>angleScale_93_20.png</file>
+        <file>pitch.png</file>
+        <file>roll.png</file>
+        <file>roll_57_98.png</file>
+        <file>vessel_3_yellow.png</file>
+        <file>DEPTH_ES SYS 2.png</file>
+        <file>SPEED_DL1 SYS 3.png</file>
+        <file>SPEED_DL2 SYS 1.png</file>
     </qresource>
 </RCC>

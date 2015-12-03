@@ -15,7 +15,7 @@ FORMS    += mainwindow.ui
 
 RESOURCES = resources/resources.qrc
 
-QMAKE_CXXFLAGS += -Wno-psabi   # disable "mangling of 'va_list' has changed warning
+QMAKE_CXXFLAGS += -Wno-psabi  # disable "mangling of 'va_list' has changed warning
 QMAKE_CXXFLAGS += -O3 -Wall -Wextra -std=c++11 -pedantic -Werror
 QMAKE_CXXFLAGS += -Wno-error=strict-overflow # temporary fix
 

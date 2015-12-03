@@ -16,6 +16,7 @@
 #include "gui/widget/runtime_widget_es.h"
 #include "gui/widget/dl1_runtime_widget_b.h"
 #include "gui/widget/es_runtime_widget_b.h"
+#include "gui/widget/split_es_runtime_widget.h"
 
 class RuntimeScreen : public BaseScreen
 {

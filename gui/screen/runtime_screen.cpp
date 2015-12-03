@@ -31,7 +31,8 @@ QWidget* RuntimeScreen::createRuntimeWidget(RuntimeScreenType runtime_screen_typ
             return new Dl1RuntimeWidgetB(this, m_runtime_widget_size);
 
         case RUNTIME_ES_B:
-            return new EsRuntimeWidgetB(this, m_runtime_widget_size);
+            return new SplitESRuntimeWidget(this, m_runtime_widget_size);
+            // WHAT TO ADD FOR PAGE A, PAGE B??
     }
 
     throw std::invalid_argument("Provided argument is not in enum range.");
