@@ -8,7 +8,7 @@ EsAuxSetupScreen::EsAuxSetupScreen(QWidget* parent) :
     m_selectable_item_widget_container->addWidget("Aux 1 Output", new SelectableEnumItemWidget(m_selectable_item_widget_container, item_size, "Aux 1 Output", {"StwPulseOutput", "SogPulseOutput", "AlarmBeepOutput", "AlarmOutput", "FitnessOutput", "PowerFailureOutput", "SpeedLimit", "SynchOut", "PingOut", "Disabled"}));
     m_selectable_item_widget_container->addWidget("Aux 2 Output", new SelectableEnumItemWidget(m_selectable_item_widget_container, item_size, "Aux 2 Output", {"StwPulseOutput", "SogPulseOutput", "AlarmBeepOutput", "AlarmOutput", "FitnessOutput", "PowerFailureOutput", "SpeedLimit", "SynchOut", "PingOut", "Disabled"}));
     m_selectable_item_widget_container->addWidget("Aux 3 Relay", new SelectableEnumItemWidget(m_selectable_item_widget_container, item_size, "Aux 3 Relay", {"StwPulseOutput", "SogPulseOutput", "AlarmBeepOutput", "AlarmOutput", "FitnessOutput", "PowerFailureOutput", "SpeedLimit", "SynchOut", "Disabled"}));
-    m_selectable_item_widget_container->addWidget("Aux Input", new SelectableEnumItemWidget(m_selectable_item_widget_container, item_size, "Aux 4 Input", {"MuteIn", "AlarmAcknowledge"}));
+    m_selectable_item_widget_container->addWidget("Aux 4 Input", new SelectableEnumItemWidget(m_selectable_item_widget_container, item_size, "Aux 4 Input", {"MuteIn", "AlarmAcknowledge"}));
     m_selectable_item_widget_container->addWidget("Depth Limit", new SelectableEnumItemWidget(m_selectable_item_widget_container, item_size, "Depth Limit", {"Shallow Limit", "Deep Limit"}));
 
 

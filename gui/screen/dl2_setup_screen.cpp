@@ -94,6 +94,7 @@ Dl2SetupSetupScreen::Dl2SetupSetupScreen(QWidget* parent) :
     setupLayout();
 }
 
+
 void Dl2SetupSetupScreen::paintEvent(QPaintEvent*)
 {    
     QPainter painter(this);

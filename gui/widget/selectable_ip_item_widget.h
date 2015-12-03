@@ -13,7 +13,7 @@ class SelectableIpItemWidget : public SelectableItemWidget
     QHostAddress m_value{"127.0.0.1"};
 
 public:
-    explicit SelectableIpItemWidget(QWidget* parent, QSize base_size, QString title, Validator* validator = new Validator("dummy"));
+    explicit SelectableIpItemWidget(QWidget* parent, QSize base_size, QString title, bool password_protected = true, Validator* validator = new Validator("dummy"));
     void getValue(void* v) const;
     QString getKeyboardString() const;
     void setValueFromString(const QString& value);

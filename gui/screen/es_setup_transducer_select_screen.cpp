@@ -20,11 +20,12 @@ EsSetupTransducerSelectScreen::EsSetupTransducerSelectScreen(QWidget *parent) :
     m_selectable_item_widget_container->addWidget("Bandwidth low", new SelectableFloatItemWidget(m_selectable_item_widget_container, item_size, "Bandwidth low", "%", new FloatValidator(2.0f, 50.0f)));
     m_selectable_item_widget_container->addWidget("Frequency high", new SelectableFloatItemWidget(m_selectable_item_widget_container, item_size, "Frequency high", "kHz", new FloatValidator(10.0f, 300.0f)));
     m_selectable_item_widget_container->addWidget("Bandwidth high", new SelectableFloatItemWidget(m_selectable_item_widget_container, item_size, "Bandwidth high", "%", new FloatValidator(2.0f, 50.0f)));
-    m_selectable_item_widget_container->addWidget("Max power", new SelectableEnumItemWidget(m_selectable_item_widget_container, item_size, "Max power (W)", {"100", "200", "300", "400", "500", "600", "700", "800", "900", "1000"}));
+    m_selectable_item_widget_container->addWidget("Max power (W)", new SelectableEnumItemWidget(m_selectable_item_widget_container, item_size, "Max power (W)", {"100", "200", "300", "400", "500", "600", "700", "800", "900", "1000"}));
     m_selectable_item_widget_container->addWidget("Approved primary", new SelectableBoolItemWidget(m_selectable_item_widget_container, item_size, "Approved primary", "Yes", "No"));
 
     setupLayout();
 }
+
 
 void EsSetupTransducerSelectScreen::paintEvent(QPaintEvent *)
 {

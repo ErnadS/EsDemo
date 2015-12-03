@@ -12,12 +12,18 @@ void BaseScreen::setupLayout()
 
     m_title_widget->resize(m_speed_indication_widget_size.width() * m_width_scale, m_speed_indication_widget_size.height() * m_height_scale);
     m_title_widget->move(m_speed_indication_widget_pos.x() * m_width_scale, m_speed_indication_widget_pos.y() * m_height_scale);
+
+    m_password_widget->resize(m_password_widget_size.width() * m_width_scale, m_password_widget_size.height() * m_height_scale);
+    m_password_widget->move(m_password_widget_pos.x() * m_width_scale, m_password_widget_pos.y() * m_height_scale);
 }
 
 BaseScreen::BaseScreen(QWidget* parent) :
     ScalableWidget(parent, parent->size()), m_navigation_controller(Singleton<NavigationController>::instance())
 {
     setBaseSize(parent->size());
+
+    m_password_widget = new PasswordWidget(this);
+    m_password_widget->hide();
 
     m_button = new Button(this, m_button_size);
     m_display_alive_widget = new DisplayAliveWidget(this, m_display_alive_widget_size);
@@ -31,6 +37,9 @@ BaseScreen::BaseScreen(QWidget* parent) :
     setPalette(palette);
 
     connect(m_button, SIGNAL(clicked()), this, SLOT(buttonClicked()));
+
+    connect(m_password_widget, SIGNAL(login()), m_password_widget, SLOT(hide()));
+    connect(m_password_widget, SIGNAL(cancel()), m_password_widget, SLOT(hide()));
 }
 
 void BaseScreen::resizeEvent(QResizeEvent*)
@@ -41,4 +50,39 @@ void BaseScreen::resizeEvent(QResizeEvent*)
 TitleWidget* BaseScreen::titleWidget() const
 {
     return m_title_widget;
+}
+
+PasswordWidget *BaseScreen::passwordWidget() const
+{
+    return m_password_widget;
+}
+
+void BaseScreen::changedProtected(QString key)
+{
+    if (m_password_widget->isLogged())
+    {
+        emit makeChange(key);
+    }
+    else
+    {
+        m_password_widget->show();
+        m_password_widget->raise();
+        m_password_widget->getKeyboard()->show();
+        m_password_widget->getKeyboard()->raise();
+    }
+}
+
+void BaseScreen::changeValueProtected(QString key, QString layout)
+{
+    if (m_password_widget->isLogged())
+    {
+        emit makeChangeValue(key, layout);
+    }
+    else
+    {
+        m_password_widget->show();
+        m_password_widget->raise();
+        m_password_widget->getKeyboard()->show();
+        m_password_widget->getKeyboard()->raise();
+    }
 }

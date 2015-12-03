@@ -1,6 +1,6 @@
 #include "selectable_enum_item_widget.h"
 
-SelectableEnumItemWidget::SelectableEnumItemWidget(QWidget* parent, QSize base_size, QString title, QList<QString> value_list, QString unit, Validator* validator) : SelectableItemWidget(parent, base_size, title, unit, validator), m_value(value_list)
+SelectableEnumItemWidget::SelectableEnumItemWidget(QWidget* parent, QSize base_size, QString title, QList<QString> value_list, QString unit, bool password_protected, Validator* validator) : SelectableItemWidget(parent, base_size, title, unit, password_protected, validator), m_value(value_list)
 {
 
 }
@@ -20,6 +20,12 @@ void SelectableEnumItemWidget::setValueFromString(const QString&)
 
 }
 
+void SelectableEnumItemWidget::setNextValue()
+{
+    m_index = (m_index + 1) % m_value.size();
+    update();
+}
+
 QString SelectableEnumItemWidget::getValueString() const
 {
     return m_value[m_index] + m_unit;
@@ -27,9 +33,5 @@ QString SelectableEnumItemWidget::getValueString() const
 
 void SelectableEnumItemWidget::mouseReleaseEvent(QMouseEvent*)
 {
-    m_index = (m_index + 1) % m_value.size();
-
     emit changed(m_title);
-
-    update();
 }

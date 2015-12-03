@@ -1,6 +1,6 @@
 #include "selectable_bool_item_widget.h"
 
-SelectableBoolItemWidget::SelectableBoolItemWidget(QWidget* parent, QSize base_size, QString title, QString on_state, QString off_state, Validator* validator) : SelectableItemWidget(parent, base_size, title, "", validator), m_on_state(on_state), m_off_state(off_state)
+SelectableBoolItemWidget::SelectableBoolItemWidget(QWidget* parent, QSize base_size, QString title, QString on_state, QString off_state, bool password_protected, Validator* validator) : SelectableItemWidget(parent, base_size, title, "", password_protected, validator), m_on_state(on_state), m_off_state(off_state)
 {
 
 }
@@ -23,6 +23,12 @@ void SelectableBoolItemWidget::setValueFromString(const QString&)
 
 }
 
+void SelectableBoolItemWidget::setNextValue()
+{
+    m_value = !m_value;
+    update();
+}
+
 QString SelectableBoolItemWidget::getValueString() const
 {
     if (m_value == false)
@@ -33,9 +39,5 @@ QString SelectableBoolItemWidget::getValueString() const
 
 void SelectableBoolItemWidget::mouseReleaseEvent(QMouseEvent*)
 {
-    m_value = !m_value;
-
     emit changed(m_title);
-
-    update();
 }

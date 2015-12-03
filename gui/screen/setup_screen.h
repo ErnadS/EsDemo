@@ -26,6 +26,7 @@ public:
 protected slots:
     void buttonClicked();
 
+    void slotLower(QKeyEvent *event);
 protected:
     void setupLayout();
 };
