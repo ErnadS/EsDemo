@@ -12,8 +12,15 @@ EsRuntimeBSetupScreen::EsRuntimeBSetupScreen(QWidget* parent) : BaseRuntimeSetup
 
     QSize item_size = m_selectable_item_widget_container->getItemBaseSize();
 
-    m_selectable_item_widget_container->addWidget("VISIBLE", new SelectableBoolItemWidget(m_selectable_item_widget_container, item_size, "VISIBLE", "ON", "OFF"));
+  //  QList<QString> depth_information_list{"Depth Below Transducer", "Depth Below Surface", "Depth Below Keel"};
 
+    //TO DO - QUERY DRAFT AND OFFSET VALUES TO EDIT depth_information_list!
+
+    m_selectable_item_widget_container->addWidget("VISIBLE", new SelectableBoolItemWidget(m_selectable_item_widget_container, item_size, "VISIBLE", "ON", "OFF"));
+    m_selectable_item_widget_container->addWidget("LAYOUT", new SelectableEnumItemWidget(m_selectable_item_widget_container, item_size, "LAYOUT", {"Primary", "Horizontal split", "Vertical split"}));
+    m_selectable_item_widget_container->addWidget("SCROLL TYPE", new SelectableEnumItemWidget(m_selectable_item_widget_container, item_size, "SCROLL TYPE", {"LOOP", "NEXT SYSTEM"}));
+    m_selectable_item_widget_container->addWidget("DIGITAL FONT SIZE", new SelectableEnumItemWidget(m_selectable_item_widget_container, item_size, "DIGITAL FONT SIZE", {"10", "12", "15", "0"}));
+    m_selectable_item_widget_container->addWidget("DEPTH", new SelectableEnumItemWidget(m_selectable_item_widget_container, item_size, "DEPTH", {"SURFACE", "KEEL", "TRANSDUCER"}));
     for (int i = 0; i < 5; i++)
     {
         auto key = "INFORMATION " + QString::number(i + 1);

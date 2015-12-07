@@ -74,9 +74,9 @@ QPixmap SystemSetupWidget::drawSystemIcon(QString system_type, QString system_na
 
     p.setPen(Qt::black);
     QFont font;
-    font.setPixelSize(50 * m_scale);
-
-    p.drawText(QRect(0.1 * pixmap.width(), 0.75 * pixmap.height(), 0.8 * pixmap.width(), 0.2 * pixmap.height()), Qt::AlignCenter, system_name);
+    font.setPixelSize(20);
+    p.setFont(font);
+    p.drawText(QRect(0.1 * pixmap.width(), 0.75 * pixmap.height(), 0.8 * pixmap.width(), 0.2 * pixmap.height()), Qt::AlignLeft, system_name);
 
     QPixmap drawing_pixmap = pixmap.scaled(pixmap.width(), pixmap.height(),Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 

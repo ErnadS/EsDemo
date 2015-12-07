@@ -9,6 +9,9 @@ class CuSetupScreen : public SetupScreen
 
 public:
     explicit CuSetupScreen(QWidget* parent);
+protected:
+    void paintEvent(QPaintEvent*);
+    bool isInValidIpRange(const QString& ip) const;
 };
 
 #endif
