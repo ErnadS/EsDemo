@@ -12,8 +12,9 @@ class DisplayButton : public ScalableWidget
     bool m_selected{false};
     int m_font_pixel_size{20};
     QString m_title{"CU-M001"};
-    QColor m_border_color;
+    QColor m_outter_body_color;
     QColor m_body_color;
+    QColor m_border_color;
 
 public:
     DisplayButton(QWidget *parent, QSize base_size);

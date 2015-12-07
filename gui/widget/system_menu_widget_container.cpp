@@ -14,8 +14,8 @@ void SystemMenuWidgetContainer::setupLayout()
     QPoint system_r_widget_pos(r_lab_pos.x(), r_lab_size.height() + 3 * m_height_scale);
     QFont font(m_paired_label->font());
     font.setPixelSize(25 * m_scale);
-    m_paired_label->setAlignment(Qt::AlignBottom);
-    m_repeaters_label->setAlignment(Qt::AlignBottom);
+    m_paired_label->setAlignment(Qt::AlignCenter);
+    m_repeaters_label->setAlignment(Qt::AlignCenter);
     m_paired_label->setStyleSheet("color : gray");
     m_repeaters_label->setStyleSheet("color : gray");
 

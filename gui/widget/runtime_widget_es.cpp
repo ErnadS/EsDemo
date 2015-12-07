@@ -11,7 +11,7 @@ RuntimeWidgetEs::RuntimeWidgetEs(QWidget* parent, QSize base_size) :
 {
     connect(&timer, SIGNAL(timeout()), this, SLOT(timeout()));
 
-    timer.start(10);
+    timer.start(1000);
 
     m_bin_file.open(QIODevice::ReadOnly);
 

@@ -13,9 +13,6 @@ class SystemMenuWidgetContainer : public ScalableWidget
 
     QLabel *m_paired_label;
     QLabel *m_repeaters_label;
-//    QRect *m_p_lab_geometry;
-//    QRect *m_r_lab_geometry;
-//    QRect *m_disp_but_geometry;
 
     DisplayButton *m_display_button;
     QSize m_display_button_base_size;
@@ -45,8 +42,6 @@ private slots:
 protected:
     void resizeEvent(QResizeEvent*);
     void paintEvent(QPaintEvent*);
-    void drawConnection(QPainter& painter);
-
 };
 
 #endif // SYSTEM_MENU_WIDGET_CONTAINER_H
