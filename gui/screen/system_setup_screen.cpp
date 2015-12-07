@@ -113,7 +113,11 @@ void SystemSetupScreen::paintEvent(QPaintEvent*)
     font.setPixelSize(20 * m_scale);
     painter.setFont(font);
 
-    QColor colors[3]= {Qt::yellow, Qt::cyan, Qt::white};
+    QColor colors[3];
+    colors[0] = QColor(255, 255, 115); //light yellow
+    colors[1] = QColor(0, 102, 204); //blue
+    colors[2] = QColor(140, 140, 140); //gray
+
     QString statuses[3] = {"PAIRED", "REPEATER", "DISCONNECTED"};
 
     int systemSelected{9};

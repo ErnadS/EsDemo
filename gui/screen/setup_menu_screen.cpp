@@ -1,6 +1,7 @@
 #include "setup_menu_screen.h"
 #include <QMessageBox>
 #include <QPainter>
+#include <QDebug>
 
 bool SetupMenuScreen::changeLayout() const
 {
@@ -21,7 +22,6 @@ bool SetupMenuScreen::changeLayout() const
 SetupMenuScreen::SetupMenuScreen(QWidget* parent) : BaseScreen(parent)
 {
     QList<QString> type_list, name_list;
-
 
     for (int i = 0; i < m_navigation_controller.systemCount(); i++)
     {
@@ -54,19 +54,19 @@ SetupMenuScreen::SetupMenuScreen(QWidget* parent) : BaseScreen(parent)
         name_list << system_name;
     }
 
-    m_system_widget_container = new SystemWidgetContainer(this, m_system_menu_size, 3, type_list, name_list);
+    m_system_widget_container = new SystemMenuWidgetContainer(this, m_system_menu_size, type_list, name_list);
 
-    m_cu_m001_setup_button = new ItemWidget(this, m_button_size, "CU-M001 SETUP", EVEN);
     m_system_setup_button = new ItemWidget(this, m_button_size, "SYSTEM SETUP");
 
     m_dl1_setup_menu = new ItemWidgetContainer(this, m_setup_menu_size, 5, {"RUNTIME SCREEN SETUP", "CALIBRATION", "ALERT SETUP", "DIAGNOSTICS", "DL1 SETUP", "COMMUNICATIONS SETUP", "AUX SETUP"});
     m_es_setup_menu = new ItemWidgetContainer(this, m_setup_menu_size, 5, {"RUNTIME SCREEN SETUP", "ALERT SETUP", "DIAGNOSTICS", "ES SETUP", "COMMUNICATIONS SETUP", "AUX SETUP", "HISTORY TOUCH SCREEN", "JB70 SETUP"});
     m_dl2_setup_menu = new ItemWidgetContainer(this, m_setup_menu_size, 5, {"RUNTIME SCREEN SETUP", "CALIBRATION", "ALERT SETUP", "DIAGNOSTICS", "DL2 SETUP", "COMMUNICATIONS SETUP", "AUX SETUP", "JB70 SETUP"});
-
+    m_display_setup_menu = new ItemWidgetContainer(this, m_setup_menu_size, 5, {"SCREEN", "SYSTEM TYPE", "IP", "LOCAL SFI", "GROUP", "REMOTE DIM. DDC", "SYSTEM NAME", "NMEA1 LOOP TEST"});
     // Initializing default system menu
     m_dl1_setup_menu->hide();
     m_es_setup_menu->hide();
     m_dl2_setup_menu->hide();
+    m_display_setup_menu->hide();
 
     auto system = m_navigation_controller.system(m_navigation_controller.systemIndex());
 
@@ -85,9 +85,10 @@ SetupMenuScreen::SetupMenuScreen(QWidget* parent) : BaseScreen(parent)
             break;
     }
 
-    connect(m_system_widget_container, SIGNAL(itemSelected(int)), this, SLOT(systemSelected(int)));
+    connect(m_system_widget_container, SIGNAL(systemSelected(int)), this, SLOT(systemSelected(int)));
 
-    connect(m_cu_m001_setup_button, SIGNAL(pressed(const ItemWidget*)), this, SLOT(cuM001SetupPressed(const ItemWidget*)));
+    connect(m_system_widget_container, SIGNAL(displaySelected()), this, SLOT(displaySelected()));
+
     connect(m_system_setup_button, SIGNAL(pressed(const ItemWidget*)), this, SLOT(systemSetupPressed(const ItemWidget*)));
 
     connect(m_dl1_setup_menu, SIGNAL(itemSelected(int)), this, SLOT(dl1SetupSelected(int)));
@@ -97,7 +98,7 @@ SetupMenuScreen::SetupMenuScreen(QWidget* parent) : BaseScreen(parent)
     connect(&m_navigation_controller, SIGNAL(systemAdded(SystemEnum)), this, SLOT(systemAdded(SystemEnum)));
     connect(&m_navigation_controller, SIGNAL(systemRemoved(int)), this, SLOT(systemRemoved(int)));
 
-    m_system_widget_container->setActive(m_navigation_controller.systemIndex());
+    m_system_widget_container->setSelected(m_navigation_controller.systemIndex());
 }
 
 void SetupMenuScreen::buttonClicked()
@@ -109,7 +110,7 @@ void SetupMenuScreen::systemSelected(int index)
 {
     if (changeLayout() == true)
     {
-        m_system_widget_container->setActive(index);
+        m_system_widget_container->setSelected(index);
 
         auto system = m_navigation_controller.system(index);
 
@@ -120,6 +121,7 @@ void SetupMenuScreen::systemSelected(int index)
                 m_dl1_setup_menu->resetRotationOffset();
                 m_dl2_setup_menu->hide();
                 m_es_setup_menu->hide();
+                m_display_setup_menu->hide();
                 break;
 
             case SystemEnum::DL2_SYSTEM:
@@ -127,6 +129,7 @@ void SetupMenuScreen::systemSelected(int index)
                 m_dl2_setup_menu->show();
                 m_dl2_setup_menu->resetRotationOffset();
                 m_es_setup_menu->hide();
+                m_display_setup_menu->hide();
                 break;
 
             case SystemEnum::ES_SYSTEM:
@@ -134,10 +137,24 @@ void SetupMenuScreen::systemSelected(int index)
                 m_dl2_setup_menu->hide();
                 m_es_setup_menu->show();
                 m_es_setup_menu->resetRotationOffset();
+                m_display_setup_menu->hide();
                 break;
         }
 
         m_navigation_controller.layoutChanged(index);
+    }
+}
+
+void SetupMenuScreen::displaySelected()
+{
+    if (changeLayout() == true)
+    {
+        m_dl1_setup_menu->hide();
+        m_es_setup_menu->hide();
+        m_dl2_setup_menu->hide();
+        m_display_setup_menu->show();
+        m_es_setup_menu->resetRotationOffset();
+        m_system_widget_container->setDisplaySelected();
     }
 }
 
@@ -156,10 +173,6 @@ void SetupMenuScreen::dl2SetupSelected(int index)
     m_navigation_controller.navigate(SystemEnum::DL2_SYSTEM, index);
 }
 
-void SetupMenuScreen::cuM001SetupPressed(const ItemWidget*)
-{
-    m_navigation_controller.navigate(CU_SETUP, false);
-}
 
 void SetupMenuScreen::systemSetupPressed(const ItemWidget*)
 {
@@ -189,7 +202,7 @@ void SetupMenuScreen::systemAdded(SystemEnum system)
 
     QString name = prefix + " SYS " + QString::number(m_navigation_controller.systemCount());
 
-    m_system_widget_container->addSystem(type, name);
+    m_system_widget_container->addSystem(type, name, "12345", "111.123.123.111", Repeater);
 }
 
 void SetupMenuScreen::systemRemoved(int index)
@@ -222,8 +235,8 @@ void SetupMenuScreen::setupLayout()
     m_dl2_setup_menu->resize(setup_menu_size);
     m_dl2_setup_menu->move(setup_menu_pos);
 
-    m_cu_m001_setup_button->resize(button_size);
-    m_cu_m001_setup_button->move(button_pos);
+    m_display_setup_menu->resize(setup_menu_size);
+    m_display_setup_menu->move(setup_menu_pos);
 
     m_system_setup_button->resize(button_size);
     m_system_setup_button->move(button_pos.x(), button_pos.y() + button_size.height());

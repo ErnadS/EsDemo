@@ -29,7 +29,7 @@ signals:
     void itemSelected(int index);
 
 private slots:
-    void slotSystemSelected(const SystemSetupWidget *item);
+    void slotSystemSelected(SystemSetupWidget *item);
 
 protected:
     void resizeEvent(QResizeEvent*);

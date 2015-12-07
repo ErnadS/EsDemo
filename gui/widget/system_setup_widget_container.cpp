@@ -50,7 +50,7 @@ SystemSetupWidgetContainer::SystemSetupWidgetContainer(QWidget* parent, QSize ba
         SystemSetupWidget* system_setup_widget = new SystemSetupWidget(this, item_size, type_list[i], name_list[i],"1234","172.22.247.250",Disconnected);
         m_system_setup_widget_vector.push_back(system_setup_widget);
 
-        connect(system_setup_widget, SIGNAL(signalSystemSelected(const SystemSetupWidget*)), this, SLOT(slotSystemSelected(const SystemSetupWidget*)));
+        connect(system_setup_widget, SIGNAL(signalSystemSelected(SystemSetupWidget*)), this, SLOT(slotSystemSelected(SystemSetupWidget*)));
     }
 
     setupLayout();
@@ -78,7 +78,7 @@ void SystemSetupWidgetContainer::addSystem(QString type, QString name, QString s
     SystemSetupWidget* system_setup_widget = new SystemSetupWidget(this, m_item_base_size, type, name, system_ID, system_IP, system_connection);
     m_system_setup_widget_vector.push_back(system_setup_widget);
 
-    connect(system_setup_widget, SIGNAL(signalSystemSelected(const SystemSetupWidget*)), this, SLOT(itemPressed(const SystemSetupWidget*)));
+    connect(system_setup_widget, SIGNAL(signalSystemSelected(SystemSetupWidget*)), this, SLOT(itemPressed(SystemSetupWidget*)));
 
     setupLayout();
 }
@@ -110,7 +110,7 @@ int SystemSetupWidgetContainer::getSystemCount() const
     return m_system_setup_widget_vector.size();
 }
 
-void SystemSetupWidgetContainer::slotSystemSelected(const SystemSetupWidget* item)
+void SystemSetupWidgetContainer::slotSystemSelected(SystemSetupWidget *item)
 {
     for (int i = 0; i < m_system_setup_widget_vector.size(); i++)
     {
@@ -142,7 +142,11 @@ void SystemSetupWidgetContainer::drawConnections(QPainter &painter)
 {
 
     QSize availableSize{int(0.75 * width()), int(0.85 * height())};
-    QColor colors[3]= {Qt::yellow, Qt::cyan, Qt::transparent};
+    QColor colors[3];
+    colors[0] = QColor(255, 255, 115); //light yellow
+    colors[1] = QColor(0, 102, 204); //blue
+    colors[2] = QColor(140, 140, 140); //gray
+
     Qt::PenStyle line_style[3]= {Qt::SolidLine, Qt::DashLine, Qt::SolidLine};
 
     QPen pen;

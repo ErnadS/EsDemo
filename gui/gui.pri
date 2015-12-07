@@ -98,7 +98,9 @@ SOURCES += gui\widget\runtime_widget_es.cpp \
     gui/widget/split_es_runtime_widget.cpp \
     gui/widget/system_setup_widget.cpp \
     gui/widget/system_setup_widget_container.cpp \
-    gui/widget/password_widget.cpp
+    gui/widget/password_widget.cpp \
+    gui/widget/display_button.cpp \
+    gui/widget/system_menu_widget_container.cpp
 
 
 
@@ -203,4 +205,6 @@ HEADERS  += gui\widget\runtime_widget_es.h \
     gui/widget/split_es_runtime_widget.h \
     gui/widget/system_setup_widget.h \
     gui/widget/system_setup_widget_container.h \
-    gui/widget/password_widget.h
+    gui/widget/password_widget.h \
+    gui/widget/display_button.h \
+    gui/widget/system_menu_widget_container.h
