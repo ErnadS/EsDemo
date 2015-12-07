@@ -22,8 +22,10 @@ public:
     bool isActive() const;
     void setSystemConnection(systemConnection system_connection);
     systemConnection getSystemConnection () const;
+    QString getSystemType() const;
+
 signals:
-    void signalSystemSelected(const SystemSetupWidget* sys_setup_widget);
+    void signalSystemSelected(SystemSetupWidget* sys_setup_widget);
 protected:
     void paintEvent(QPaintEvent*);
     void mouseReleaseEvent(QMouseEvent*);
