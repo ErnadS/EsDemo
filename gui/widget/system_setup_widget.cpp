@@ -35,6 +35,11 @@ QString SystemSetupWidget::getSystemType() const
     return m_system_type;
 }
 
+QString SystemSetupWidget::getSystemName() const
+{
+    return m_system_name;
+}
+
 
 void SystemSetupWidget::paintEvent(QPaintEvent *)
 {

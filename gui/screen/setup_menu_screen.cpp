@@ -99,6 +99,7 @@ SetupMenuScreen::SetupMenuScreen(QWidget* parent) : BaseScreen(parent)
     connect(&m_navigation_controller, SIGNAL(systemRemoved(int)), this, SLOT(systemRemoved(int)));
 
     m_system_widget_container->setSelected(m_navigation_controller.systemIndex());
+    m_title_widget->setTitle("Setup " + m_system_widget_container->getSelected()->getSystemName());
 }
 
 void SetupMenuScreen::buttonClicked()
@@ -108,14 +109,14 @@ void SetupMenuScreen::buttonClicked()
 
 void SetupMenuScreen::systemSelected(int index)
 {
-    if (changeLayout() == true)
+    if (m_system_widget_container->getSelectedIndex() == index || changeLayout() == true)
     {
-        m_system_widget_container->setSelected(index);
+            m_system_widget_container->setSelected(index);
 
-        auto system = m_navigation_controller.system(index);
+            auto system = m_navigation_controller.system(index);
 
-        switch (system)
-        {
+            switch (system)
+            {
             case SystemEnum::DL1_SYSTEM:
                 m_dl1_setup_menu->show();
                 m_dl1_setup_menu->resetRotationOffset();
@@ -139,23 +140,22 @@ void SetupMenuScreen::systemSelected(int index)
                 m_es_setup_menu->resetRotationOffset();
                 m_display_setup_menu->hide();
                 break;
-        }
+            }
 
-        m_navigation_controller.layoutChanged(index);
+            m_navigation_controller.layoutChanged(index);
+            m_title_widget->setTitle("Setup " + m_system_widget_container->getSelected()->getSystemName());
     }
 }
 
 void SetupMenuScreen::displaySelected()
 {
-    if (changeLayout() == true)
-    {
         m_dl1_setup_menu->hide();
         m_es_setup_menu->hide();
         m_dl2_setup_menu->hide();
         m_display_setup_menu->show();
         m_es_setup_menu->resetRotationOffset();
         m_system_widget_container->setDisplaySelected();
-    }
+        m_title_widget->setTitle("Setup CU-M001");
 }
 
 void SetupMenuScreen::dl1SetupSelected(int index)

@@ -30,6 +30,8 @@ public:
     int getSystemCount() const;
     void setSelected(int index);
     void setDisplaySelected();
+    SystemSetupWidget* getSelected() const;
+    int getSelectedIndex() const;
 
 signals:
     void systemSelected(int system_index);

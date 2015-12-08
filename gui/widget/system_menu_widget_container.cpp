@@ -116,6 +116,23 @@ void SystemMenuWidgetContainer::setDisplaySelected()
     update();
 }
 
+SystemSetupWidget *SystemMenuWidgetContainer::getSelected() const
+{
+    return m_last_selected;
+}
+
+int SystemMenuWidgetContainer::getSelectedIndex() const
+{
+    for (int index = 0; index < m_system_setup_widget_vector.size(); index++)
+    {
+        if (m_system_setup_widget_vector[index] == m_last_selected)
+        {
+            return index;
+        }
+    }
+    throw "No system selected!";
+}
+
 void SystemMenuWidgetContainer::slotSystemSelected(SystemSetupWidget *system)
 {
     for (int index = 0; index < m_system_setup_widget_vector.size(); index++)

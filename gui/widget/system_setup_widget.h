@@ -23,6 +23,7 @@ public:
     void setSystemConnection(systemConnection system_connection);
     systemConnection getSystemConnection () const;
     QString getSystemType() const;
+    QString getSystemName() const;
 
 signals:
     void signalSystemSelected(SystemSetupWidget* sys_setup_widget);
