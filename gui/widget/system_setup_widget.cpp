@@ -55,46 +55,19 @@ void SystemSetupWidget::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
-//    QColor system_colors[3];
-//    system_colors[0] = QColor(255, 255, 115); //light yellow
-//    system_colors[1] = QColor(0, 102, 204); //blue
-//    system_colors[2] = QColor(140, 140, 140); //gray
+    painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
 
-//    QImage image(0.8 * width()/3, height()/2, QImage::Format_RGB32);
-
-//    if (qobject_cast<SystemMenuWidgetContainer*> (parentWidget()))
-//    {
-//        if (m_selected)
-//        {
-//            image.fill(system_colors[int(m_system_connection)]);
-
-//        }
-//        else
-//        {
-//            image.fill(system_colors[2]);
-//        }
-//    }
-//    else
-//    {
-//        painter.setPen(system_colors[int(m_system_connection)]);
-        
-        
-//        if (m_selected)
-//        {
-//            painter.fillRect(QRect(0,0,width(), height()), system_colors[int(m_system_connection)]);
-//        }
-//        else
-//        {
-//            painter.drawRect(0,0,width(), height());
-//        }
-//        image.fill(system_colors[int(m_system_connection)]);
-//    }
-
-//    QPixmap pixmap_background = QPixmap::fromImage(image);
-//    painter.drawPixmap(0,0,width(),height(),pixmap_background);
     painter.drawPixmap(0,0,width(),height(),drawSystemIcon());
-//    painter.setPen(QPen(QColor(200, 200, 200), 6)); //light gray border
-//    painter.drawRect(0, 0, width(), height());
+
+    painter.setPen(QPen(QColor(200, 200, 200), 4)); //light gray border
+    painter.drawRect(0, 0, width(), height());
+
+    painter.setPen(Qt::white);
+    QFont font(painter.font());
+    font.setPixelSize(23 * m_scale);
+    painter.setFont(font);
+    painter.drawText(QRect(0.1 * width(), 0.7 * height(), 0.8 * width(), 0.3 * height()), Qt::AlignLeft, m_system_name);
+
 }
 
 
@@ -130,11 +103,6 @@ QPixmap SystemSetupWidget::drawSystemIcon()
     }
 
     QPainter p(&pixmap);
-    p.setPen(Qt::white);
-    QFont font(p.font());
-    font.setPixelSize(18);
-    p.setFont(font);
-    p.drawText(QRect(0.1 * pixmap.width(), 0.75 * pixmap.height(), 0.8 * pixmap.width(), 0.2 * pixmap.height()), Qt::AlignLeft, m_system_name);
 
     QPixmap drawing_pixmap = pixmap.scaled(pixmap.width(), pixmap.height(),Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 

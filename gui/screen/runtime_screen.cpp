@@ -39,7 +39,7 @@ QWidget* RuntimeScreen::createRuntimeWidget(RuntimeScreenType runtime_screen_typ
 }
 
 RuntimeScreen::RuntimeScreen(QWidget* parent, RuntimeScreenType runtime_screen_type, bool preview) :
-    BaseScreen(parent)
+    BaseScreen(parent, QSize(350, 24), QPoint(288, 0))
 {
     int information_widget_count = m_navigation_controller.isEmbedded() ? 5 : 6;
     m_information_widget_vector = QVector<InformationWidget*>(information_widget_count, nullptr);

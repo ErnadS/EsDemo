@@ -109,7 +109,7 @@ void SystemSetupScreen::paintEvent(QPaintEvent*)
 
     painter.setPen(Qt::white);
     QFont font = painter.font();
-    font.setPixelSize(20 * m_scale);
+    font.setPixelSize(23 * m_scale);
     painter.setFont(font);
 
     QColor colors[3];

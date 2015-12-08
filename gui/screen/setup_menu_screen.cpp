@@ -12,7 +12,8 @@ bool SetupMenuScreen::changeLayout(int index) const
                                     Qt::FramelessWindowHint);
 
     // TODO: Generalize style through controller class
-    message_box.setStyleSheet("QPushButton { color: rgb(255, 255, 255); background-color: rgb(20, 20, 20); font: 16px; min-width: 230px; min-height: 40px;} QMessageBox { background-color: black; border: 2px solid rgb(80, 80, 80);} QLabel { color: rgb(255, 255, 255); font: 16px; text-align: justify; }");
+
+    message_box.setStyleSheet("QPushButton { color: rgb(255, 255, 255); background-color: rgb(20, 20, 20); font: " + QString::number(int(16 * m_scale)) + "px; min-width: " + QString::number(int(180 * m_width_scale)) + "px; min-height: " + QString::number(int(40 * m_height_scale)) + "px;} QMessageBox { background-color: black; border: " + QString::number(int(2 * m_scale)) + "px solid rgb(80, 80, 80);} QLabel { color: rgb(255, 255, 255); font: " + QString::number(int(16 * m_scale)) + "px; text-align: justify; }");
 
     int return_status = message_box.exec();
 

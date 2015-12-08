@@ -17,8 +17,9 @@ void BaseScreen::setupLayout()
     m_password_widget->move(m_password_widget_pos.x() * m_width_scale, m_password_widget_pos.y() * m_height_scale);
 }
 
-BaseScreen::BaseScreen(QWidget* parent) :
-    ScalableWidget(parent, parent->size()), m_navigation_controller(Singleton<NavigationController>::instance())
+BaseScreen::BaseScreen(QWidget* parent, const QSize speed_indication_widget_size, const QPoint speed_indication_widget_pos) :
+    ScalableWidget(parent, parent->size()), m_navigation_controller(Singleton<NavigationController>::instance()),
+    m_speed_indication_widget_size(speed_indication_widget_size), m_speed_indication_widget_pos(speed_indication_widget_pos)
 {
     setBaseSize(parent->size());
 

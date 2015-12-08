@@ -20,12 +20,12 @@ protected:
 
     const QSize m_button_size{150, 50};
     const QSize m_display_alive_widget_size{80, 50};
-    const QSize m_speed_indication_widget_size{350, 24};
+    const QSize m_speed_indication_widget_size{400, 24}; //{350, 24}
     const QSize m_password_widget_size{800, 480};
 
     const QPoint m_button_pos{0, 0};
     const QPoint m_display_alive_widget_pos{160, 3};
-    const QPoint m_speed_indication_widget_pos{288, 0};
+    const QPoint m_speed_indication_widget_pos{400, 0}; //{288, 0}
     const QPoint m_password_widget_pos{0, 0};
 
     PasswordWidget *m_password_widget;
@@ -33,7 +33,7 @@ protected:
     virtual void setupLayout();
 
 protected:
-    explicit BaseScreen(QWidget* parent);
+    explicit BaseScreen(QWidget* parent, const QSize speed_indication_widget_size = {400, 24}, const QPoint speed_indication_widget_pos = {400, 0});
     void resizeEvent(QResizeEvent*);
 
 protected slots:

@@ -10,7 +10,7 @@ class DisplayButton : public ScalableWidget
     Q_OBJECT
 
     bool m_selected{false};
-    int m_font_pixel_size{25};
+    int m_font_pixel_size{23};
     QString m_title{"CU-M001"};
 
 public:

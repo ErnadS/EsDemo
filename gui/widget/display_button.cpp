@@ -39,10 +39,10 @@ void DisplayButton::paintEvent(QPaintEvent *)
     painter.setPen(QPen(Qt::white, 2));
     painter.drawText(0, 0, width(), height(), Qt::AlignCenter, m_title);
 
-//    QRect outter_rect(0, 0, width(), height());
+    QRect outter_rect(0, 0, width(), height());
 
-//    painter.setPen(QPen(Qt::white, 1));
-//    painter.drawRect(outter_rect);
+    painter.setPen(QPen(QColor(200, 200, 200), 4));
+    painter.drawRect(outter_rect);
 }
 
 void DisplayButton::mouseReleaseEvent(QMouseEvent *)
