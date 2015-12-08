@@ -14,8 +14,8 @@ void SystemMenuWidgetContainer::setupLayout()
     QPoint system_r_widget_pos(r_lab_pos.x(), r_lab_size.height() + 3 * m_height_scale);
     QFont font(m_paired_label->font());
     font.setPixelSize(25 * m_scale);
-    m_paired_label->setAlignment(Qt::AlignBottom);
-    m_repeaters_label->setAlignment(Qt::AlignBottom);
+    m_paired_label->setAlignment(Qt::AlignCenter);
+    m_repeaters_label->setAlignment(Qt::AlignCenter);
     m_paired_label->setStyleSheet("color : gray");
     m_repeaters_label->setStyleSheet("color : gray");
 
@@ -114,6 +114,23 @@ void SystemMenuWidgetContainer::setDisplaySelected()
     m_last_selected->setActive(false);
     m_display_button->setSelected(true);
     update();
+}
+
+SystemSetupWidget *SystemMenuWidgetContainer::getSelected() const
+{
+    return m_last_selected;
+}
+
+int SystemMenuWidgetContainer::getSelectedIndex() const
+{
+    for (int index = 0; index < m_system_setup_widget_vector.size(); index++)
+    {
+        if (m_system_setup_widget_vector[index] == m_last_selected)
+        {
+            return index;
+        }
+    }
+    throw "No system selected!";
 }
 
 void SystemMenuWidgetContainer::slotSystemSelected(SystemSetupWidget *system)

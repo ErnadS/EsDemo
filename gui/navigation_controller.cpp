@@ -121,7 +121,6 @@ QStackedLayout* NavigationController::createLayout(QWidget* parent)
 
     // First three screens are SetupMenuScreen, CuSetupScreen and SystemSetupScreen by default
     SetupMenuScreen* setup_menu_screen = new SetupMenuScreen(parent);
-    setup_menu_screen->titleWidget()->setTitle("Setup");
     layout->addWidget(setup_menu_screen);
 
     CuSetupScreen* cu_setup_screen = new CuSetupScreen(parent);

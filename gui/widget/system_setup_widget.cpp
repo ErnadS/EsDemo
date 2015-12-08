@@ -39,11 +39,11 @@ QString SystemSetupWidget::getSystemID() const
 {
     return m_system_ID;
 }
-
 QString SystemSetupWidget::getSystemName() const
 {
     return m_system_name;
 }
+
 
 QString SystemSetupWidget::getSystemIP() const
 {
