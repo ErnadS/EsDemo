@@ -5,10 +5,15 @@
 #include <QtGui>
 #include <QtWidgets>
 #include "qpushbutton1.h"
+#include "gui/widget/scalable_widget.h"
 
-class NumericalKeyboard : public QWidget
+class NumericalKeyboard : public ScalableWidget
 {
     Q_OBJECT
+
+    QString textEditStyle;
+    QString textEditChangedStyle;
+    QString buttonStyle;
 
     QHBoxLayout *mainLayout;
 
@@ -60,6 +65,9 @@ private slots:
 
 public slots:
     void setText(QString text);
+
+protected:
+    void resizeEvent(QResizeEvent *);
 };
 
 #endif // NUMERICALKEYBOARD_H
