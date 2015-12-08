@@ -32,5 +32,7 @@
         <file>ES SYS 2_selected_Disconnected.png</file>
         <file>ES SYS 2_selected_Paired.png</file>
         <file>ES SYS 2_selected_Repeater.png</file>
+        <file>display_not_selected.png</file>
+        <file>display_selected.png</file>
     </qresource>
 </RCC>

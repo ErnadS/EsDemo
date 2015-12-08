@@ -22,40 +22,32 @@ void DisplayButton::paintEvent(QPaintEvent *)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    m_outter_body_color = QColor(50, 50, 50); //dark gray
-    m_border_color = QColor(200, 200, 200);
     if (m_selected)
     {
-        m_body_color = QColor(221, 255, 141); //light yellow
+        QPixmap pixmap = QPixmap(":/display_selected.png");
+        painter.drawPixmap(QRect(0, 0, width(), height()), pixmap);
     }
     else
     {
-        m_body_color = QColor(140, 140, 140); //light gray
+        QPixmap pixmap = QPixmap(":/display_not_selected.png");
+        painter.drawPixmap(QRect(0, 0, width(), height()), pixmap);
     }
-
-    QSize button_size(baseSize().width() * m_width_scale, baseSize().height() * m_height_scale);
-
-    QRect outter_rect(QPoint(0, 0), button_size);
-    QRect inner_rect(QPoint(0, 0), button_size * 0.85);
-    inner_rect.moveCenter(outter_rect.center());
-
-    painter.fillRect(outter_rect, m_outter_body_color);
-    painter.fillRect(inner_rect, m_body_color);
-    painter.setPen(QPen(m_border_color, 3));
-    painter.drawRect(outter_rect);
 
     QFont font(painter.font());
     font.setPixelSize(m_font_pixel_size * m_scale);
     painter.setFont(font);
-    painter.setPen(QPen(Qt::black, 2));
-    painter.drawText(inner_rect, Qt::AlignCenter, m_title);
+    painter.setPen(QPen(Qt::white, 2));
+    painter.drawText(0, 0, width(), height(), Qt::AlignCenter, m_title);
+
+//    QRect outter_rect(0, 0, width(), height());
+
+//    painter.setPen(QPen(Qt::white, 1));
+//    painter.drawRect(outter_rect);
 }
 
 void DisplayButton::mouseReleaseEvent(QMouseEvent *)
 {
     emit clicked();
-//    m_selected = true;
-//    update();
 }
 
 void DisplayButton::resizeEvent(QResizeEvent *)

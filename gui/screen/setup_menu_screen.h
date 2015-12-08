@@ -29,7 +29,7 @@ class SetupMenuScreen : public BaseScreen
     const QPoint m_button_pos{10, 320};
     const QPoint m_system_menu_pos{10, 50};
 
-    bool changeLayout() const;
+    bool changeLayout(int index) const;
 
 public:
     SetupMenuScreen(QWidget* parent);

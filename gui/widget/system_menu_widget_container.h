@@ -32,6 +32,7 @@ public:
     void setDisplaySelected();
     SystemSetupWidget* getSelected() const;
     int getSelectedIndex() const;
+    SystemSetupWidget* getSystemAtIndex(int index) const;
 
 signals:
     void systemSelected(int system_index);

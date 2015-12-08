@@ -5,8 +5,7 @@ void SystemSetupScreen::slotSystemSelected(int index)
 {
     m_selection_vector=QVector<bool>(m_system_setup_widget_container->getSystemCount(),false);
     m_selection_vector[index]=true;
-
-
+    m_system_setup_widget_container->getSystems()[index]->setActive(true);
 }
 
 void SystemSetupScreen::slotSetupSelected(systemConnection status)

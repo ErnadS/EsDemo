@@ -3,11 +3,11 @@
 #include <QPainter>
 #include <QDebug>
 
-bool SetupMenuScreen::changeLayout() const
+bool SetupMenuScreen::changeLayout(int index) const
 {
     QMessageBox message_box(QMessageBox::Question,
                                     "",
-                                    "You are about to change the system type. Are you sure you want to continue?",
+                                    "You are about to change the system that is displayed on the screen. Are you sure you want to display " + m_system_widget_container->getSystemAtIndex(index)->getSystemName() + "?",
                                     QMessageBox::No | QMessageBox::Yes, (QWidget*)this,
                                     Qt::FramelessWindowHint);
 
@@ -109,7 +109,7 @@ void SetupMenuScreen::buttonClicked()
 
 void SetupMenuScreen::systemSelected(int index)
 {
-    if (m_system_widget_container->getSelectedIndex() == index || changeLayout() == true)
+    if (m_system_widget_container->getSelectedIndex() == index || changeLayout(index) == true)
     {
             m_system_widget_container->setSelected(index);
 
