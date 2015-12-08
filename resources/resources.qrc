@@ -20,8 +20,17 @@
         <file>roll.png</file>
         <file>roll_57_98.png</file>
         <file>vessel_3_yellow.png</file>
-        <file>DEPTH_ES SYS 2.png</file>
-        <file>SPEED_DL1 SYS 3.png</file>
-        <file>SPEED_DL2 SYS 1.png</file>
+        <file>DL1 SYS 3_not_selected_Disconnected.png</file>
+        <file>DL1 SYS 3_selected_Disconnected.png</file>
+        <file>DL1 SYS 3_selected_Paired.png</file>
+        <file>DL1 SYS 3_selected_Repeater.png</file>
+        <file>DL2 SYS 1_not_selected_Disconnected.png</file>
+        <file>DL2 SYS 1_selected_Disconnected.png</file>
+        <file>DL2 SYS 1_selected_Paired.png</file>
+        <file>DL2 SYS 1_selected_Repeater.png</file>
+        <file>ES SYS 2_not_selected_Disconnected.png</file>
+        <file>ES SYS 2_selected_Disconnected.png</file>
+        <file>ES SYS 2_selected_Paired.png</file>
+        <file>ES SYS 2_selected_Repeater.png</file>
     </qresource>
 </RCC>

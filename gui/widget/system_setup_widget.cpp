@@ -35,6 +35,21 @@ QString SystemSetupWidget::getSystemType() const
     return m_system_type;
 }
 
+QString SystemSetupWidget::getSystemID() const
+{
+    return m_system_ID;
+}
+
+QString SystemSetupWidget::getSystemName() const
+{
+    return m_system_name;
+}
+
+QString SystemSetupWidget::getSystemIP() const
+{
+    return m_system_IP;
+}
+
 
 void SystemSetupWidget::paintEvent(QPaintEvent *)
 {
@@ -77,7 +92,7 @@ void SystemSetupWidget::paintEvent(QPaintEvent *)
 
     QPixmap pixmap_background = QPixmap::fromImage(image);
     painter.drawPixmap(0,0,width(),height(),pixmap_background);
-    painter.drawPixmap(0,0,width(),height(),drawSystemIcon(m_system_type,m_system_name));
+    painter.drawPixmap(0,0,width(),height(),drawSystemIcon());
     painter.setPen(QPen(QColor(200, 200, 200), 6)); //light gray border
     painter.drawRect(0, 0, width(), height());
 }
@@ -86,24 +101,38 @@ void SystemSetupWidget::paintEvent(QPaintEvent *)
 void SystemSetupWidget::mouseReleaseEvent(QMouseEvent *)
 {
 
+    m_selected = true;
+    update();
     emit signalSystemSelected(this);
 
 }
 
-QPixmap SystemSetupWidget::drawSystemIcon(QString system_type, QString system_name)
+QPixmap SystemSetupWidget::drawSystemIcon()
 {
     // Image - test image until real icons are available
 
-    QPixmap pixmap = QPixmap(":/"+system_type+"_"+system_name+".png");
+    const QString system_connections[3] = { "Paired", "Repeater", "Disconnected" };
+
+    QPixmap pixmap;
+
+    if(m_selected)
+    {
+        pixmap = QPixmap(":/"+m_system_name+"_selected_"+system_connections[m_system_connection]+".png");
+
+    }
+    else
+    {
+        pixmap = QPixmap(":/"+m_system_name+"_not_selected_Disconnected.png");
+
+    }
+
 
     QPainter p(&pixmap);
-
-    p.setPen(Qt::black);
+    p.setPen(Qt::white);
     QFont font(p.font());
-    font.setPixelSize(20);
+    font.setPixelSize(18);
     p.setFont(font);
-
-    p.drawText(QRect(0.1 * pixmap.width(), 0.75 * pixmap.height(), 0.8 * pixmap.width(), 0.2 * pixmap.height()), Qt::AlignLeft, system_name);
+    p.drawText(QRect(0.1 * pixmap.width(), 0.75 * pixmap.height(), 0.8 * pixmap.width(), 0.2 * pixmap.height()), Qt::AlignLeft, m_system_name);
 
     QPixmap drawing_pixmap = pixmap.scaled(pixmap.width(), pixmap.height(),Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 

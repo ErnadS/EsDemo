@@ -110,6 +110,11 @@ int SystemSetupWidgetContainer::getSystemCount() const
     return m_system_setup_widget_vector.size();
 }
 
+QVector<SystemSetupWidget*> SystemSetupWidgetContainer::getSystems() const
+{
+    return m_system_setup_widget_vector;
+}
+
 void SystemSetupWidgetContainer::slotSystemSelected(SystemSetupWidget *item)
 {
     for (int i = 0; i < m_system_setup_widget_vector.size(); i++)

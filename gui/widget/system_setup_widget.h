@@ -23,13 +23,16 @@ public:
     void setSystemConnection(systemConnection system_connection);
     systemConnection getSystemConnection () const;
     QString getSystemType() const;
+    QString getSystemID() const;
+    QString getSystemName() const;
+    QString getSystemIP() const;
 
 signals:
     void signalSystemSelected(SystemSetupWidget* sys_setup_widget);
 protected:
     void paintEvent(QPaintEvent*);
     void mouseReleaseEvent(QMouseEvent*);
-    QPixmap drawSystemIcon(QString system_type, QString system_name);
+    QPixmap drawSystemIcon();
 
 
 };

@@ -130,7 +130,7 @@ void SystemSetupScreen::paintEvent(QPaintEvent*)
 
     QSize availableSize{int(0.75 * width()), int(0.85 * 0.95 *height())};
 
-    // Drawing CU - M001 system boxes
+    // Drawing CU - M001 system box
 
     painter.setPen(Qt::white);
     painter.drawRect(0.05 * width() + availableSize.width()/3, 0.2 * height() + availableSize.height()/3, 0.75 * availableSize.width()/3, 0.75 * availableSize.height()/3);
@@ -153,11 +153,17 @@ void SystemSetupScreen::paintEvent(QPaintEvent*)
 
         p.setPen(Qt::white);
         font = p.font();
-        font.setPixelSize(15 * 0.95 * m_scale);
+
+        font.setPixelSize(14 * 0.95 * m_scale);
         p.setFont(font);
         p.drawRect(0,0,0.95 * pixmap.width(), 0.95 * pixmap.height());
         p.drawRect(0,0, 0.95 * pixmap.width(), 0.95 * pixmap.height()/3);
+        p.drawText(QRect(0, 0, 0.95 * pixmap.width(), 0.95 * pixmap.height()/3), Qt::AlignLeft, "SYSTEM NAME:"+(m_system_setup_widget_container->getSystems())[systemSelected]->getSystemName()+
+                                                                                                "\nSYSTEM ID:"+(m_system_setup_widget_container->getSystems())[systemSelected]->getSystemID()+
+                                                                                                "\nSYSTEM IP:\n"+(m_system_setup_widget_container->getSystems())[systemSelected]->getSystemIP());
 
+        font.setPixelSize(15 * 0.95 * m_scale);
+        p.setFont(font);
         QSize small_rect_size(13 * m_scale, 13 * m_scale);
 
 

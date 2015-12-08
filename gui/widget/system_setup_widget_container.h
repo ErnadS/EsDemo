@@ -24,6 +24,7 @@ public:
     void removeSystem(int index);
     void setSystemConnection(int index, systemConnection system_connection);
     int getSystemCount() const;
+    QVector<SystemSetupWidget *> getSystems() const;
 
 signals:
     void itemSelected(int index);
