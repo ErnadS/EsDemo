@@ -205,8 +205,14 @@ void SelectableItemWidgetContainer::keyPressed(QKeyEvent* event)
         auto validator = widget->validator();
 
         if (validator->validate(m_buffer) == true)
-          widget->setValueFromString(m_buffer);
-
+        {
+            widget->setValueFromString(m_buffer);
+            qDebug() << "value in range..." << "    buffer is " << m_buffer;
+        }
+        else
+        {
+            qDebug() << "not in range!";
+        }
         setEnabled(true);
         m_keyboard->hide();
     }

@@ -13,7 +13,7 @@ class SelectableBoolItemWidget : public SelectableItemWidget
     QString m_off_state;
 
 public:
-    explicit SelectableBoolItemWidget(QWidget* parent, QSize base_size, QString title, QString on_state, QString off_state, bool password_protected = true, Validator* validator = new Validator("dummy"));
+    explicit SelectableBoolItemWidget(QWidget* parent, QSize base_size, QString title, QString on_state, QString off_state, Validator* validator = new Validator("dummy"), bool password_protected = true);
     void getValue(void* v) const;
     QString getKeyboardString() const;
     void setValueFromString(const QString&);

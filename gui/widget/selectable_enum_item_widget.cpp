@@ -1,6 +1,6 @@
 #include "selectable_enum_item_widget.h"
 
-SelectableEnumItemWidget::SelectableEnumItemWidget(QWidget* parent, QSize base_size, QString title, QList<QString> value_list, QString unit, bool password_protected, Validator* validator) : SelectableItemWidget(parent, base_size, title, unit, password_protected, validator), m_value(value_list)
+SelectableEnumItemWidget::SelectableEnumItemWidget(QWidget* parent, QSize base_size, QString title, QList<QString> value_list, QString unit, Validator* validator, bool password_protected) : SelectableItemWidget(parent, base_size, title, unit, validator, password_protected), m_value(value_list)
 {
 
 }
