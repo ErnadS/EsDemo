@@ -111,10 +111,10 @@ HEADERS  += gui\widget\runtime_widget_es.h \
             gui\widget\background_widget.h \
             gui\widget\button.h \
             gui\widget\display_alive_widget.h \
-            gui\base_screen.h \
+            #gui\base_screen.h \
             gui\widget\title_widget.h \
             gui\widget\scalable_widget.h \
-            gui\runtime_screen.h \
+            #gui\runtime_screen.h \
             gui\navigation_controller.h \
             gui\widget\runtime_widget_a.h \
             gui\widget\runtime_widget_b.h \

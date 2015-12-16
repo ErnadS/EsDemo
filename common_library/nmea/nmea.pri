@@ -60,7 +60,7 @@ SOURCES += common_library/nmea/nmea_message.cpp \
     common_library/nmea/msg/msg_saf.cpp \
     common_library/nmea/msg/msg_secu.cpp
 
-HEADERS += nmea/nmea_message.h \
+HEADERS += common_library/nmea/nmea_message.h \
     common_library/nmea/nmea_parser.h \
     common_library/nmea/msg/msg_dat.h \
     common_library/nmea/msg/msg_mtw.h \
@@ -75,7 +75,7 @@ HEADERS += nmea/nmea_message.h \
     common_library/nmea/msg/msg_mtwf.h \
     common_library/nmea/msg/msg_vbwf.h \
     common_library/nmea/msg/msg_alma_speed.h \
-    common_library/nmea/msg/msg_almat_emp.h \
+    common_library/nmea/msg/msg_alma_temp.h \
     common_library/nmea/msg/msg_snf.h \
     common_library/nmea/msg/msg_tst.h \
     common_library/nmea/msg/msg_cfg.h \

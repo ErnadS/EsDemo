@@ -1,4 +1,6 @@
 #include "horizontal_item_widget_container.h"
+#include <stdlib.h>
+#include <stdexcept>
 
 void HorizontalItemWidgetContainer::setupLayout()
 {
