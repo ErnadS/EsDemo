@@ -103,6 +103,8 @@
 #define TYPE_IDM                        "IDM"    // (I) Internal diagnostics message
 /////////////////////////////////////////////////////////////
 
+#define TYPE_SCO                          "SCO"
+
 //#define TYPE_SCM                        "SCM"    // (I) Speed calibration manual.
 //#define TYPE_DFC                        "DFC"    // (I) Data for calibration, from JB to Display.
 

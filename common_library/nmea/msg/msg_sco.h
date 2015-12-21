@@ -1,7 +1,7 @@
 #ifndef MSGSCO_H
 #define MSGSCO_H
 
-#include "nmeamessage.h"
+#include "nmea/nmea_message.h"
 
 class MsgSCO : public NmeaMessage
 {

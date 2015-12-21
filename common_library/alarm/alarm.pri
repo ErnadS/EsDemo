@@ -1,7 +1,7 @@
 HEADERS += \
-    common_library/alarm/alarminstance.h
+    $$PWD/alarminstance.h
 
 SOURCES += \
-    common_library/alarm/alarminstance.cpp
+    $$PWD/alarminstance.cpp
 
 

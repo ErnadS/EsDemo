@@ -1,4 +1,5 @@
-#include "msgsco.h"
+#include "msg_sco.h"
+#include "nmea/nmea_parser.h"
 
 MsgSCO::MsgSCO()
 {
@@ -18,7 +19,7 @@ MsgSCO::MsgSCO(QString sourceMacAddres, QString setupType)
 bool MsgSCO::setParams(QStringList m_message_parameters)
 {
     if (m_message_parameters.count() != 2){
-        error_ID = ERR_NMEA_FORMAT;
+        m_error_id = NmeaMessageErrorType::ERR_NMEA_FORMAT;
         return false;
     }
 
@@ -33,7 +34,7 @@ bool MsgSCO::setParams(QStringList m_message_parameters)
     {
         qDebug() << "Error 832. Exception: " << e; // Different Error number?
 
-        error_ID = ERR_NMEA_FORMAT;
+        m_error_id = NmeaMessageErrorType::ERR_NMEA_FORMAT;
         return false;
 
     }

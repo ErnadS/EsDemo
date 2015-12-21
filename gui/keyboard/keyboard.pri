@@ -1,10 +1,10 @@
-SOURCES += gui\keyboard\QVirtualKeyboard.cpp \
-           gui\keyboard\numericalkeyboard.cpp \
-           gui\keyboard\alphabeticalkeyboard.cpp \
-           gui\keyboard\qpushbutton1.cpp
+SOURCES += $$PWD/alphabeticalkeyboard.cpp \
+    $$PWD/numericalkeyboard.cpp \
+    $$PWD/qpushbutton1.cpp \
+    $$PWD/QVirtualKeyboard.cpp
 
-HEADERS += gui\keyboard\QVirtualKeyboard.h \
-           gui\keyboard\numericalkeyboard.h \
-           gui\keyboard\alphabeticalkeyboard.h \
-           gui\keyboard\qpushbutton1.h \
-           gui\keyboard\/keyboardstylessheets.h
+HEADERS += $$PWD/alphabeticalkeyboard.h \
+    $$PWD/keyboardstylessheets.h \
+    $$PWD/numericalkeyboard.h \
+    $$PWD/qpushbutton1.h \
+    $$PWD/QVirtualKeyboard.h
