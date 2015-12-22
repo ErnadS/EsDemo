@@ -4,6 +4,8 @@
 #include "gui/screen/setup_screen.h"
 #include "password_widget.h"
 #include <QDebug>
+#include <stdlib.h>
+#include <stdexcept>
 
 void SelectableItemWidgetContainer::setupLayout()
 {

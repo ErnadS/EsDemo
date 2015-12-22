@@ -167,7 +167,7 @@ void SystemMenuWidgetContainer::paintEvent(QPaintEvent *)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    setupLayout();
+    // setupLayout();
 
     QRect disp_but_rect = m_display_button->geometry();
     QRect syst_wid_rect = m_last_selected->geometry();
