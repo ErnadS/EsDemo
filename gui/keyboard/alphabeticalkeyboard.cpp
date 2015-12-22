@@ -1,12 +1,18 @@
 #include "alphabeticalkeyboard.h"
-#include "keyboardstylessheets.h"
+//#include "keyboardstylessheets.h"
+#include "gui/widget/scalable_widget.h"
+#include <QDebug>
 
 AlphabeticalKeyboard::AlphabeticalKeyboard(QWidget *parent) :
-    QWidget(parent)
-{
+    ScalableWidget(parent, QSize(100, 100))
+{ 
     this->resize(sizeHint());
     caseUpperPermanetly = false;
     caseUpperOnce = false;
+
+    textEditStyle = "QLineEdit { font: 18px; }";
+    textEditChangedStyle = "QLineEdit { font: 18px; background-color: rgb(240, 255, 255) }";
+    buttonStyle = "QPushButton { font: 18px; } QPushButton:pressed { font: 18px; background-color: rgb(135, 206, 235)}";
 
     textChangeTimer = new QTimer(this);
     connect(textChangeTimer, SIGNAL(timeout()), this, SLOT(slotTextChangeTimerTimeout()));
@@ -34,8 +40,6 @@ AlphabeticalKeyboard::AlphabeticalKeyboard(QWidget *parent) :
     textEdit->setStyleSheet(textEditStyle);
 
     connect(textEdit, SIGNAL(textChanged(QString)), this, SLOT(slotTextChanged(QString)));
-
-
 
     alphaKeypadRow1 = new QHBoxLayout();
     alphaKeypadRow1->setSpacing(3);
@@ -122,6 +126,22 @@ void AlphabeticalKeyboard::mouseMoveEvent(QMouseEvent *)
 void AlphabeticalKeyboard::setText(QString text)
 {
     textEdit->setText(text);
+}
+
+void AlphabeticalKeyboard::resizeEvent(QResizeEvent *)
+{
+    ScalableWidget::resizeEvent(nullptr);
+    textEditStyle = "QLineEdit { font: " + QString::number(int(9 * m_scale)) + "px; }";
+    textEditChangedStyle = "QLineEdit { font: " + QString::number(int(9 * m_scale)) + "px; background-color: rgb(240, 255, 255) }";
+    buttonStyle = "QPushButton { font: " + QString::number(int(9 * m_scale)) + "px; } QPushButton:pressed { font: " + QString::number(int(9 * m_scale)) + "px; background-color: rgb(135, 206, 235)}";
+    textEdit->setStyleSheet(textEditStyle);
+    for(int i = 0; i < allButtons.size(); i++)
+    {
+        allButtons[i]->setStyleSheet(buttonStyle);
+    }
+
+    functionButtonsGroup.button(0)->setIconSize(QSize(7 * m_scale, 7 * m_scale));
+    functionButtonsGroup.button(1)->setIconSize(QSize(7 * m_scale, 7 * m_scale));
 }
 
 void AlphabeticalKeyboard::createLetterButtons()

@@ -4,10 +4,15 @@
 #include <QtGui>
 #include <QtWidgets>
 #include "qpushbutton1.h"
+#include "gui/widget/scalable_widget.h"
 
-class AlphabeticalKeyboard : public QWidget
+class AlphabeticalKeyboard : public ScalableWidget
 {
     Q_OBJECT
+
+    QString textEditStyle;
+    QString textEditChangedStyle;
+    QString buttonStyle;
 
     QVBoxLayout *widgetHolder;
     QWidget* containerWidget;
@@ -60,6 +65,9 @@ private slots:
 
 public slots:
     void setText(QString text);
+
+protected:
+    void resizeEvent(QResizeEvent *);
 };
 
 #endif // ALPHABETICALKEYBOARD_H

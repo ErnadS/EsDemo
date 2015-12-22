@@ -1,6 +1,6 @@
 #include "selectable_bool_item_widget.h"
 
-SelectableBoolItemWidget::SelectableBoolItemWidget(QWidget* parent, QSize base_size, QString title, QString on_state, QString off_state, bool password_protected, Validator* validator) : SelectableItemWidget(parent, base_size, title, "", password_protected, validator), m_on_state(on_state), m_off_state(off_state)
+SelectableBoolItemWidget::SelectableBoolItemWidget(QWidget* parent, QSize base_size, QString title, QString on_state, QString off_state, Validator* validator, bool password_protected) : SelectableItemWidget(parent, base_size, title, "", validator, password_protected), m_on_state(on_state), m_off_state(off_state)
 {
 
 }

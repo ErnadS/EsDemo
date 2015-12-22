@@ -12,7 +12,7 @@ class SelectableIntItemWidget : public SelectableItemWidget
     int m_value{0};
 
 public:
-    explicit SelectableIntItemWidget(QWidget* parent, QSize base_size, QString title, bool password_protected = true, Validator* validator = new Validator("dummy"));
+    explicit SelectableIntItemWidget(QWidget* parent, QSize base_size, QString title, Validator* validator = new Validator("dummy"), bool password_protected = true);
     void getValue(void* v) const;
     QString getKeyboardString() const;
     void setValueFromString(const QString& value);

@@ -1,7 +1,7 @@
 SOURCES += \
-    common_library/calibration/calibration.cpp \
-    common_library/calibration/calibration_s.cpp
+    $$PWD/calibration.cpp \
+    $$PWD/calibration_s.cpp
 
 HEADERS += \
-    common_library/calibration/calibration.h \
-    common_library/calibration/calibration_s.h
+    $$PWD/calibration.h \
+    $$PWD/calibration_s.h

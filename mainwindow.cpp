@@ -6,6 +6,7 @@
 
 #include "gui/screen/setup_screen.h"
 
+
 MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent),
     m_navigation_controller(Singleton<NavigationController>::instance()),

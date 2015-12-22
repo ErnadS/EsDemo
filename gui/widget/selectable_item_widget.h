@@ -19,7 +19,7 @@ protected:
     void paintBorderRectangle(QPainter& painter, int x, int y, int width, int height, QColor borderColor, QColor backgroundlColor);
     virtual QString getValueString() const = 0;
 
-    explicit SelectableItemWidget(QWidget* parent, QSize base_size, QString title, QString unit, bool password_protected, Validator* validator);
+    explicit SelectableItemWidget(QWidget* parent, QSize base_size, QString title, QString unit, Validator* validator, bool password_protected);
 
 public:
     virtual void getValue(void* v) const = 0;

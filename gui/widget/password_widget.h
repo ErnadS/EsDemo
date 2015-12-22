@@ -22,6 +22,10 @@ class PasswordWidget : public QWidget
 
     QTimer* m_reset_timer;
 
+    qreal m_width_scale{1.0};
+    qreal m_height_scale{1.0};
+    qreal m_scale{1.0};
+
 signals:
     void login();
     void cancel();
