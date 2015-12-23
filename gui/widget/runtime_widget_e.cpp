@@ -1,4 +1,5 @@
 #include "runtime_widget_e.h"
+#include <QTimer>
 
 LifoBuffer<DepthMeasurement> RuntimeWidgetE::m_buffer{100};
 int RuntimeWidgetE::m_vessel_index{1};

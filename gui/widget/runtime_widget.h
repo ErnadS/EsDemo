@@ -6,6 +6,8 @@
 
 class RuntimeWidget : public ScalableWidget
 {
+    Q_OBJECT
+
 protected:
     virtual void drawBoat(QPainter& painter, const QRect rect, qreal angle);
     virtual void drawBoatArrow(QPainter& painter, qreal angle);
