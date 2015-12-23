@@ -1,6 +1,6 @@
 #include "system_setup_widget_container.h"
 #include <QPainter>
-#include <QDebug>
+#include <QTimer>
 
 void SystemSetupWidgetContainer::setupLayout()
 {
@@ -137,7 +137,6 @@ void SystemSetupWidgetContainer::resizeEvent(QResizeEvent*)
 
 void SystemSetupWidgetContainer::paintEvent(QPaintEvent *)
 {
-    setupLayout();
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
     drawConnections(painter);

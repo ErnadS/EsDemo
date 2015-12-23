@@ -47,4 +47,5 @@ void DisplayAliveWidget::paintEvent(QPaintEvent*)
     }
 
     painter.drawText(QRectF(minute_pos, 0, width(), height()), Qt::AlignLeft, m_minutes);
+
 }

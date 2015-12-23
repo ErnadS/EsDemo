@@ -1,4 +1,5 @@
 #include "runtime_widget.h"
+#include <QTimer>
 
 RuntimeWidget::RuntimeWidget(QWidget* parent, QSize base_size) : ScalableWidget(parent, base_size)
 {
@@ -6,6 +7,9 @@ RuntimeWidget::RuntimeWidget(QWidget* parent, QSize base_size) : ScalableWidget(
     palette.setColor(QPalette::Background, Qt::black);
     setAutoFillBackground(true);
     setPalette(palette);
+
+    connect(timer, SIGNAL (timeout()), this, SLOT (timeout()));
+//    m_update = true;
 }
 
 void RuntimeWidget::drawBoat(QPainter& painter, const QRect rect, qreal angle)
