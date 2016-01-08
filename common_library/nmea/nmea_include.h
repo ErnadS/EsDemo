@@ -66,6 +66,8 @@
 
 #include "msg/msg_secu.h"
 
+#include "msg/msg_nlre.h"
+#include "msg/msg_nlrt.h"
 // TESTING!!!
 #include "msg/msg_info.h"
 

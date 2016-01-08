@@ -59,7 +59,9 @@ SOURCES += $$PWD/nmea_message.cpp \
     $$PWD/msg/msg_dtl.cpp \
     $$PWD/msg/msg_saf.cpp \
     $$PWD/msg/msg_secu.cpp \
-    $$PWD/msg/msg_sco.cpp
+    $$PWD/msg/msg_sco.cpp \
+    $$PWD/msg/msg_nlrt.cpp \
+    $$PWD/msg/msg_nlre.cpp
 
 HEADERS += $$PWD/nmea_message.h \
     $$PWD/nmea_parser.h \
@@ -124,4 +126,6 @@ HEADERS += $$PWD/nmea_message.h \
     $$PWD/msg/msg_dtl.h \
     $$PWD/msg/msg_saf.h \
     $$PWD/msg/msg_secu.h \
-    $$PWD/msg/msg_sco.h
+    $$PWD/msg/msg_sco.h \
+    $$PWD/msg/msg_nlrt.h \
+    $$PWD/msg/msg_nlre.h

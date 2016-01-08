@@ -10,9 +10,12 @@ include(common_library/common_library.pri)
 include(gui/gui.pri)
 
 SOURCES += main.cpp\
-           mainwindow.cpp
+           mainwindow.cpp \
+    serialreader.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    serialreader.h
+
 
 FORMS    += mainwindow.ui
 
@@ -30,3 +33,5 @@ CONFIG += debug
 
 VERSION = 1.0.0
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+
+DISTFILES +=

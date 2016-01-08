@@ -8,6 +8,7 @@
 #include <QTimer>
 #include "gui/widget/transparent_info_button.h"
 #include <QFile>
+#include "nmea/nmea_message.h"
 
 enum class MousePressTarget { Bottom, Right, Top };
 
@@ -119,6 +120,10 @@ protected slots:
     // QWidget interface
 protected:
     void resizeEvent(QResizeEvent* event);
+
+
+signals:
+    void sigSendNmeaMessage(NmeaMessage*);
 };
 
 #endif

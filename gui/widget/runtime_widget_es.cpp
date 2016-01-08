@@ -6,6 +6,9 @@
 #include <QMouseEvent>
 #include <QPainter>
 
+#include "mainwindow.h"
+#include "nmea/nmea_include.h"
+
 RuntimeWidgetEs::RuntimeWidgetEs(QWidget* parent, QSize base_size) :
     ScalableWidget(parent, base_size)
 {
@@ -22,6 +25,10 @@ RuntimeWidgetEs::RuntimeWidgetEs(QWidget* parent, QSize base_size) :
     connect(m_range_info, SIGNAL(clicked()), this, SLOT(rangeChanged()));
 
     updateInfo();
+
+    MainWindow *mw = MainWindow::getInstance();
+
+    connect(this, SIGNAL(sigSendNmeaMessage(NmeaMessage*)), mw, SLOT(slotSendNmeaMessageOnSerial(NmeaMessage*)));
 }
 
 void RuntimeWidgetEs::setFontSize(int font_size)
@@ -218,6 +225,10 @@ void RuntimeWidgetEs::rangeChanged()
 
     m_range_info->setValue(QString::number(max_depth) + "m");
     update();
+
+    emit sigSendNmeaMessage(new Msg_Nlrt()); // TODO: wrong name: correct is Msg_Nltt
+
+    emit sigSendNmeaMessage(new Msg_Nlre());
 }
 
 void RuntimeWidgetEs::resizeEvent(QResizeEvent* event)
