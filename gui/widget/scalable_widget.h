@@ -57,8 +57,10 @@ protected:
 
     QString string(qreal value);
 
-private slots:
+protected slots:
     void timeout();
+
+private slots:
     void simulate();
 };
 

@@ -58,8 +58,6 @@ ScalableWidget::ScalableWidget(QWidget* parent, QSize base_size) :
         timer->start(1000);
         connect(timer, SIGNAL(timeout()), this, SLOT(simulate()));
     }
-
-    connect(timer, SIGNAL(timeout()), this, SLOT(timeout()));
 }
 
 void ScalableWidget::timeout()
